@@ -10,7 +10,10 @@ export async function ScenarioDeliveryNotice() {
   return (
     <p className="mt-4 text-sm leading-6 text-muted">
       This form does not deliver scenarios yet. Call{" "}
-      <a href={site.phoneHref} className="font-semibold text-navy underline underline-offset-4">
+      <a
+        href={site.phoneHref}
+        className="whitespace-nowrap font-semibold text-navy underline underline-offset-4"
+      >
         {site.phoneDisplay}
       </a>{" "}
       or email{" "}
