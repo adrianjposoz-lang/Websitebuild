@@ -11,7 +11,7 @@ import {
 import { products } from "@/lib/site";
 
 const fieldClass =
-  "mt-2 w-full scroll-mt-8 rounded-[3px] border border-field-border bg-white px-3 py-2.5 text-base font-normal text-ink aria-invalid:border-red-700 aria-invalid:ring-1 aria-invalid:ring-red-700";
+  "mt-2 min-h-12 w-full scroll-mt-8 rounded-md border border-field bg-white px-3.5 py-3 text-base font-normal text-ink aria-invalid:border-red-700 aria-invalid:ring-1 aria-invalid:ring-red-700";
 
 const labelClass = "block text-[0.9375rem] font-medium text-ink";
 
@@ -64,7 +64,7 @@ export function ScenarioForm({ notice }: { notice?: ReactNode }) {
       <div aria-live="polite" aria-atomic="true">
         {status === "success" ? (
           <div ref={summaryRef} tabIndex={-1} className="scroll-mt-8 outline-none">
-            <h3 className="text-[1.75rem] leading-[1.2] text-navy">Scenario sent</h3>
+            <h3 className="text-[1.75rem] leading-[2.25rem]">Scenario sent</h3>
             <p className="mt-3 leading-7 text-ink">{message}</p>
           </div>
         ) : status !== "idle" ? (
@@ -205,7 +205,7 @@ export function ScenarioForm({ notice }: { notice?: ReactNode }) {
           <button
             type="submit"
             disabled={pending}
-            className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-[3px] bg-cta px-[1.375rem] text-[0.96875rem] font-semibold tracking-[0.01em] text-white transition-colors duration-150 hover:bg-cta-hover disabled:cursor-wait disabled:opacity-70 disabled:hover:bg-cta sm:w-auto"
+            className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-md bg-cta px-6 text-base font-semibold text-white transition-colors duration-150 hover:bg-cta-hover disabled:cursor-wait disabled:opacity-70 disabled:hover:bg-cta sm:w-auto"
           >
             {pending ? "Sending…" : "Submit a Scenario"}
           </button>

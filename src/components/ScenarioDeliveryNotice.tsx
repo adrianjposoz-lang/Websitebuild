@@ -8,9 +8,9 @@ export async function ScenarioDeliveryNotice() {
   if (getGhlWebhookUrl()) return null;
 
   return (
-    <p className="mt-5 text-sm leading-6 text-warm">
+    <p className="mt-5 text-sm leading-6 text-muted">
       This form does not deliver scenarios yet. Call{" "}
-      <a href={site.phoneHref} className="whitespace-nowrap font-semibold text-navy underline">
+      <a href={site.phoneHref} className="tnum whitespace-nowrap font-semibold text-navy underline">
         {site.phoneDisplay}
       </a>{" "}
       or email{" "}

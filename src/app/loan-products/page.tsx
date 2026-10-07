@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ClosingBand } from "@/components/ClosingBand";
-import { EditorialHero } from "@/components/EditorialHero";
+import { PageHero } from "@/components/PageHero";
 import { ProgramIndex } from "@/components/ProgramIndex";
 import { SampleScenarios } from "@/components/SampleScenarios";
 import { pageMetadata } from "@/lib/seo";
@@ -16,21 +16,21 @@ export const metadata: Metadata = pageMetadata({
 export default function LoanProductsPage() {
   return (
     <main id="main">
-      <EditorialHero
+      <PageHero
         crumbs={[{ label: "Home", href: "/" }, { label: "Loan products" }]}
         title="Loan Products"
         lede="Hard money and private lending for real estate investors. Each program has its own page with a short description and an example calculator."
         quiet={
           <>
             or call the Houston office,{" "}
-            <a href={site.phoneHref} className="whitespace-nowrap font-semibold text-navy underline">
+            <a href={site.phoneHref} className="tnum whitespace-nowrap font-semibold text-navy underline">
               {site.phoneLocal}
             </a>
           </>
         }
       />
 
-      <div className="border-t border-rule">
+      <div className="border-t border-hair">
         <ProgramIndex
           id="all-programs"
           title="All six programs"

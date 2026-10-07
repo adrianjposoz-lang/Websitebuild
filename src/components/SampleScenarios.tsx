@@ -21,7 +21,7 @@ const scenarios = [
   },
   {
     type: "DSCR",
-    location: "Petersburg, FL",
+    location: "St. Petersburg, FL",
     amount: "$2,500,000.00",
     program: { label: "DSCR", href: "/loan-products/dscr" },
     purpose: "Rental",
@@ -37,50 +37,46 @@ const scenarios = [
 
 export function SampleScenarios() {
   return (
-    <section
-      aria-labelledby="sample-scenarios"
-      data-sample-scenarios=""
-      className="border-t border-rule py-20 lg:py-24"
-    >
-      <div className="mx-auto grid w-full max-w-[76rem] gap-10 px-[1.125rem] lg:grid-cols-12 lg:gap-x-14 lg:px-8">
-        <div className="lg:col-span-4">
-          <h2 id="sample-scenarios" className="text-[2.5rem] leading-[1.05] text-navy lg:text-[3.5rem]">
+    <section aria-labelledby="sample-scenarios" data-sample-scenarios="" className="bg-surface py-16 lg:py-24">
+      <div className="mx-auto w-full max-w-[75rem] px-[1.125rem] lg:px-8">
+        <div data-reveal className="max-w-[44rem]">
+          <h2 id="sample-scenarios" className="text-[1.75rem] leading-[2.25rem] lg:text-4xl lg:leading-10">
             Sample scenarios
           </h2>
-          <p
-            id="sample-scenarios-note"
-            className="mt-5 border-l-2 border-navy pl-4 text-lg font-semibold leading-[1.5] text-ink"
-          >
+          <p id="sample-scenarios-note" className="mt-4 text-lg font-semibold leading-[1.5] text-navy">
             Illustrative examples, not actual funded loans.
           </p>
-          <p className="mt-4 text-lg leading-[1.6] text-ink">
-            Examples of the kinds of loans we structure.
-          </p>
+          <p className="mt-2 text-lg leading-[1.6] text-body">Examples of the kinds of loans we structure.</p>
         </div>
-        <ul aria-describedby="sample-scenarios-note" className="border-t border-rule lg:col-span-8">
+        <ul
+          data-reveal
+          aria-describedby="sample-scenarios-note"
+          className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6"
+        >
           {scenarios.map((scenario) => (
             <li
               key={`${scenario.location}-${scenario.amount}`}
-              className="grid gap-4 border-b border-rule py-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-10 lg:py-7"
+              className="flex flex-col rounded-lg border border-hair bg-white p-6"
             >
-              <div>
-                <h3 className="text-2xl leading-[1.2] text-navy lg:text-[1.75rem]">{scenario.type}</h3>
-                <p className="mt-1 font-serif text-base italic text-warm">{scenario.location}</p>
-              </div>
-              <dl className="grid grid-cols-[7.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 text-base leading-normal">
-                <dt className="font-serif italic text-warm">Loan amount</dt>
-                <dd className="font-display text-xl tabular-nums text-navy">{scenario.amount}</dd>
-                <dt className="font-serif italic text-warm">Program</dt>
-                <dd>
-                  <Link
-                    href={scenario.program.href}
-                    className="font-semibold text-navy underline transition-colors duration-150 hover:decoration-cta"
-                  >
-                    {scenario.program.label}
-                  </Link>
-                </dd>
-                <dt className="font-serif italic text-warm">Purpose</dt>
-                <dd className="text-ink">{scenario.purpose}</dd>
+              <h3 className="text-xl leading-[1.625rem]">{scenario.type}</h3>
+              <p className="mt-1 text-[0.9375rem] text-muted">{scenario.location}</p>
+              <dl className="mt-5 grid grid-cols-2 gap-4 border-t border-hair pt-4 text-[0.9375rem] leading-normal">
+                <div className="col-span-2">
+                  <dt className="text-sm text-muted">Loan amount</dt>
+                  <dd className="tnum mt-0.5 text-[1.375rem] font-medium leading-7 text-navy">{scenario.amount}</dd>
+                </div>
+                <div>
+                  <dt className="text-sm text-muted">Program</dt>
+                  <dd className="mt-0.5">
+                    <Link href={scenario.program.href} className="font-semibold text-navy underline">
+                      {scenario.program.label}
+                    </Link>
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-sm text-muted">Purpose</dt>
+                  <dd className="mt-0.5 text-body">{scenario.purpose}</dd>
+                </div>
               </dl>
             </li>
           ))}

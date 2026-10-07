@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Libre_Caslon_Display, Libre_Caslon_Text, Libre_Franklin } from "next/font/google";
+import { Schibsted_Grotesk } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { RevealObserver } from "@/components/RevealObserver";
@@ -7,23 +7,11 @@ import { isProductionSite, jsonLdHtml, organizationJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const caslonDisplay = Libre_Caslon_Display({
-  variable: "--font-caslon-display",
-  subsets: ["latin"],
-  weight: "400",
-});
-
-const caslonText = Libre_Caslon_Text({
-  variable: "--font-caslon-text",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
-});
-
-const franklin = Libre_Franklin({
-  variable: "--font-franklin",
+const schibsted = Schibsted_Grotesk({
+  variable: "--font-schibsted",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -46,7 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${caslonDisplay.variable} ${caslonText.variable} ${franklin.variable} h-full antialiased`}
+      className={`${schibsted.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col overflow-x-clip">
         <script
@@ -55,7 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
         <a
           href="#main"
-          className="absolute left-4 top-4 z-50 -translate-y-24 bg-paper px-4 py-2 font-semibold text-navy focus:translate-y-0"
+          className="absolute left-4 top-4 z-50 -translate-y-24 bg-white px-4 py-2 font-semibold text-navy focus:translate-y-0"
         >
           Skip to content
         </a>

@@ -23,7 +23,7 @@ export const programPhotos: Record<string, Photo> = {
   bridge: { src: bridge, alt: "Residential street with two houses under green trees" },
   "fix-and-flip": {
     src: fixAndFlip,
-    alt: "Kitchen under renovation, cabinets covered in plastic and paper",
+    alt: "Kitchen under renovation, cabinets wrapped in plastic sheeting",
   },
   "ground-up": { src: groundUp, alt: "Timber frame of a new house behind a site fence" },
   "mid-construction": {
