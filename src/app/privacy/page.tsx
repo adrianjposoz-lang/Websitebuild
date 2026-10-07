@@ -1,23 +1,27 @@
 import type { Metadata } from "next";
+import { Hero } from "@/components/Hero";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy",
-  description: "Privacy notice stub for RSC Private Lending.",
+  description: "Privacy notice for RSC Private Lending.",
 };
 
 export default function PrivacyPage() {
   return (
     <main id="main">
-      <header className="bg-navy text-white">
-        <div className="mx-auto w-full max-w-6xl px-5 py-14">
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Privacy</h1>
+      <Hero as="header" title="Privacy" />
+      <div className="bg-paper">
+        <div className="mx-auto w-full max-w-3xl px-5 py-16 lg:py-20">
+          <p className="text-lg leading-8">
+            Our full privacy notice will be posted on this page. For privacy questions in the
+            meantime, email{" "}
+            <a href={`mailto:${site.email}`} className="font-semibold underline underline-offset-4">
+              {site.email}
+            </a>
+            .
+          </p>
         </div>
-      </header>
-      <div className="mx-auto w-full max-w-3xl px-5 py-12">
-        <p className="text-lg leading-8">
-          This privacy notice is a stub. The final notice will be published before the site
-          collects visitor data. This page is not legal advice and is not the final policy.
-        </p>
       </div>
     </main>
   );

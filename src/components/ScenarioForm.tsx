@@ -4,14 +4,14 @@ import { useState } from "react";
 import { products, site } from "@/lib/site";
 
 const fieldClass =
-  "mt-2 w-full border border-field-border bg-white px-3 py-2.5 text-base font-normal text-foreground";
+  "mt-2 w-full rounded-md border border-field-border bg-white px-3 py-2.5 text-base font-normal text-foreground";
 
 export function ScenarioForm() {
   const [reviewed, setReviewed] = useState(false);
 
   if (reviewed) {
     return (
-      <div className="border border-line bg-paper p-5" role="status">
+      <div className="rounded-lg border border-line bg-paper p-6 shadow-sm" role="status">
         <h3 className="text-2xl font-semibold text-navy">Nothing was sent</h3>
         <p className="mt-3 leading-7 text-muted">
           This preview does not deliver a scenario yet. Call {site.phoneDisplay} or email{" "}
@@ -23,7 +23,7 @@ export function ScenarioForm() {
 
   return (
     <form
-      className="border border-line bg-paper p-6 sm:p-8"
+      className="rounded-lg border border-line bg-paper p-6 shadow-sm lg:p-8"
       onSubmit={(event) => {
         event.preventDefault();
         setReviewed(true);
@@ -106,7 +106,7 @@ export function ScenarioForm() {
       </p>
       <button
         type="submit"
-        className="mt-5 inline-flex min-h-11 items-center justify-center bg-cta px-5 text-sm font-semibold text-white hover:bg-cta-hover"
+        className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-md bg-cta px-6 text-[0.9375rem] font-semibold text-white transition-colors hover:bg-cta-hover sm:w-auto"
       >
         Submit a Scenario
       </button>

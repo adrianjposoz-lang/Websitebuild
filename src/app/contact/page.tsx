@@ -1,5 +1,8 @@
+import { Mail, MapPin, Phone } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Hero } from "@/components/Hero";
+import { h2Class } from "@/components/SectionHeading";
 import { ScenarioForm } from "@/components/ScenarioForm";
 import { site } from "@/lib/site";
 
@@ -8,72 +11,92 @@ export const metadata: Metadata = {
   description: `Submit a scenario to ${site.name}, or call and email the Houston office.`,
 };
 
+const tileClass =
+  "inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-cta-tint text-cta";
+
 export default function ContactPage() {
   return (
     <main id="main">
-      <header className="bg-navy text-white">
-        <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:py-20">
-          <h1 className="text-4xl font-semibold leading-[1.08] sm:text-5xl">Contact</h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-100">
-            Submit a scenario with the form on this page. Call or email for anything else.
-          </p>
-        </div>
-      </header>
+      <Hero
+        as="header"
+        eyebrow="Contact"
+        title="Contact"
+        lede="Submit a scenario with the form on this page. Call or email for anything else."
+      />
 
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-5 py-16 sm:py-20 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)]">
-        <section id="scenario" className="scroll-mt-36" aria-labelledby="scenario-heading">
-          <h2 id="scenario-heading" className="text-3xl font-semibold text-navy sm:text-4xl">
-            Submit a Scenario
-          </h2>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-muted">
-            Property, program, and what you need. The six programs use the same names as
-            the rest of the site.
-          </p>
-          <div className="mt-8">
-            <ScenarioForm />
-          </div>
-        </section>
+      <div className="bg-background">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-16 lg:grid-cols-[1fr_22rem] lg:px-8 lg:py-20">
+          <section id="scenario" className="scroll-mt-28" aria-labelledby="scenario-heading">
+            <h2 id="scenario-heading" className={`text-navy ${h2Class}`}>
+              Submit a Scenario
+            </h2>
+            <p className="mt-4 max-w-2xl text-lg leading-[1.875rem] text-muted">
+              Tell us the property, the program, and what you need.
+            </p>
+            <div className="mt-8">
+              <ScenarioForm />
+            </div>
+          </section>
 
-        <section className="h-fit border border-line bg-paper p-6 sm:p-8" aria-labelledby="channels-heading">
-          <h2 id="channels-heading" className="text-3xl font-semibold text-navy">
-            Channels
-          </h2>
-          <dl className="mt-6 space-y-6 text-base leading-7">
-            <div>
-              <dt className="font-semibold text-navy">Phone</dt>
-              <dd>
-                <a href={site.phoneHref} className="underline underline-offset-4">
-                  {site.phoneDisplay}
-                </a>
-              </dd>
-            </div>
-            <div>
-              <dt className="font-semibold text-navy">Email</dt>
-              <dd>
-                <a href={`mailto:${site.email}`} className="underline underline-offset-4">
-                  {site.email}
-                </a>
-              </dd>
-            </div>
-            <div>
-              <dt className="font-semibold text-navy">Office</dt>
-              <dd>
-                {site.addressLines.map((line) => (
-                  <span key={line} className="block">
-                    {line}
+          <section
+            className="h-fit rounded-lg border border-line bg-paper p-6 shadow-sm lg:p-8"
+            aria-labelledby="channels-heading"
+          >
+            <h2 id="channels-heading" className="scroll-mt-28 text-2xl font-semibold text-navy">
+              Reach the office
+            </h2>
+            <dl className="mt-6 space-y-6 text-base leading-7">
+              <div className="relative min-h-10 pl-14">
+                <dt className="font-semibold text-navy">
+                  <span className={`absolute left-0 top-0 ${tileClass}`}>
+                    <Phone aria-hidden="true" className="size-5" strokeWidth={1.75} />
                   </span>
-                ))}
-              </dd>
-            </div>
-          </dl>
-          <p className="mt-8 leading-7 text-muted">
-            The{" "}
-            <Link href="/portal" className="font-semibold text-navy underline underline-offset-4">
-              Borrower Portal
-            </Link>{" "}
-            is a coming-soon page. It is not this form.
-          </p>
-        </section>
+                  Phone
+                </dt>
+                <dd>
+                  <a href={site.phoneHref} className="underline underline-offset-4">
+                    {site.phoneDisplay}
+                  </a>
+                </dd>
+              </div>
+              <div className="relative min-h-10 pl-14">
+                <dt className="font-semibold text-navy">
+                  <span className={`absolute left-0 top-0 ${tileClass}`}>
+                    <Mail aria-hidden="true" className="size-5" strokeWidth={1.75} />
+                  </span>
+                  Email
+                </dt>
+                <dd className="break-words">
+                  <a href={`mailto:${site.email}`} className="underline underline-offset-4">
+                    {site.email}
+                  </a>
+                </dd>
+              </div>
+              <div className="relative min-h-10 pl-14">
+                <dt className="font-semibold text-navy">
+                  <span className={`absolute left-0 top-0 ${tileClass}`}>
+                    <MapPin aria-hidden="true" className="size-5" strokeWidth={1.75} />
+                  </span>
+                  Office
+                </dt>
+                <dd>
+                  {site.addressLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </dd>
+              </div>
+            </dl>
+            <p className="mt-8 border-t border-line pt-6 leading-7 text-muted">
+              Returning borrower? The{" "}
+              <Link href="/portal" className="font-semibold text-navy underline underline-offset-4">
+                Borrower Portal
+              </Link>{" "}
+              is coming soon.
+            </p>
+          </section>
+        </div>
       </div>
     </main>
   );

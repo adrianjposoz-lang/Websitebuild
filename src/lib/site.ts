@@ -34,7 +34,7 @@ export const products: Product[] = [
     href: "/loan-products/dscr",
     summary:
       "Rental loans weighed on the property’s debt-service coverage rather than a consumer mortgage application.",
-    body: "DSCR is for rented investment property, where the payment is compared with the income the property produces. Leverage, reserves, and pricing are not published on this shell. The illustration on this page does not include a Construction Budget.",
+    body: "DSCR is for rented investment property, where the payment is compared with the income the property produces. Submit a scenario to discuss leverage, reserves, and pricing for your property.",
     showConstructionBudget: false,
   },
   {
@@ -43,7 +43,7 @@ export const products: Product[] = [
     href: "/loan-products/bridge",
     summary:
       "Short-term capital while an investor buys, refinances, or sells an investment property.",
-    body: "Bridge is a short hold between a purchase, a refinance, or a sale. Term length and pricing are not published on this shell. The illustration on this page does not include a Construction Budget.",
+    body: "Bridge is a short hold between a purchase, a refinance, or a sale. Submit a scenario to discuss term length and pricing for your deal.",
     showConstructionBudget: false,
   },
   {
@@ -52,7 +52,7 @@ export const products: Product[] = [
     href: "/loan-products/fix-and-flip",
     summary:
       "Capital for buying and renovating an investment property the sponsor plans to sell.",
-    body: "Fix & Flip covers acquisition and renovation for a resale. A Construction Budget can be added to the illustration below. Draw schedules and pricing are not published on this shell.",
+    body: "Fix & Flip covers acquisition and renovation for a resale. Add your Construction Budget to the illustration below, and submit a scenario to discuss draws and pricing.",
     showConstructionBudget: true,
   },
   {
@@ -60,7 +60,7 @@ export const products: Product[] = [
     name: "Ground-Up",
     href: "/loan-products/ground-up",
     summary: "Financing for a new investment-property build that starts from the ground up.",
-    body: "Ground-Up is for new construction. A Construction Budget can be added to the illustration below. Inspection, draw, and pricing rules are not published on this shell.",
+    body: "Ground-Up is for new construction. Add your Construction Budget to the illustration below, and submit a scenario to discuss inspections, draws, and pricing.",
     showConstructionBudget: true,
   },
   {
@@ -68,7 +68,7 @@ export const products: Product[] = [
     name: "Mid-Construction",
     href: "/loan-products/mid-construction",
     summary: "Financing for an investment build that is already underway.",
-    body: "Mid-Construction is for a project already in progress. A Construction Budget can be added to the illustration below. Remaining-budget rules and pricing are not published on this shell.",
+    body: "Mid-Construction is for a project already in progress. Add your remaining Construction Budget to the illustration below, and submit a scenario to discuss the rest of the build.",
     showConstructionBudget: true,
   },
   {
@@ -77,7 +77,7 @@ export const products: Product[] = [
     href: "/loan-products/commercial-dscr",
     summary:
       "A debt-service approach for commercial investment property, not a consumer mortgage.",
-    body: "Commercial DSCR applies debt-service coverage to commercial investment property. Leverage and pricing are not published on this shell. The illustration on this page does not include a Construction Budget.",
+    body: "Commercial DSCR applies debt-service coverage to commercial investment property. Submit a scenario to discuss leverage and pricing for your property.",
     showConstructionBudget: false,
   },
 ];
@@ -121,21 +121,27 @@ export const deals = [
 
 export const processSteps = [
   {
-    title: "Review the programs",
-    text: "Compare DSCR, Bridge, Fix & Flip, Ground-Up, Mid-Construction, and Commercial DSCR.",
-  },
-  {
     title: "Submit a Scenario",
-    text: "Use the scenario form on the contact page. Name the property, the program, and what you need.",
+    text: "Send the property, the program, and what you need through the scenario form.",
   },
   {
-    title: "Share the property there",
-    text: "The form is the scenario path on this site. The Borrower Portal is a separate page and is not open yet.",
+    title: "Evaluation & Term Sheet",
+    text: "We review the scenario and, if it fits, issue a term sheet.",
   },
   {
-    title: "Move to closing",
-    text: "After review, terms are issued and the loan proceeds to closing. Timing is not quoted on this shell.",
+    title: "Processing & Underwriting",
+    text: "We collect documents and underwrite the deal.",
   },
+  {
+    title: "Closing & Funding",
+    text: "Sign closing documents and the loan funds.",
+  },
+] as const;
+
+export const trustFacts = [
+  { icon: "shield", text: "Business-purpose loans only" },
+  { icon: "pin", text: "Houston, TX office" },
+  { icon: "layers", text: "Six loan programs" },
 ] as const;
 
 export const whyPoints = [
@@ -144,8 +150,8 @@ export const whyPoints = [
     text: "RSC Private Lending is hard money and private lending for real estate investors, offered by Red Sun Capital, LLC.",
   },
   {
-    title: "Six named programs",
-    text: "The catalog is DSCR, Bridge, Fix & Flip, Ground-Up, Mid-Construction, and Commercial DSCR — the same names on every page.",
+    title: "Six programs",
+    text: "DSCR, Bridge, Fix & Flip, Ground-Up, Mid-Construction, and Commercial DSCR, from stabilized rentals to new construction.",
   },
   {
     title: "Business purpose only",
@@ -172,7 +178,7 @@ export const faqs = [
   },
   {
     id: "which-programs",
-    question: "Which programs are on this site?",
+    question: "Which loan programs do you offer?",
     answer:
       "DSCR, Bridge, Fix & Flip, Ground-Up, Mid-Construction, and Commercial DSCR. Each program has its own page under Loan Products.",
   },
@@ -180,7 +186,7 @@ export const faqs = [
     id: "how-to-apply",
     question: "How do I start a loan file?",
     answer:
-      "Use Submit a Scenario on the contact page. The Borrower Portal is a coming-soon page and is not the form.",
+      "Use Submit a Scenario on the contact page. The Borrower Portal for existing loans is coming soon.",
   },
   {
     id: "office",
