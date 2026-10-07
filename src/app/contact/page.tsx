@@ -1,9 +1,11 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { Hero } from "@/components/Hero";
 import { Panel } from "@/components/Panel";
 import { h2Class } from "@/components/SectionHeading";
+import { ScenarioDeliveryNotice } from "@/components/ScenarioDeliveryNotice";
 import { ScenarioForm } from "@/components/ScenarioForm";
 import { site } from "@/lib/site";
 
@@ -35,7 +37,13 @@ export default function ContactPage() {
               Tell us the property, the program, and what you need.
             </p>
             <Panel label="Scenario" chip="Form" className="mt-8" bodyClassName="">
-              <ScenarioForm />
+              <ScenarioForm
+                notice={
+                  <Suspense fallback={null}>
+                    <ScenarioDeliveryNotice />
+                  </Suspense>
+                }
+              />
             </Panel>
           </section>
 
