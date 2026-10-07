@@ -1,6 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import { cacheLife } from "next/cache";
 import { nav, site } from "@/lib/site";
+
+async function CopyrightYear() {
+  "use cache";
+  cacheLife("days");
+  return new Date().getFullYear();
+}
 
 export function Footer() {
   return (
@@ -97,9 +104,22 @@ export function Footer() {
             <strong className="text-white">Business purpose.</strong> Loans are for
             investment real estate and are not for personal, family, or household use.
           </p>
-          <p>Equal Housing Lender.</p>
+          <p>
+            Loan products may not be available in all states or jurisdictions. Nothing
+            contained herein constitutes a commitment to lend. All financing is subject to
+            borrower qualification, due diligence, underwriting review, and final credit
+            approval at the sole discretion of RSC Private Lending.
+          </p>
+          <p>
+            Rates, terms, programs, and fees are subject to change without notice and may vary
+            based on borrower profile, property type, transaction structure, and applicable
+            state regulations.
+          </p>
+          <p>Equal Housing Opportunity.</p>
           <p>AAPL — American Association of Private Lenders.</p>
-          <p>© 2026 {site.legalName}. All rights reserved.</p>
+          <p>
+            © <CopyrightYear /> {site.legalName} d/b/a {site.name}. All Rights Reserved.
+          </p>
         </div>
       </div>
     </footer>
