@@ -42,7 +42,7 @@ export function Header() {
                 aria-current={isActive(pathname, item.href) ? "page" : undefined}
                 className={`text-sm font-semibold ${
                   isActive(pathname, item.href)
-                    ? "underline decoration-cta decoration-2 underline-offset-8"
+                    ? "underline decoration-[#e14141] decoration-[3px] underline-offset-8"
                     : "text-slate-100 hover:text-white"
                 }`}
               >
@@ -109,7 +109,11 @@ export function Header() {
                 <Link
                   href={item.href}
                   aria-current={isActive(pathname, item.href) ? "page" : undefined}
-                  className="block py-3 text-base font-semibold text-white"
+                  className={`block py-3 text-base font-semibold text-white ${
+                    isActive(pathname, item.href)
+                      ? "underline decoration-[#e14141] decoration-[3px] underline-offset-4"
+                      : ""
+                  }`}
                 >
                   {item.label}
                 </Link>

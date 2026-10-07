@@ -48,7 +48,7 @@ export function LoanCalculator({
             inputMode="decimal"
             value={amount}
             onChange={(event) => setAmount(event.target.value)}
-            className="mt-2 w-full border border-line bg-white px-3 py-2 text-base font-normal text-foreground"
+            className="mt-2 w-full border border-field-border bg-white px-3 py-2 text-base font-normal text-foreground"
           />
         </label>
         <label className="block text-sm font-semibold text-navy" htmlFor="interest-rate">
@@ -59,7 +59,7 @@ export function LoanCalculator({
             inputMode="decimal"
             value={rate}
             onChange={(event) => setRate(event.target.value)}
-            className="mt-2 w-full border border-line bg-white px-3 py-2 text-base font-normal text-foreground"
+            className="mt-2 w-full border border-field-border bg-white px-3 py-2 text-base font-normal text-foreground"
           />
         </label>
         {showConstructionBudget ? (
@@ -74,7 +74,7 @@ export function LoanCalculator({
               inputMode="decimal"
               value={budget}
               onChange={(event) => setBudget(event.target.value)}
-              className="mt-2 w-full border border-line bg-white px-3 py-2 text-base font-normal text-foreground"
+              className="mt-2 w-full border border-field-border bg-white px-3 py-2 text-base font-normal text-foreground"
             />
           </label>
         ) : null}
