@@ -13,6 +13,7 @@ import { Hero } from "@/components/Hero";
 import { HeroPreview } from "@/components/HeroPreview";
 import { Panel } from "@/components/Panel";
 import { ProductGrid } from "@/components/ProductGrid";
+import { railItemClass, ScrollRail } from "@/components/ScrollRail";
 import { h2Class, h3Class, SectionHeading } from "@/components/SectionHeading";
 import { SiteLink } from "@/components/SiteLink";
 import { TrustBar } from "@/components/TrustBar";
@@ -41,7 +42,12 @@ export default function HomePage() {
         image={homeHero}
         imagePosition="object-[62%_50%]"
         preload
-        eyebrow="Private & hard-money lending · Houston, TX"
+        eyebrow={
+          <>
+            Private & hard-money lending&nbsp;·{" "}
+            <span className="whitespace-nowrap">Houston, TX</span>
+          </>
+        }
         title="Capital for real estate investors"
         lede="Hard money and private lending for real estate investors."
         actions={
@@ -76,7 +82,7 @@ export default function HomePage() {
             lede="From stabilized rentals to ground-up construction. Pick a program to see how it works."
           />
           <div className="mt-12">
-            <ProductGrid />
+            <ProductGrid rail />
           </div>
         </div>
       </section>
@@ -97,12 +103,13 @@ export default function HomePage() {
             title="The deals we finance"
             lede="RSC lends on investor real estate. These are the transaction types the programs cover."
           />
-          <ul className="mt-12 grid gap-6 md:grid-cols-2">
+          <ScrollRail label="Deal types" className="mt-12 sm:grid sm:gap-6 md:grid-cols-2">
             {deals.map((deal, index) => {
               const image = dealImages[deal.title];
               return (
                 <li
                   key={deal.title}
+                  className={railItemClass}
                   data-reveal="rise"
                   style={{ "--reveal-delay": `${(index % 2) * 120}ms` } as CSSProperties}
                 >
@@ -112,7 +119,7 @@ export default function HomePage() {
                         src={image.src}
                         alt={image.alt}
                         placeholder="blur"
-                        sizes="(min-width: 1024px) 544px, (min-width: 768px) 50vw, 100vw"
+                        sizes="(min-width: 1024px) 544px, (min-width: 768px) 50vw, (min-width: 640px) 100vw, 85vw"
                         className="media-zoom aspect-[3/2] w-full object-cover"
                       />
                     </div>
@@ -135,7 +142,7 @@ export default function HomePage() {
                 </li>
               );
             })}
-          </ul>
+          </ScrollRail>
         </div>
       </section>
 
@@ -146,10 +153,15 @@ export default function HomePage() {
         <div aria-hidden="true" className="bg-grid-dark absolute inset-0 -z-10" />
         <div className="mx-auto w-full max-w-6xl px-5 lg:px-8">
           <SectionHeading id="why" eyebrow="Why RSC" title="A lender built for investors" tone="dark" />
-          <ul className="mt-12 grid gap-6 md:grid-cols-2">
+          <ScrollRail
+            label="Why RSC"
+            tone="dark"
+            className="mt-12 sm:grid sm:gap-6 md:grid-cols-2"
+          >
             {whyPoints.map((point, index) => (
               <li
                 key={point.title}
+                className={railItemClass}
                 data-reveal="rise"
                 style={{ "--reveal-delay": `${(index % 2) * 120}ms` } as CSSProperties}
               >
@@ -164,7 +176,7 @@ export default function HomePage() {
                 </Panel>
               </li>
             ))}
-          </ul>
+          </ScrollRail>
         </div>
       </section>
 
@@ -177,16 +189,17 @@ export default function HomePage() {
           <SectionHeading id="faq-teaser" eyebrow="Questions" title="Common questions" />
           <ul data-reveal="rise" className="mt-12 divide-y divide-line border-y border-line">
             {faqs.slice(0, 3).map((faq) => (
-              <li key={faq.id} className="flex items-start justify-between gap-6 py-5">
-                <div>
-                  <h3 className="text-xl font-semibold text-navy">
-                    <Link href={`/faqs#${faq.id}`} className="underline underline-offset-4">
-                      {faq.question}
-                    </Link>
-                  </h3>
-                  <p className="mt-2 leading-7 text-muted">{faq.answer}</p>
-                </div>
-                <ChevronRight aria-hidden="true" className="mt-1 size-5 shrink-0 text-cta" />
+              <li key={faq.id}>
+                <details className="group">
+                  <summary className="flex cursor-pointer list-none items-start justify-between gap-6 rounded-sm py-5 [&::-webkit-details-marker]:hidden">
+                    <h3 className="text-xl font-semibold text-navy">{faq.question}</h3>
+                    <ChevronRight
+                      aria-hidden="true"
+                      className="mt-1 size-5 shrink-0 text-cta transition-transform duration-200 group-open:rotate-90"
+                    />
+                  </summary>
+                  <p className="pb-5 leading-7 text-muted">{faq.answer}</p>
+                </details>
               </li>
             ))}
           </ul>
