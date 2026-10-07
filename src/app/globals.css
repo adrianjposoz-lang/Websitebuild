@@ -5,8 +5,13 @@
   --foreground: #0f172a;
   --navy: #0b1f3a;
   --navy-deep: #071422;
-  --cta: #8e1b2c;
-  --cta-hover: #6f1422;
+  --navy-raised: #182e48;
+  --cta: #cd2727;
+  --cta-hover: #a51f1f;
+  --cta-tint: #fbeaea;
+  --accent-on-dark: #e14141;
+  --gold: #c9a55c;
+  --sand: #f7f4ee;
   --muted: #334155;
   --line: #d0d7e2;
   --field-border: #64748b;
@@ -18,8 +23,13 @@
   --color-foreground: var(--foreground);
   --color-navy: var(--navy);
   --color-navy-deep: var(--navy-deep);
+  --color-navy-raised: var(--navy-raised);
   --color-cta: var(--cta);
   --color-cta-hover: var(--cta-hover);
+  --color-cta-tint: var(--cta-tint);
+  --color-accent-on-dark: var(--accent-on-dark);
+  --color-gold: var(--gold);
+  --color-sand: var(--sand);
   --color-muted: var(--muted);
   --color-line: var(--line);
   --color-field-border: var(--field-border);
@@ -49,6 +59,28 @@ h3 {
 
 .bg-navy :focus-visible,
 .bg-navy-deep :focus-visible,
+.bg-navy-raised :focus-visible,
 .bg-cta :focus-visible {
   outline-color: #f8d3d8;
+}
+
+/* Every text zone sits on navy at >= 0.90 alpha so gold text holds 4.5:1 over a white pixel. */
+.hero-scrim {
+  background-image: linear-gradient(
+    to bottom,
+    rgb(11 31 58 / 0.5) 0,
+    rgb(11 31 58 / 0.9) 11rem,
+    rgb(11 31 58 / 0.95) 100%
+  );
+}
+
+@media (min-width: 64rem) {
+  .hero-scrim {
+    background-image: linear-gradient(
+      to right,
+      rgb(11 31 58 / 0.95) 0%,
+      rgb(11 31 58 / 0.9) 62%,
+      rgb(11 31 58 / 0.35) 100%
+    );
+  }
 }
