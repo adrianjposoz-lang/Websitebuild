@@ -9,6 +9,7 @@
   --cta-hover: #6f1422;
   --muted: #334155;
   --line: #d0d7e2;
+  --field-border: #64748b;
   --paper: #ffffff;
 }
 
@@ -21,6 +22,7 @@
   --color-cta-hover: var(--cta-hover);
   --color-muted: var(--muted);
   --color-line: var(--line);
+  --color-field-border: var(--field-border);
   --color-paper: var(--paper);
   --font-sans: var(--font-source-sans), "Segoe UI", sans-serif;
   --font-serif: var(--font-source-serif), Georgia, serif;
@@ -41,6 +43,12 @@ h3 {
 }
 
 :focus-visible {
-  outline: 3px solid #f8d3d8;
+  outline: 3px solid #0b1f3a;
   outline-offset: 2px;
+}
+
+.bg-navy :focus-visible,
+.bg-navy-deep :focus-visible,
+.bg-cta :focus-visible {
+  outline-color: #f8d3d8;
 }

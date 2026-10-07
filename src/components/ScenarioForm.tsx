@@ -4,7 +4,7 @@ import { useState } from "react";
 import { products, site } from "@/lib/site";
 
 const fieldClass =
-  "mt-2 w-full border border-line bg-white px-3 py-2.5 text-base font-normal text-foreground";
+  "mt-2 w-full border border-field-border bg-white px-3 py-2.5 text-base font-normal text-foreground";
 
 export function ScenarioForm() {
   const [reviewed, setReviewed] = useState(false);
