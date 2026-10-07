@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,7 +16,15 @@ import { ProductGrid } from "@/components/ProductGrid";
 import { h2Class, h3Class, SectionHeading } from "@/components/SectionHeading";
 import { SiteLink } from "@/components/SiteLink";
 import { TrustBar } from "@/components/TrustBar";
+import { pageMetadata } from "@/lib/seo";
 import { deals, faqs, whyPoints } from "@/lib/site";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Private Lending for Real Estate Investors | RSC Private Lending",
+  description:
+    "DSCR, bridge, fix & flip, and construction financing for real estate investors. Business-purpose loans from Houston. Submit a scenario to start.",
+  path: "/",
+});
 
 const dealImages = {
   "Stabilized rentals": { src: dealStabilized, alt: "Two-story single-family home with a two-car garage" },

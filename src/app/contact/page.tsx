@@ -1,16 +1,21 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { Hero } from "@/components/Hero";
 import { Panel } from "@/components/Panel";
 import { h2Class } from "@/components/SectionHeading";
+import { ScenarioDeliveryNotice } from "@/components/ScenarioDeliveryNotice";
 import { ScenarioForm } from "@/components/ScenarioForm";
+import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: `Submit a scenario to ${site.name}, or call and email the Houston office.`,
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Contact & Submit a Scenario | RSC Private Lending",
+  description:
+    "Submit a Scenario to start a deal, or call or email RSC Private Lending in Houston, TX with questions about investor financing.",
+  path: "/contact",
+});
 
 const tileClass =
   "inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-cta-tint text-cta";
@@ -35,7 +40,13 @@ export default function ContactPage() {
               Tell us the property, the program, and what you need.
             </p>
             <Panel label="Scenario" chip="Form" className="mt-8" bodyClassName="">
-              <ScenarioForm />
+              <ScenarioForm
+                notice={
+                  <Suspense fallback={null}>
+                    <ScenarioDeliveryNotice />
+                  </Suspense>
+                }
+              />
             </Panel>
           </section>
 
