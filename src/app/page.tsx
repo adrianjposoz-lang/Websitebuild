@@ -3,6 +3,7 @@ import { ClosingBand } from "@/components/ClosingBand";
 import { FaqList } from "@/components/FaqList";
 import { GlanceRow, PhotoHero } from "@/components/PhotoHero";
 import { ProgramIndex } from "@/components/ProgramIndex";
+import { SampleScenarios } from "@/components/SampleScenarios";
 import { SiteLink } from "@/components/SiteLink";
 import { Timeline } from "@/components/Timeline";
 import { homeHeroPhoto } from "@/lib/photos";
@@ -53,6 +54,8 @@ export default function HomePage() {
         />
       </div>
 
+      <SampleScenarios />
+
       <section aria-labelledby="process" className="border-t border-rule py-24">
         <div data-reveal className="mx-auto grid w-full max-w-[76rem] gap-12 px-[1.125rem] lg:grid-cols-12 lg:gap-x-14 lg:px-8">
           <div className="lg:col-span-4">
@@ -60,7 +63,8 @@ export default function HomePage() {
               From scenario to closing
             </h2>
             <p className="mt-5 text-lg leading-[1.6] text-ink">
-              Four steps, starting with the scenario form.
+              Four steps, starting with the scenario form. Term sheets in 24 hours and closings in
+              as little as 10 days.
             </p>
           </div>
           <div className="lg:col-span-8 lg:pt-4">
