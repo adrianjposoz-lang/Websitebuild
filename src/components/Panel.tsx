@@ -26,7 +26,7 @@ export function PanelHeader({
   return (
     <div
       aria-hidden="true"
-      className={`flex items-center justify-between gap-3 border-b px-5 py-2.5 ${
+      className={`flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 border-b px-5 py-2.5 ${
         dark ? "border-white/10" : "border-line bg-background/60"
       }`}
     >
