@@ -4,7 +4,10 @@ const TIMEOUT_MS = 8000;
 
 export type GhlScenarioPayload = {
   name: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  /** US E.164, `+1XXXXXXXXXX`. */
   phone: string;
   propertyAddress: string;
   program: string;
