@@ -21,7 +21,7 @@ const scenarios = [
   },
   {
     type: "DSCR",
-    location: "Petersburg, FL",
+    location: "St. Petersburg, FL",
     amount: "$2,500,000.00",
     program: { label: "DSCR", href: "/loan-products/dscr" },
     purpose: "Rental",
