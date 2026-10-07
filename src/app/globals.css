@@ -92,10 +92,42 @@ a {
   padding: 0 0.02em;
 }
 
+/*
+ * Scroll reveal: 420ms fade and 12px rise, ease-out, once. Opacity and transform only, so it never
+ * moves layout. RevealObserver sets `pending` only on blocks that start below the viewport.
+ */
+[data-reveal-state] {
+  transition:
+    opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal-state="pending"] {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+}
+
+/* Hero photos settle from 1.04 to 1 on load. Transform only; the box around them never changes. */
+@keyframes hero-settle {
+  from {
+    transform: scale(1.04);
+  }
+}
+
+.hero-settle {
+  animation: hero-settle 1400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     transition: none !important;
+    animation: none !important;
+  }
+
+  [data-reveal-state] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

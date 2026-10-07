@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 export function ClosingBand({ title = "Have a deal in front of you?" }: { title?: string }) {
   return (
     <section aria-labelledby="closing-band" className="relative z-[1] bg-navy py-[4.5rem] text-white">
-      <div className="mx-auto flex w-full max-w-[76rem] flex-col gap-8 px-[1.125rem] lg:flex-row lg:items-center lg:justify-between lg:px-8">
+      <div data-reveal className="mx-auto flex w-full max-w-[76rem] flex-col gap-8 px-[1.125rem] lg:flex-row lg:items-center lg:justify-between lg:px-8">
         <h2 id="closing-band" className="text-[2.5rem] leading-[1.05] lg:text-[3rem]">
           {title}
         </h2>
