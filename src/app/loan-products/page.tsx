@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ClosingBand } from "@/components/ClosingBand";
 import { EditorialHero } from "@/components/EditorialHero";
 import { ProgramIndex } from "@/components/ProgramIndex";
+import { SampleScenarios } from "@/components/SampleScenarios";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
@@ -41,6 +42,8 @@ export default function LoanProductsPage() {
           }
         />
       </div>
+
+      <SampleScenarios />
 
       <ClosingBand />
     </main>
