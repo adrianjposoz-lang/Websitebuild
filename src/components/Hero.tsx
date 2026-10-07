@@ -51,7 +51,7 @@ export function Hero({
             preload={preload}
             sizes="100vw"
             placeholder="blur"
-            className={`-z-20 object-cover ${imagePosition}`}
+            className={`hero-settle -z-20 object-cover ${imagePosition}`}
           />
           <div aria-hidden="true" className="hero-scrim absolute inset-0 -z-10" />
           <div
@@ -68,7 +68,7 @@ export function Hero({
       {preview ? (
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 hidden bg-[radial-gradient(40rem_24rem_at_75%_40%,rgb(205_39_39/0.18),transparent_70%)] lg:block"
+          className="hero-glow absolute inset-0 -z-10 hidden bg-[radial-gradient(40rem_24rem_at_75%_40%,rgb(205_39_39/0.18),transparent_70%)] lg:block"
         />
       ) : null}
       <div className={`mx-auto flex w-full max-w-6xl flex-col px-5 lg:px-8 ${layout}`}>

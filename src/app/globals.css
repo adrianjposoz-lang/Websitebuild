@@ -110,8 +110,35 @@
   }
 }
 
+:root {
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-pop: cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+/*
+ * Motion uses transform and clip-path only, never opacity on text, so every visible glyph keeps
+ * its full contrast mid-animation. Transforms do not count toward CLS.
+ * Reveal state is set by RevealObserver; server HTML has none, so no-JS renders everything.
+ */
+[data-reveal] {
+  transition:
+    transform 700ms var(--ease-out-soft),
+    clip-path 800ms var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal="rise"][data-reveal-state="pending"] {
+  transform: translateY(1.75rem);
+  clip-path: inset(0 0 100% 0);
+}
+
+/* Negative inset keeps hover shadows and focus rings unclipped once shown. */
+[data-reveal="rise"][data-reveal-state="shown"] {
+  clip-path: inset(-3rem);
+}
+
 [data-stepper-line] {
-  transition: transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition: transform 1100ms var(--ease-out-soft) 150ms;
 }
 
 [data-stepper-line="x"] {
@@ -122,12 +149,119 @@
   transform-origin: top;
 }
 
-[data-inview="false"] [data-stepper-line="x"] {
+[data-reveal-state="pending"] [data-stepper-line="x"] {
   transform: scaleX(0);
 }
 
-[data-inview="false"] [data-stepper-line="y"] {
+[data-reveal-state="pending"] [data-stepper-line="y"] {
   transform: scaleY(0);
+}
+
+[data-step-marker] {
+  transition: transform 520ms var(--ease-pop);
+  transition-delay: calc(var(--step, 0) * 260ms + 150ms);
+}
+
+[data-reveal-state="pending"] [data-step-marker] {
+  transform: scale(0.4);
+}
+
+[data-step-body] {
+  transition:
+    transform 650ms var(--ease-out-soft),
+    clip-path 750ms var(--ease-out-soft);
+  transition-delay: calc(var(--step, 0) * 260ms + 260ms);
+}
+
+[data-reveal-state="pending"] [data-step-body] {
+  transform: translateY(1rem);
+  clip-path: inset(0 0 100% 0);
+}
+
+[data-reveal-state="shown"] [data-step-body] {
+  clip-path: inset(-1rem);
+}
+
+/* Base styles are the end state, so with animation off each element is simply at rest. */
+@utility hero-settle {
+  animation: hero-settle 2400ms var(--ease-out-soft) both;
+}
+
+/* The glow's own alpha is the 0.18 ceiling; this only fades it in and drifts it, never brightens it. */
+@utility hero-glow {
+  animation: hero-glow 2800ms var(--ease-out-soft) both;
+}
+
+@utility hero-rise {
+  animation: hero-rise 900ms var(--ease-out-soft) 250ms both;
+}
+
+/* Slate-400 and gold both clear 4.5:1 on navy-raised, so every in-between color does too. */
+@utility step-tick {
+  animation: step-tick 900ms ease-in-out both;
+  animation-delay: calc(1300ms + var(--tick, 0) * 450ms);
+}
+
+@utility card-lift {
+  transition:
+    transform 220ms var(--ease-out-soft),
+    box-shadow 220ms var(--ease-out-soft),
+    border-color 220ms var(--ease-out-soft);
+
+  &:hover,
+  &:focus-visible,
+  &:focus-within {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px -14px rgb(11 31 58 / 0.35);
+  }
+}
+
+@utility media-zoom {
+  transition: transform 600ms var(--ease-out-soft);
+
+  :where(.group):hover &,
+  :where(.group):focus-within & {
+    transform: scale(1.04);
+  }
+}
+
+@utility arrow-nudge {
+  transition: transform 220ms var(--ease-out-soft);
+
+  :where(.group):hover &,
+  :where(.group):focus-visible & {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes hero-settle {
+  from {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes hero-glow {
+  from {
+    opacity: 0;
+    transform: translate3d(6%, 4%, 0) scale(0.85);
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    transform: translateY(1.5rem);
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes step-tick {
+  35%,
+  65% {
+    color: var(--gold);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -138,8 +272,15 @@
     transition: none !important;
   }
 
-  [data-stepper-line] {
+  [data-reveal],
+  [data-stepper-line],
+  [data-step-marker],
+  [data-step-body],
+  .card-lift,
+  .media-zoom,
+  .arrow-nudge {
     transform: none !important;
+    clip-path: none !important;
   }
 }
 

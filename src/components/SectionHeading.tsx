@@ -21,7 +21,7 @@ export function SectionHeading({
 }) {
   const dark = tone === "dark";
   return (
-    <div className="max-w-2xl">
+    <div data-reveal="rise" className="max-w-2xl">
       <div className="flex items-center gap-3">
         <span aria-hidden="true" className={`h-[3px] w-8 ${dark ? "bg-gold" : "bg-cta"}`} />
         <p className={`label-mono ${dark ? "text-gold" : "text-cta"}`}>{eyebrow}</p>

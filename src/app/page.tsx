@@ -1,6 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import dealBuilds from "@/assets/images/deal-builds.jpg";
 import dealRenovation from "@/assets/images/deal-renovation.jpg";
 import dealStabilized from "@/assets/images/deal-stabilized.jpg";
@@ -88,34 +89,39 @@ export default function HomePage() {
             lede="RSC lends on investor real estate. These are the transaction types the programs cover."
           />
           <ul className="mt-12 grid gap-6 md:grid-cols-2">
-            {deals.map((deal) => {
+            {deals.map((deal, index) => {
               const image = dealImages[deal.title];
               return (
                 <li
                   key={deal.title}
-                  className="overflow-hidden rounded-lg border border-line bg-paper shadow-sm"
+                  data-reveal="rise"
+                  style={{ "--reveal-delay": `${(index % 2) * 120}ms` } as CSSProperties}
                 >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    placeholder="blur"
-                    sizes="(min-width: 1024px) 544px, (min-width: 768px) 50vw, 100vw"
-                    className="aspect-[3/2] w-full object-cover"
-                  />
-                  <div className="p-6">
-                    <h3 className={`text-navy ${h3Class}`}>{deal.title}</h3>
-                    <p className="mt-2 text-base leading-7 text-muted">{deal.text}</p>
-                    <p className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
-                      {deal.links.map((link) => (
-                        <Link
-                          key={link.href}
-                          href={link.href}
-                          className="font-semibold text-cta underline underline-offset-4"
-                        >
-                          {link.label}
-                        </Link>
-                      ))}
-                    </p>
+                  <div className="card-lift group h-full overflow-hidden rounded-lg border border-line bg-paper shadow-sm hover:border-navy/40 focus-within:border-navy/40">
+                    <div className="overflow-hidden">
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        placeholder="blur"
+                        sizes="(min-width: 1024px) 544px, (min-width: 768px) 50vw, 100vw"
+                        className="media-zoom aspect-[3/2] w-full object-cover"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className={`text-navy ${h3Class}`}>{deal.title}</h3>
+                      <p className="mt-2 text-base leading-7 text-muted">{deal.text}</p>
+                      <p className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+                        {deal.links.map((link) => (
+                          <Link
+                            key={link.href}
+                            href={link.href}
+                            className="font-semibold text-cta underline underline-offset-4"
+                          >
+                            {link.label}
+                          </Link>
+                        ))}
+                      </p>
+                    </div>
                   </div>
                 </li>
               );
@@ -132,11 +138,22 @@ export default function HomePage() {
         <div className="mx-auto w-full max-w-6xl px-5 lg:px-8">
           <SectionHeading id="why" eyebrow="Why RSC" title="A lender built for investors" tone="dark" />
           <ul className="mt-12 grid gap-6 md:grid-cols-2">
-            {whyPoints.map((point) => (
-              <Panel as="li" key={point.title} skin="dark" label={point.label} chip={point.chip}>
-                <h3 className={`text-white ${h3Class}`}>{point.title}</h3>
-                <p className="mt-3 leading-7 text-slate-100">{point.text}</p>
-              </Panel>
+            {whyPoints.map((point, index) => (
+              <li
+                key={point.title}
+                data-reveal="rise"
+                style={{ "--reveal-delay": `${(index % 2) * 120}ms` } as CSSProperties}
+              >
+                <Panel
+                  skin="dark"
+                  label={point.label}
+                  chip={point.chip}
+                  className="h-full transition-colors duration-300 hover:border-gold/40"
+                >
+                  <h3 className={`text-white ${h3Class}`}>{point.title}</h3>
+                  <p className="mt-3 leading-7 text-slate-100">{point.text}</p>
+                </Panel>
+              </li>
             ))}
           </ul>
         </div>
@@ -149,7 +166,7 @@ export default function HomePage() {
         <div aria-hidden="true" className="bg-grid-light absolute inset-0 -z-10" />
         <div className="mx-auto w-full max-w-6xl px-5 lg:px-8">
           <SectionHeading id="faq-teaser" eyebrow="Questions" title="Common questions" />
-          <ul className="mt-12 divide-y divide-line border-y border-line">
+          <ul data-reveal="rise" className="mt-12 divide-y divide-line border-y border-line">
             {faqs.slice(0, 3).map((faq) => (
               <li key={faq.id} className="flex items-start justify-between gap-6 py-5">
                 <div>
@@ -171,6 +188,7 @@ export default function HomePage() {
           </div>
 
           <section
+            data-reveal="rise"
             className="relative isolate mt-20 overflow-hidden rounded-2xl border-t-4 border-cta bg-navy bg-linear-to-br from-navy-raised via-navy to-navy-deep px-8 py-12 text-white lg:mt-28 lg:px-14 lg:py-14"
             aria-labelledby="final-cta"
           >
