@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/Hero";
 import { SiteLink } from "@/components/SiteLink";
+import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Our Story",
-  description: `${site.name} is ${site.legalName}, a private lender for real estate investors.`,
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Our Story | RSC Private Lending",
+  description:
+    "Red Sun Capital, LLC d/b/a RSC Private Lending: business-purpose private lending for real estate investors from Houston, TX.",
+  path: "/our-story",
+});
 
 export default function OurStoryPage() {
   return (

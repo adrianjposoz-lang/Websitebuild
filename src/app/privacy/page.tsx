@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/Hero";
+import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Privacy",
+export const metadata: Metadata = pageMetadata({
+  title: "Privacy Notice | RSC Private Lending",
   description: "Privacy notice for RSC Private Lending.",
-};
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

@@ -5,12 +5,15 @@ import { Hero } from "@/components/Hero";
 import { Panel } from "@/components/Panel";
 import { h2Class } from "@/components/SectionHeading";
 import { ScenarioForm } from "@/components/ScenarioForm";
+import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: `Submit a scenario to ${site.name}, or call and email the Houston office.`,
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Contact & Submit a Scenario | RSC Private Lending",
+  description:
+    "Submit a Scenario to start a deal, or call or email RSC Private Lending in Houston, TX with questions about investor financing.",
+  path: "/contact",
+});
 
 const tileClass =
   "inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-cta-tint text-cta";

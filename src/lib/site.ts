@@ -8,6 +8,12 @@ export const site = {
   phoneHref: "tel:+18326484619",
   email: "info@rscprivatelending.com",
   addressLines: ["118 Vintage Park Blvd #W317", "Houston, TX 77070"],
+  address: {
+    street: "118 Vintage Park Blvd #W317",
+    locality: "Houston",
+    region: "TX",
+    postalCode: "77070",
+  },
 } as const;
 
 export const nav = [
@@ -223,7 +229,6 @@ export const shippedPaths = [
   "/loan-products/commercial-dscr",
   "/faqs",
   "/contact",
-  "/portal",
   "/privacy",
   "/terms",
 ] as const;

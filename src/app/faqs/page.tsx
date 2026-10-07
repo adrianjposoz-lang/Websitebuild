@@ -1,16 +1,23 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/Hero";
 import { SiteLink } from "@/components/SiteLink";
+import { faqPageJsonLd, jsonLdHtml, pageMetadata } from "@/lib/seo";
 import { faqs } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "FAQs",
-  description: "Questions about RSC Private Lending, its programs, and how to get in touch.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Private Lending FAQs | RSC Private Lending",
+  description:
+    "Answers about RSC Private Lending: business-purpose loans, our six programs, how to start a loan file, and how to reach the Houston office.",
+  path: "/faqs",
+});
 
 export default function FaqsPage() {
   return (
     <main id="main">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(faqPageJsonLd) }}
+      />
       <Hero
         as="header"
         eyebrow="FAQs"
