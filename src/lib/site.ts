@@ -27,6 +27,60 @@ export const nav = [
   { href: "/contact", label: "Contact" },
 ] as const;
 
+/** Publishable figures only. Each needs a source. Render as a sentence until there are 3 or more. */
+export const verifiedFacts = [
+  {
+    id: "lending-states",
+    value: "40",
+    label: "states where we lend",
+    source: "Adrian 2026-10-07: all except VT MN UT NV ND SD WV ME OR ID",
+  },
+] as const;
+
+/** All 50 states except VT, MN, UT, NV, ND, SD, WV, ME, OR, and ID. DC is not a state and is not listed. */
+export const lendingStates = [
+  "Alabama",
+  "Alaska",
+  "Arizona",
+  "Arkansas",
+  "California",
+  "Colorado",
+  "Connecticut",
+  "Delaware",
+  "Florida",
+  "Georgia",
+  "Hawaii",
+  "Illinois",
+  "Indiana",
+  "Iowa",
+  "Kansas",
+  "Kentucky",
+  "Louisiana",
+  "Maryland",
+  "Massachusetts",
+  "Michigan",
+  "Mississippi",
+  "Missouri",
+  "Montana",
+  "Nebraska",
+  "New Hampshire",
+  "New Jersey",
+  "New Mexico",
+  "New York",
+  "North Carolina",
+  "Ohio",
+  "Oklahoma",
+  "Pennsylvania",
+  "Rhode Island",
+  "South Carolina",
+  "Tennessee",
+  "Texas",
+  "Virginia",
+  "Washington",
+  "Wisconsin",
+  "Wyoming",
+] as const;
+
 export const officeLine = `Office: ${site.address.street}, Houston,\u00a0TX ${site.address.postalCode}.`;
 
 export type Product = {
@@ -214,6 +268,12 @@ export const faqs = [
     question: "Which loan programs do you offer?",
     answer:
       "DSCR, Bridge, Fix & Flip, Ground-Up, Mid-Construction, and Commercial DSCR. Each program has its own page under Loan Products.",
+  },
+  {
+    id: "where-we-lend",
+    question: "Where do you lend?",
+    answer: `We lend in ${lendingStates.length} states: ${lendingStates.slice(0, -1).join(", ")}, and ${lendingStates.at(-1)}.`,
+    list: lendingStates,
   },
   {
     id: "how-to-apply",
