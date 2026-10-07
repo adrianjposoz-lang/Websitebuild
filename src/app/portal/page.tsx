@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { Hero } from "@/components/Hero";
+import { h3Class } from "@/components/SectionHeading";
 import { SiteLink } from "@/components/SiteLink";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Borrower Portal",
@@ -9,26 +12,41 @@ export const metadata: Metadata = {
 export default function PortalPage() {
   return (
     <main id="main">
-      <header className="bg-navy text-white">
-        <div className="mx-auto w-full max-w-6xl px-5 py-16">
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-100">
-            Coming soon
-          </p>
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-            Borrower Portal
-          </h1>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-100">
-            The borrower portal is not open on this site yet. A public address will be
-            added when it is ready. This page is the notice until then.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <SiteLink href="/contact">Submit a Scenario</SiteLink>
-            <SiteLink href="/loan-products" variant="secondary-on-dark">
-              View Loan Programs
-            </SiteLink>
-          </div>
-        </div>
-      </header>
+      <Hero
+        as="header"
+        eyebrow="Coming soon"
+        title="Borrower Portal"
+        lede="The borrower portal is coming soon. Until it opens, call or email the office about an existing loan."
+      />
+      <section className="bg-background py-16" aria-label="While the portal is coming soon">
+        <ul className="mx-auto grid w-full max-w-6xl gap-6 px-5 md:grid-cols-2 lg:px-8">
+          <li className="rounded-lg border border-line bg-paper p-6 shadow-sm lg:p-8">
+            <h2 className={`text-navy ${h3Class}`}>Have a new deal?</h2>
+            <p className="mt-2 leading-7 text-muted">
+              Send the property, the program, and what you need.
+            </p>
+            <div className="mt-6">
+              <SiteLink href="/contact">Submit a Scenario</SiteLink>
+            </div>
+          </li>
+          <li className="rounded-lg border border-line bg-paper p-6 shadow-sm lg:p-8">
+            <h2 className={`text-navy ${h3Class}`}>Questions about an existing loan?</h2>
+            <p className="mt-2 leading-7 text-muted">Reach the Houston office directly.</p>
+            <ul className="mt-6 space-y-2 font-semibold text-navy">
+              <li>
+                <a href={site.phoneHref} className="underline underline-offset-4">
+                  {site.phoneDisplay}
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${site.email}`} className="underline underline-offset-4">
+                  {site.email}
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </section>
     </main>
   );
 }

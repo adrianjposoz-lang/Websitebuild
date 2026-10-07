@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import loanProductsHero from "@/assets/images/loan-products-hero.jpg";
+import { Hero } from "@/components/Hero";
 import { ProductGrid } from "@/components/ProductGrid";
+import { h2Class, SectionHeading } from "@/components/SectionHeading";
 import { SiteLink } from "@/components/SiteLink";
 
 export const metadata: Metadata = {
@@ -11,24 +14,60 @@ export const metadata: Metadata = {
 export default function LoanProductsPage() {
   return (
     <main id="main">
-      <header className="bg-navy text-white">
-        <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:py-20">
-          <h1 className="text-4xl font-semibold leading-[1.08] sm:text-5xl">Loan Products</h1>
-          <p className="mt-6 max-w-xl border-l-4 border-cta pl-4 text-lg font-semibold leading-7 text-white">
-            Hard money and private lending for real estate investors.
-          </p>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-100">
-            Open a program for a short description and a simplified illustration. Each card
-            goes to its own page.
-          </p>
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <SiteLink href="/contact">Submit a Scenario</SiteLink>
+      <Hero
+        as="header"
+        image={loanProductsHero}
+        imagePosition="object-[60%_60%]"
+        preload
+        eyebrow="Loan products"
+        title="Loan Products"
+        lede="Hard money and private lending for real estate investors. Each program has its own page with a short description and an illustration calculator."
+        actions={
+          <>
+            <SiteLink href="/contact" size="lg">
+              Submit a Scenario
+            </SiteLink>
+            <SiteLink href="/contact#channels-heading" variant="secondary-on-dark" size="lg">
+              Contact the office
+            </SiteLink>
+          </>
+        }
+      />
+
+      <section className="bg-background py-20 lg:py-28" aria-labelledby="all-programs">
+        <div className="mx-auto w-full max-w-6xl px-5 lg:px-8">
+          <SectionHeading
+            id="all-programs"
+            eyebrow="Programs"
+            title="All six programs"
+            lede="Rentals, short-term holds, renovations, and construction."
+          />
+          <div className="mt-12">
+            <ProductGrid />
           </div>
         </div>
-      </header>
-      <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:py-20">
-        <ProductGrid />
-      </div>
+      </section>
+
+      <section className="border-t border-line bg-paper py-16 lg:py-20" aria-labelledby="not-sure">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-5 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <div>
+            <h2 id="not-sure" className={`text-navy ${h2Class}`}>
+              Not sure which program fits?
+            </h2>
+            <p className="mt-3 max-w-xl text-lg leading-[1.875rem] text-muted">
+              Describe the property and the plan. We will point you to the right program.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <SiteLink href="/contact" size="lg">
+              Submit a Scenario
+            </SiteLink>
+            <SiteLink href="/contact#channels-heading" variant="secondary" size="lg">
+              Contact
+            </SiteLink>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
