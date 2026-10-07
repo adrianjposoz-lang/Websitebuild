@@ -17,24 +17,21 @@ export function LoanCalculator({
 }) {
   const [amount, setAmount] = useState("");
   const [rate, setRate] = useState("");
-  const [term, setTerm] = useState("");
   const [budget, setBudget] = useState("");
 
   const result = useMemo(() => {
     const principal = Number(amount);
     const apr = Number(rate);
-    const months = Number(term);
     const construction = showConstructionBudget && budget !== "" ? Number(budget) : 0;
 
     if (!Number.isFinite(principal) || principal <= 0) return null;
     if (!Number.isFinite(apr) || apr < 0) return null;
-    if (!Number.isFinite(months) || months <= 0) return null;
     if (!Number.isFinite(construction) || construction < 0) return null;
 
     const balance = principal + construction;
     const monthly = (balance * (apr / 100)) / 12;
     return { balance, monthly };
-  }, [amount, budget, rate, showConstructionBudget, term]);
+  }, [amount, budget, rate, showConstructionBudget]);
 
   return (
     <form
@@ -65,17 +62,6 @@ export function LoanCalculator({
             className="mt-2 w-full border border-line bg-white px-3 py-2 text-base font-normal text-foreground"
           />
         </label>
-        <label className="block text-sm font-semibold text-navy" htmlFor="term-months">
-          Term (months)
-          <input
-            id="term-months"
-            name="termMonths"
-            inputMode="numeric"
-            value={term}
-            onChange={(event) => setTerm(event.target.value)}
-            className="mt-2 w-full border border-line bg-white px-3 py-2 text-base font-normal text-foreground"
-          />
-        </label>
         {showConstructionBudget ? (
           <label
             className="block text-sm font-semibold text-navy"
@@ -95,10 +81,10 @@ export function LoanCalculator({
       </div>
 
       <p className="mt-4 text-sm leading-6 text-muted">
-        Illustration only. Not a quote, commitment, or offer to lend.{" "}
+        Illustration only, not a quote. Interest-only, from the figures you type.
         {showConstructionBudget
-          ? "The figure is interest-only and uses the amounts you enter, including Construction Budget when you provide one."
-          : "The figure is interest-only and uses the amounts you enter. This program does not include a Construction Budget."}
+          ? " Construction Budget is added when you enter one."
+          : " Construction Budget is omitted for this program."}
       </p>
 
       {result ? (
@@ -108,7 +94,7 @@ export function LoanCalculator({
         </p>
       ) : (
         <p className="mt-4 text-sm text-muted">
-          Enter a loan amount, rate, and term to see an illustration.
+          Enter a loan amount and rate to see an illustration.
         </p>
       )}
     </form>

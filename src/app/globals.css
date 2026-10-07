@@ -36,6 +36,8 @@ h1,
 h2,
 h3 {
   font-family: var(--font-serif);
+  text-wrap: balance;
+  letter-spacing: -0.02em;
 }
 
 :focus-visible {

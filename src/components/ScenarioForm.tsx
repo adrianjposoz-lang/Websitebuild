@@ -4,7 +4,7 @@ import { useState } from "react";
 import { products, site } from "@/lib/site";
 
 const fieldClass =
-  "mt-2 w-full border border-line bg-white px-3 py-2 text-base font-normal text-foreground";
+  "mt-2 w-full border border-line bg-white px-3 py-2.5 text-base font-normal text-foreground";
 
 export function ScenarioForm() {
   const [reviewed, setReviewed] = useState(false);
@@ -23,13 +23,13 @@ export function ScenarioForm() {
 
   return (
     <form
-      className="border border-line bg-paper p-5 sm:p-6"
+      className="border border-line bg-paper p-6 sm:p-8"
       onSubmit={(event) => {
         event.preventDefault();
         setReviewed(true);
       }}
     >
-      <div className="grid gap-4">
+      <div className="grid gap-5">
         <label className="block text-sm font-semibold text-navy" htmlFor="scenario-name">
           Name
           <input
