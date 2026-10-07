@@ -57,8 +57,8 @@ export const products: Product[] = [
     name: "Fix & Flip",
     href: "/loan-products/fix-and-flip",
     summary:
-      "Capital for buying and renovating an investment property the sponsor plans to sell.",
-    body: "Fix & Flip covers acquisition and renovation for a resale. Add your Construction Budget to the illustration below, and submit a scenario to discuss draws and pricing.",
+      "Capital for buying and renovating an investment property you plan to sell.",
+    body: "Fix & Flip covers acquisition and renovation for a resale. Add your construction budget to the example calculator below, and submit a scenario to discuss draws and pricing.",
     showConstructionBudget: true,
   },
   {
@@ -66,7 +66,7 @@ export const products: Product[] = [
     name: "Ground-Up",
     href: "/loan-products/ground-up",
     summary: "Financing for a new investment-property build that starts from the ground up.",
-    body: "Ground-Up is for new construction. Add your Construction Budget to the illustration below, and submit a scenario to discuss inspections, draws, and pricing.",
+    body: "Ground-Up is for new construction. Add your construction budget to the example calculator below, and submit a scenario to discuss inspections, draws, and pricing.",
     showConstructionBudget: true,
   },
   {
@@ -74,7 +74,7 @@ export const products: Product[] = [
     name: "Mid-Construction",
     href: "/loan-products/mid-construction",
     summary: "Financing for an investment build that is already underway.",
-    body: "Mid-Construction is for a project already in progress. Add your remaining Construction Budget to the illustration below, and submit a scenario to discuss the rest of the build.",
+    body: "Mid-Construction is for a project already in progress. Add your remaining construction budget to the example calculator below, and submit a scenario to discuss the rest of the build.",
     showConstructionBudget: true,
   },
   {
@@ -173,7 +173,7 @@ export const whyPoints = [
     label: "Office",
     chip: "Houston, TX",
     title: "A Houston office",
-    text: "The published office is 118 Vintage Park Blvd #W317, Houston, TX 77070. Call or email for a general question.",
+    text: `Office: ${site.addressLines.join(", ")}. Call or email for a general question.`,
   },
 ] as const;
 
@@ -212,7 +212,7 @@ export const faqs = [
     id: "rates",
     question: "Are rates published here?",
     answer:
-      "No. Product pages include an illustration calculator that uses numbers you type. Those figures are not RSC pricing.",
+      "No. Product pages include an example calculator that uses numbers you type. Those figures are not RSC pricing.",
   },
 ] as const;
 

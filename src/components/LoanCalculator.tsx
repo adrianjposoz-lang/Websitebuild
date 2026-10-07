@@ -37,7 +37,7 @@ export function LoanCalculator({
     <form
       className="rounded-lg border border-line bg-paper p-6 shadow-sm"
       onSubmit={(event) => event.preventDefault()}
-      aria-label="Loan illustration"
+      aria-label="Example loan calculator"
     >
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block text-sm font-semibold text-navy" htmlFor="loan-amount">
@@ -81,20 +81,20 @@ export function LoanCalculator({
       </div>
 
       <p className="mt-4 text-sm leading-6 text-muted">
-        Illustration only, not a quote. Interest-only, from the figures you type.
+        Example only, not a quote. Interest-only, from the figures you type.
         {showConstructionBudget
-          ? " Construction Budget is added when you enter one."
-          : " Construction Budget is omitted for this program."}
+          ? " The construction budget is added when you enter one."
+          : " The construction budget is omitted for this program."}
       </p>
 
       {result ? (
         <p className="mt-4 text-base font-semibold text-navy" role="status">
-          Illustrated interest-only payment: {money(result.monthly)} per month on{" "}
+          Example interest-only payment: {money(result.monthly)} per month on{" "}
           {money(result.balance)}.
         </p>
       ) : (
         <p className="mt-4 text-sm text-muted">
-          Enter a loan amount and rate to see an illustration.
+          Enter a loan amount and rate to see an example.
         </p>
       )}
     </form>

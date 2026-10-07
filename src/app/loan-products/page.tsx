@@ -23,7 +23,7 @@ export default function LoanProductsPage() {
         preload
         eyebrow="Loan products"
         title="Loan Products"
-        lede="Hard money and private lending for real estate investors. Each program has its own page with a short description and an illustration calculator."
+        lede="Hard money and private lending for real estate investors. Each program has its own page with a short description and an example calculator."
         actions={
           <>
             <SiteLink href="/contact" size="lg">
