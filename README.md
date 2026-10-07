@@ -45,4 +45,10 @@ npm run lint
 
 Unknown URLs render `not-found` and are served with an HTTP 404.
 
-Header navigation is Home, Our Story, Loan Products, FAQs, and Contact. The primary button is **Submit a Scenario** and links to `/contact`. **Borrower Portal** is a header utility that links to `/portal` and stays outside the mobile menu. Broker Login is labeled TBD in the footer and has no outbound URL.
+Header navigation is Home, Our Story, Loan Products, FAQs, and Contact. The primary button is **Submit a Scenario** and links to `/contact`. **Borrower Portal** links to `/portal`: a gold outline button in the desktop header, the first item in the mobile menu, and a text link under the home hero. The mobile header is one 64px row (logo, Submit a Scenario, Menu).
+
+## Brand and images
+
+- Reversed logo: `public/brand/rsc-logo-reversed.png` (navy surfaces only). Favicon and app icons: `src/app/favicon.ico`, `src/app/icon.png`, `src/app/apple-icon.png`.
+- Photos are free Unsplash placeholders until real deal photos replace them. Source URLs and licenses are in `src/assets/images/CREDITS.md`.
+- Icons are from `lucide-react` (ISC).

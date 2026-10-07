@@ -1,23 +1,27 @@
 import type { Metadata } from "next";
+import { Hero } from "@/components/Hero";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Terms",
-  description: "Terms stub for RSC Private Lending.",
+  description: "Terms of use for RSC Private Lending.",
 };
 
 export default function TermsPage() {
   return (
     <main id="main">
-      <header className="bg-navy text-white">
-        <div className="mx-auto w-full max-w-6xl px-5 py-14">
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Terms</h1>
+      <Hero as="header" title="Terms" />
+      <div className="bg-paper">
+        <div className="mx-auto w-full max-w-3xl px-5 py-16 lg:py-20">
+          <p className="text-lg leading-8">
+            Our full terms of use will be posted on this page. For questions in the meantime,
+            email{" "}
+            <a href={`mailto:${site.email}`} className="font-semibold underline underline-offset-4">
+              {site.email}
+            </a>
+            .
+          </p>
         </div>
-      </header>
-      <div className="mx-auto w-full max-w-3xl px-5 py-12">
-        <p className="text-lg leading-8">
-          These terms are a stub. Final terms will be published before the site is used for
-          applications. This page is not legal advice and is not the final agreement.
-        </p>
       </div>
     </main>
   );
