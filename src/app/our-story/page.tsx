@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/Hero";
+import { ClosingBand } from "@/components/ClosingBand";
+import { EditorialHero } from "@/components/EditorialHero";
 import { SiteLink } from "@/components/SiteLink";
 import { pageMetadata } from "@/lib/seo";
-import { site } from "@/lib/site";
+import { officeLine, site } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Our Story | RSC Private Lending",
@@ -14,28 +15,31 @@ export const metadata: Metadata = pageMetadata({
 export default function OurStoryPage() {
   return (
     <main id="main">
-      <Hero
-        as="header"
-        eyebrow="About RSC"
+      <EditorialHero
+        crumbs={[{ label: "Home", href: "/" }, { label: "Our story" }]}
         title="Our Story"
         lede={`${site.name} is the public name of ${site.legalName}, a private lender for real estate investors.`}
+        quiet={
+          <SiteLink href="/loan-products" variant="text">
+            View loan programs
+          </SiteLink>
+        }
       />
-      <div className="bg-paper">
-        <div className="mx-auto w-full max-w-3xl px-5 py-16 lg:py-20">
-          <p className="text-lg leading-8">
-            {site.name} provides hard money and private lending for real estate investors,
-            across six programs from stabilized rentals to new construction. Loans are for
-            business purposes on investment real estate.
-          </p>
-          <p className="mt-6 leading-8">Our office is at {site.addressLines.join(", ")}.</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <SiteLink href="/contact">Submit a Scenario</SiteLink>
-            <SiteLink href="/loan-products" variant="secondary">
-              View Loan Programs
-            </SiteLink>
+      <div className="border-t border-rule">
+        <div className="mx-auto grid w-full max-w-[76rem] px-[1.125rem] py-16 lg:grid-cols-12 lg:px-8 lg:py-24">
+          <div className="max-w-[60ch] lg:col-span-7 lg:col-start-2">
+            <p className="font-serif text-[1.1875rem] leading-[1.6] text-ink lg:text-[1.3125rem]">
+              {site.name} provides hard money and private lending for real estate investors,
+              across six programs from stabilized rentals to new construction. Loans are for
+              business purposes on investment real estate.
+            </p>
+            <p className="mt-6 font-serif text-[1.1875rem] leading-[1.6] text-ink lg:text-[1.3125rem]">
+              {officeLine}
+            </p>
           </div>
         </div>
       </div>
+      <ClosingBand />
     </main>
   );
 }

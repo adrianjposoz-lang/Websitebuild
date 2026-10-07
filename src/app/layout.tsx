@@ -1,27 +1,28 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Source_Sans_3, Source_Serif_4 } from "next/font/google";
+import { Libre_Caslon_Display, Libre_Caslon_Text, Libre_Franklin } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { RevealObserver } from "@/components/RevealObserver";
 import { isProductionSite, jsonLdHtml, organizationJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const sourceSans = Source_Sans_3({
-  variable: "--font-source-sans",
+const caslonDisplay = Libre_Caslon_Display({
+  variable: "--font-caslon-display",
   subsets: ["latin"],
+  weight: "400",
 });
 
-const sourceSerif = Source_Serif_4({
-  variable: "--font-source-serif",
+const caslonText = Libre_Caslon_Text({
+  variable: "--font-caslon-text",
   subsets: ["latin"],
-  axes: ["opsz"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
 });
 
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
+const franklin = Libre_Franklin({
+  variable: "--font-franklin",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -44,9 +45,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${sourceSans.variable} ${sourceSerif.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${caslonDisplay.variable} ${caslonText.variable} ${franklin.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">
+      <body className="flex min-h-full flex-col overflow-x-clip">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: jsonLdHtml(organizationJsonLd) }}
@@ -60,7 +61,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         {children}
         <Footer />
-        <RevealObserver />
       </body>
     </html>
   );

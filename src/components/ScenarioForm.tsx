@@ -1,6 +1,5 @@
 "use client";
 
-import { CircleAlert, CircleCheck } from "lucide-react";
 import { useActionState, useEffect, useRef, type ReactNode } from "react";
 import { submitScenario } from "@/app/contact/actions";
 import {
@@ -12,9 +11,9 @@ import {
 import { products } from "@/lib/site";
 
 const fieldClass =
-  "mt-2 w-full scroll-mt-32 rounded-md border border-field-border bg-white px-3 py-2.5 text-base font-normal text-foreground aria-invalid:border-red-700 aria-invalid:ring-1 aria-invalid:ring-red-700";
+  "mt-2 w-full scroll-mt-8 rounded-[3px] border border-field-border bg-white px-3 py-2.5 text-base font-normal text-ink aria-invalid:border-red-700 aria-invalid:ring-1 aria-invalid:ring-red-700";
 
-const labelClass = "block text-sm font-semibold text-navy";
+const labelClass = "block text-[0.9375rem] font-medium text-ink";
 
 const fieldOrder: ScenarioField[] = ["name", "email", "phone", "propertyAddress", "program", "notes"];
 
@@ -52,33 +51,28 @@ export function ScenarioForm({ notice }: { notice?: ReactNode }) {
 
   const errorText = (field: ScenarioField) =>
     fieldErrors[field] ? (
-      <p id={`${fieldIds[field]}-error`} className="mt-2 flex gap-1.5 text-sm font-medium text-red-700">
-        <CircleAlert aria-hidden="true" className="mt-0.5 size-4 shrink-0" strokeWidth={2} />
+      <p id={`${fieldIds[field]}-error`} className="mt-2 text-sm font-medium text-red-700">
         {fieldErrors[field]}
       </p>
     ) : null;
 
   return (
-    <div className="p-6 lg:p-8" data-form-status={status}>
+    <div data-form-status={status}>
       <p className="sr-only" role="status">
         {pending ? "Sending your scenario…" : ""}
       </p>
       <div aria-live="polite" aria-atomic="true">
         {status === "success" ? (
-          <div ref={summaryRef} tabIndex={-1} className="scroll-mt-28 outline-none">
-            <span className="inline-flex size-10 items-center justify-center rounded-lg bg-cta-tint text-cta">
-              <CircleCheck aria-hidden="true" className="size-5" strokeWidth={1.75} />
-            </span>
-            <h3 className="mt-4 text-2xl font-semibold text-navy">Scenario sent</h3>
-            <p className="mt-3 leading-7 text-muted">{message}</p>
+          <div ref={summaryRef} tabIndex={-1} className="scroll-mt-8 outline-none">
+            <h3 className="text-[1.75rem] leading-[1.2] text-navy">Scenario sent</h3>
+            <p className="mt-3 leading-7 text-ink">{message}</p>
           </div>
         ) : status !== "idle" ? (
           <div
             ref={summaryRef}
             tabIndex={-1}
-            className="mb-6 flex scroll-mt-28 gap-3 rounded-md border border-red-700/40 bg-red-50 p-4 text-[0.9375rem] leading-6 text-red-800 outline-none focus-visible:ring-2 focus-visible:ring-red-700"
+            className="mb-6 scroll-mt-8 border-l-2 border-red-700 py-1 pl-4 text-[0.9375rem] leading-6 text-red-800 outline-none focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-navy"
           >
-            <CircleAlert aria-hidden="true" className="mt-0.5 size-5 shrink-0" strokeWidth={1.75} />
             <p>{message}</p>
           </div>
         ) : null}
@@ -210,7 +204,7 @@ export function ScenarioForm({ notice }: { notice?: ReactNode }) {
           <button
             type="submit"
             disabled={pending}
-            className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-md bg-cta px-6 text-[0.9375rem] font-semibold text-white transition-colors hover:bg-cta-hover disabled:cursor-wait disabled:opacity-70 disabled:hover:bg-cta sm:w-auto"
+            className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-[3px] bg-cta px-[1.375rem] text-[0.96875rem] font-semibold tracking-[0.01em] text-white transition-colors duration-150 hover:bg-cta-hover disabled:cursor-wait disabled:opacity-70 disabled:hover:bg-cta sm:w-auto"
           >
             {pending ? "Sending…" : "Submit a Scenario"}
           </button>

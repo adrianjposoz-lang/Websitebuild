@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/Hero";
-import { SiteLink } from "@/components/SiteLink";
+import { ClosingBand } from "@/components/ClosingBand";
+import { EditorialHero } from "@/components/EditorialHero";
+import { FaqList } from "@/components/FaqList";
 import { faqPageJsonLd, jsonLdHtml, pageMetadata } from "@/lib/seo";
-import { faqs } from "@/lib/site";
+import { faqs, site } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Private Lending FAQs | RSC Private Lending",
@@ -18,27 +19,27 @@ export default function FaqsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdHtml(faqPageJsonLd) }}
       />
-      <Hero
-        as="header"
-        eyebrow="FAQs"
+      <EditorialHero
+        crumbs={[{ label: "Home", href: "/" }, { label: "FAQs" }]}
         title="Frequently asked questions"
         lede="Answers about RSC Private Lending, its programs, and how to get in touch."
+        quiet={
+          <>
+            or call the Houston office,{" "}
+            <a href={site.phoneHref} className="whitespace-nowrap font-semibold text-navy underline">
+              {site.phoneLocal}
+            </a>
+          </>
+        }
       />
-      <div className="bg-paper">
-        <div className="mx-auto w-full max-w-3xl px-5 py-16 lg:py-20">
-          <ul className="divide-y divide-line border-y border-line">
-            {faqs.map((faq) => (
-              <li key={faq.id} id={faq.id} className="scroll-mt-28 py-6">
-                <h2 className="text-2xl font-semibold text-navy">{faq.question}</h2>
-                <p className="mt-3 leading-7">{faq.answer}</p>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-8">
-            <SiteLink href="/contact">Submit a Scenario</SiteLink>
+      <div className="border-t border-rule">
+        <div className="mx-auto w-full max-w-[76rem] px-[1.125rem] py-16 lg:px-8 lg:py-20">
+          <div className="max-w-3xl">
+            <FaqList items={faqs} headingLevel="h2" />
           </div>
         </div>
       </div>
+      <ClosingBand />
     </main>
   );
 }

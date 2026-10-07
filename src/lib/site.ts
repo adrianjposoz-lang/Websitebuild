@@ -6,8 +6,9 @@ export const site = {
     "RSC Private Lending (Red Sun Capital, LLC) provides hard money and private lending for real estate investors.",
   phoneDisplay: "+1-832-648-4619",
   phoneHref: "tel:+18326484619",
+  phoneLocal: "832-648-4619",
   email: "info@rscprivatelending.com",
-  addressLines: ["118 Vintage Park Blvd #W317", "Houston, TX 77070"],
+  addressLines: ["118 Vintage Park Blvd #W317", "Houston,\u00a0TX 77070"],
   address: {
     street: "118 Vintage Park Blvd #W317",
     locality: "Houston",
@@ -24,6 +25,8 @@ export const nav = [
   { href: "/contact", label: "Contact" },
 ] as const;
 
+export const officeLine = `Office: ${site.address.street}, Houston,\u00a0TX ${site.address.postalCode}.`;
+
 export type Product = {
   slug: string;
   name: string;
@@ -31,6 +34,14 @@ export type Product = {
   summary: string;
   body: string;
   showConstructionBudget: boolean;
+  /** Hero definition list. Every row restates a fact already published on the site. */
+  facts: { term: string; detail: string }[];
+};
+
+const businessPurpose = { term: "Loan purpose", detail: "Business purpose only." };
+const noConstructionBudget = {
+  term: "Construction budget",
+  detail: "Not part of this program.",
 };
 
 export const products: Product[] = [
@@ -42,6 +53,18 @@ export const products: Product[] = [
       "Rental loans weighed on the property’s debt-service coverage rather than a consumer mortgage application.",
     body: "DSCR is for rented investment property, where the payment is compared with the income the property produces. Submit a scenario to discuss leverage, reserves, and pricing for your property.",
     showConstructionBudget: false,
+    facts: [
+      {
+        term: "What it covers",
+        detail: "Rented investment property, weighed on the income the property produces.",
+      },
+      noConstructionBudget,
+      {
+        term: "Leverage & pricing",
+        detail: "Discussed when you submit a scenario. Not published here.",
+      },
+      businessPurpose,
+    ],
   },
   {
     slug: "bridge",
@@ -51,31 +74,75 @@ export const products: Product[] = [
       "Short-term capital while an investor buys, refinances, or sells an investment property.",
     body: "Bridge is a short hold between a purchase, a refinance, or a sale. Submit a scenario to discuss term length and pricing for your deal.",
     showConstructionBudget: false,
+    facts: [
+      {
+        term: "What it covers",
+        detail: "A short hold between a purchase, a refinance, or a sale.",
+      },
+      noConstructionBudget,
+      {
+        term: "Term & pricing",
+        detail: "Discussed when you submit a scenario. Not published here.",
+      },
+      businessPurpose,
+    ],
   },
   {
     slug: "fix-and-flip",
     name: "Fix & Flip",
     href: "/loan-products/fix-and-flip",
-    summary:
-      "Capital for buying and renovating an investment property the sponsor plans to sell.",
-    body: "Fix & Flip covers acquisition and renovation for a resale. Add your Construction Budget to the illustration below, and submit a scenario to discuss draws and pricing.",
+    summary: "Capital for buying and renovating an investment property you plan to sell.",
+    body: "Fix & Flip covers acquisition and renovation for a resale. Add your construction budget to the example calculator below, and submit a scenario to discuss draws and pricing.",
     showConstructionBudget: true,
+    facts: [
+      {
+        term: "What it covers",
+        detail: "Purchase and renovation of an investment property you intend to resell.",
+      },
+      { term: "Construction budget", detail: "Can be included in your scenario." },
+      {
+        term: "Draws & pricing",
+        detail: "Discussed when you submit a scenario. Not published here.",
+      },
+      businessPurpose,
+    ],
   },
   {
     slug: "ground-up",
     name: "Ground-Up",
     href: "/loan-products/ground-up",
     summary: "Financing for a new investment-property build that starts from the ground up.",
-    body: "Ground-Up is for new construction. Add your Construction Budget to the illustration below, and submit a scenario to discuss inspections, draws, and pricing.",
+    body: "Ground-Up is for new construction. Add your construction budget to the example calculator below, and submit a scenario to discuss inspections, draws, and pricing.",
     showConstructionBudget: true,
+    facts: [
+      { term: "What it covers", detail: "A new investment-property build." },
+      { term: "Construction budget", detail: "Can be included in your scenario." },
+      {
+        term: "Inspections, draws & pricing",
+        detail: "Discussed when you submit a scenario. Not published here.",
+      },
+      businessPurpose,
+    ],
   },
   {
     slug: "mid-construction",
     name: "Mid-Construction",
     href: "/loan-products/mid-construction",
     summary: "Financing for an investment build that is already underway.",
-    body: "Mid-Construction is for a project already in progress. Add your remaining Construction Budget to the illustration below, and submit a scenario to discuss the rest of the build.",
+    body: "Mid-Construction is for a project already in progress. Add your remaining construction budget to the example calculator below, and submit a scenario to discuss the rest of the build.",
     showConstructionBudget: true,
+    facts: [
+      { term: "What it covers", detail: "An investment build that is already underway." },
+      {
+        term: "Construction budget",
+        detail: "The remaining budget can be included in your scenario.",
+      },
+      {
+        term: "The rest of the build",
+        detail: "Discussed when you submit a scenario. Pricing is not published here.",
+      },
+      businessPurpose,
+    ],
   },
   {
     slug: "commercial-dscr",
@@ -85,6 +152,18 @@ export const products: Product[] = [
       "A debt-service approach for commercial investment property, not a consumer mortgage.",
     body: "Commercial DSCR applies debt-service coverage to commercial investment property. Submit a scenario to discuss leverage and pricing for your property.",
     showConstructionBudget: false,
+    facts: [
+      {
+        term: "What it covers",
+        detail: "Commercial investment property, weighed on debt-service coverage.",
+      },
+      noConstructionBudget,
+      {
+        term: "Leverage & pricing",
+        detail: "Discussed when you submit a scenario. Not published here.",
+      },
+      businessPurpose,
+    ],
   },
 ];
 
@@ -95,35 +174,6 @@ export function getProduct(slug: string): Product {
   }
   return product;
 }
-
-export const deals = [
-  {
-    title: "Stabilized rentals",
-    text: "Occupied or otherwise income-producing investment property considered under DSCR or Commercial DSCR.",
-    links: [
-      { href: "/loan-products/dscr", label: "DSCR" },
-      { href: "/loan-products/commercial-dscr", label: "Commercial DSCR" },
-    ],
-  },
-  {
-    title: "Transitional holds",
-    text: "A purchase, refinance, or sale that needs short-term capital under Bridge.",
-    links: [{ href: "/loan-products/bridge", label: "Bridge" }],
-  },
-  {
-    title: "Renovation for resale",
-    text: "An acquisition plus repairs intended for resale, considered under Fix & Flip.",
-    links: [{ href: "/loan-products/fix-and-flip", label: "Fix & Flip" }],
-  },
-  {
-    title: "New or in-progress builds",
-    text: "A new build under Ground-Up, or a build already started under Mid-Construction.",
-    links: [
-      { href: "/loan-products/ground-up", label: "Ground-Up" },
-      { href: "/loan-products/mid-construction", label: "Mid-Construction" },
-    ],
-  },
-] as const;
 
 export const processSteps = [
   {
@@ -141,39 +191,6 @@ export const processSteps = [
   {
     title: "Closing & Funding",
     text: "Sign closing documents and the loan funds.",
-  },
-] as const;
-
-export const trustFacts = [
-  { icon: "shield", text: "Business-purpose loans only" },
-  { icon: "pin", text: "Houston, TX office" },
-  { icon: "layers", text: "Six loan programs" },
-] as const;
-
-export const whyPoints = [
-  {
-    label: "Borrowers",
-    chip: "Real estate investors",
-    title: "Built for investors",
-    text: "RSC Private Lending is hard money and private lending for real estate investors, offered by Red Sun Capital, LLC.",
-  },
-  {
-    label: "Programs",
-    chip: "Rentals to construction",
-    title: "Six programs",
-    text: "DSCR, Bridge, Fix & Flip, Ground-Up, Mid-Construction, and Commercial DSCR, from stabilized rentals to new construction.",
-  },
-  {
-    label: "Loan purpose",
-    chip: "Business purpose",
-    title: "Business purpose only",
-    text: "These loans are for investment real estate. They are not for personal, family, or household use.",
-  },
-  {
-    label: "Office",
-    chip: "Houston, TX",
-    title: "A Houston office",
-    text: "The published office is 118 Vintage Park Blvd #W317, Houston, TX 77070. Call or email for a general question.",
   },
 ] as const;
 
@@ -206,13 +223,13 @@ export const faqs = [
     id: "office",
     question: "Where is the office?",
     answer:
-      "118 Vintage Park Blvd #W317, Houston, TX 77070. Phone +1-832-648-4619. Email info@rscprivatelending.com.",
+      "118 Vintage Park Blvd #W317, Houston,\u00a0TX 77070. Phone +1-832-648-4619. Email info@rscprivatelending.com.",
   },
   {
     id: "rates",
     question: "Are rates published here?",
     answer:
-      "No. Product pages include an illustration calculator that uses numbers you type. Those figures are not RSC pricing.",
+      "No. Product pages include an example calculator that uses numbers you type. Those figures are not RSC pricing.",
   },
 ] as const;
 

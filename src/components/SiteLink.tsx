@@ -1,33 +1,27 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-const base =
-  "inline-flex items-center justify-center gap-2 rounded-md text-[0.9375rem] font-semibold transition-colors";
+export const buttonClass =
+  "items-center justify-center rounded-[3px] bg-cta font-semibold tracking-[0.01em] text-white no-underline transition-colors duration-150 hover:bg-cta-hover";
 
 const styles = {
-  primary: "bg-cta text-white hover:bg-cta-hover",
-  secondary: "border-2 border-navy bg-paper text-navy hover:bg-navy hover:text-white",
-  "secondary-on-dark": "border-2 border-gold text-gold hover:bg-gold hover:text-navy",
-} as const;
-
-const sizes = {
-  md: "min-h-11 px-5",
-  lg: "min-h-12 w-full px-6 sm:w-auto",
+  primary: `${buttonClass} inline-flex min-h-12 px-[1.375rem] text-[0.96875rem]`,
+  text: "font-semibold text-navy underline transition-colors duration-150 hover:decoration-cta",
 } as const;
 
 export function SiteLink({
   href,
   children,
   variant = "primary",
-  size = "md",
+  className = "",
 }: {
   href: string;
   children: ReactNode;
   variant?: keyof typeof styles;
-  size?: keyof typeof sizes;
+  className?: string;
 }) {
   return (
-    <Link href={href} className={`${base} ${styles[variant]} ${sizes[size]}`}>
+    <Link href={href} className={`${styles[variant]} ${className}`}>
       {children}
     </Link>
   );

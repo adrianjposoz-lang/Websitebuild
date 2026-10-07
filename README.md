@@ -47,7 +47,7 @@ npm run lint
 
 Unknown URLs render `not-found` and are served with an HTTP 404.
 
-Header navigation is Home, Our Story, Loan Products, FAQs, and Contact. The primary button is **Submit a Scenario** and links to `/contact`. **Borrower Portal** links to `/portal`: a gold outline button in the desktop header, the first item in the mobile menu, and a text link under the home hero. The mobile header is one 64px row (logo, Submit a Scenario, Menu).
+Header navigation is Home, Our Story, Loan Products, FAQs, and Contact. The primary button is **Submit a Scenario** and links to `/contact`. **Borrower Portal** links to `/portal`: a plain text link in the desktop header and the mobile menu, and the quiet link under the home hero. Below the `lg` breakpoint the header is one row (logo, Menu) and drops its Submit a Scenario button, because every page hero leads with a full-width one; the mobile menu also carries it.
 
 ## Search and environments
 
@@ -75,15 +75,11 @@ The form on `/contact` posts to a server action (`src/app/contact/actions.ts`). 
 
 ## Brand and images
 
-- Reversed logo: `public/brand/rsc-logo-reversed.png` (navy surfaces only). Favicon and app icons: `src/app/favicon.ico`, `src/app/icon.png`, `src/app/apple-icon.png`.
-- Photos are free Unsplash placeholders until real deal photos replace them. Source URLs and licenses are in `src/assets/images/CREDITS.md`.
-- Icons are from `lucide-react` (ISC).
-- Mono accents (eyebrows, panel labels, step numbers, chips) use IBM Plex Mono (OFL) through `next/font`. Shared card chrome lives in `src/components/Panel.tsx`.
-- All animation and transitions turn off under `prefers-reduced-motion: reduce` (one rule at the end of `src/app/globals.css`).
+- Full-color logo on paper: `public/brand/rsc-logo.png`. Reversed logo: `public/brand/rsc-logo-reversed.png` (navy surfaces only: the footer and the share image). Favicon and app icons: `src/app/favicon.ico`, `src/app/icon.png`, `src/app/apple-icon.png`.
+- Type: Libre Caslon Display (H1, H2), Libre Caslon Text (H3, list terms, captions, the program ampersand), and Libre Franklin (body and UI), all through `next/font/google`.
+- Colors live in `src/app/globals.css`: paper `#f6f1e7`, navy `#0b1f3a` for headings, links, and line art, and red `#cd2727` for button fills and large accents only. Paper grain (4% multiply) sits on light surfaces; the navy closing band and footer sit above it.
+- No stock photography. Until real RSC project photos arrive, photo slots carry the hand-drawn property sketches in `src/components/PropertySketch.tsx` (inline SVG, one per program).
 
 ## Motion
 
-- Scroll reveal: add `data-reveal="rise"` to an element. `src/components/RevealObserver.tsx` (mounted in the root layout) marks only below-the-fold elements as pending and reveals them with IntersectionObserver, with a scroll/resize check, focus, and print as fallbacks. Server HTML has no reveal state, so the page renders fully without JS.
-- Motion uses `transform` and `clip-path` only, never opacity on text, so contrast holds mid-animation and CLS stays at 0.
-- Hero: photo settle, red glow fade-in (capped at its 18% alpha), and Scenario preview rise. Funding stepper: line draws, numbers pop, step text rises in sequence. Cards: `card-lift`, `media-zoom`, and `arrow-nudge` utilities.
-- Every auto-playing animation is finite and finishes within about 5 seconds. No motion library is used.
+Hover color changes only (`transition-colors duration-150`), turned off under `prefers-reduced-motion: reduce`. There is no scroll-triggered or auto-playing animation.
