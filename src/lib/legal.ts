@@ -287,8 +287,8 @@ export const privacyPolicy: LegalDocument = {
         [
           "You may contact us at ",
           {
-            href: "mailto:go@rscprivatelending.com",
-            text: "go@rscprivatelending.com"
+            href: "mailto:info@rscprivatelending.com",
+            text: "info@rscprivatelending.com"
           },
           " and request to review, amend, or delete certain personal information collected by us."
         ]
