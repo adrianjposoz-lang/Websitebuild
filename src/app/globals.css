@@ -193,7 +193,7 @@
 }
 
 @utility hero-rise {
-  animation: hero-rise 900ms var(--ease-out-soft) 250ms both;
+  animation: hero-rise 900ms var(--ease-out-soft) 250ms backwards;
 }
 
 /* Slate-400 and gold both clear 4.5:1 on navy-raised, so every in-between color does too. */
