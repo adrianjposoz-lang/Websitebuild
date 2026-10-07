@@ -36,6 +36,111 @@
   --color-paper: var(--paper);
   --font-sans: var(--font-source-sans), "Segoe UI", sans-serif;
   --font-serif: var(--font-source-serif), Georgia, serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Text over these layers is checked at >= 4.5:1 for gold; keep line alpha at or below these values. */
+@utility bg-grid-dark {
+  --grid-line: rgb(255 255 255 / 0.06);
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 70% at 30% 40%, #000 40%, transparent 100%);
+}
+
+/* Over the photo scrim (navy 0.90 on a white pixel) 6% lines drop gold to 4.43:1; 4% holds 4.71:1. */
+@utility grid-over-photo {
+  --grid-line: rgb(255 255 255 / 0.04);
+}
+
+/* White sections only: red on navy/4 over mist is 4.57:1, too thin to rely on. */
+@utility bg-grid-light {
+  --grid-line: rgb(11 31 58 / 0.04);
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 70% at 30% 40%, #000 40%, transparent 100%);
+}
+
+@utility bg-dots-dark {
+  background-image: radial-gradient(rgb(255 255 255 / 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+@utility skeleton {
+  background-color: rgb(255 255 255 / 0.1);
+  background-image: linear-gradient(90deg, transparent 0, rgb(255 255 255 / 0.14) 50%, transparent 100%);
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  background-position: 200% 0;
+  animation: shimmer 1.2s ease-in-out 2;
+}
+
+@utility chip-dot {
+  animation: chip-pulse 2s ease-in-out 3;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+@keyframes chip-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+[data-stepper-line] {
+  transition: transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+[data-stepper-line="x"] {
+  transform-origin: left;
+}
+
+[data-stepper-line="y"] {
+  transform-origin: top;
+}
+
+[data-inview="false"] [data-stepper-line="x"] {
+  transform: scaleX(0);
+}
+
+[data-inview="false"] [data-stepper-line="y"] {
+  transform: scaleY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  [data-stepper-line] {
+    transform: none !important;
+  }
 }
 
 body {

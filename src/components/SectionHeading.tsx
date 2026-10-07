@@ -24,13 +24,7 @@ export function SectionHeading({
     <div className="max-w-2xl">
       <div className="flex items-center gap-3">
         <span aria-hidden="true" className={`h-[3px] w-8 ${dark ? "bg-gold" : "bg-cta"}`} />
-        <p
-          className={`text-sm font-semibold uppercase tracking-[0.14em] ${
-            dark ? "text-gold" : "text-cta"
-          }`}
-        >
-          {eyebrow}
-        </p>
+        <p className={`label-mono ${dark ? "text-gold" : "text-cta"}`}>{eyebrow}</p>
       </div>
       <h2 id={id} className={`mt-3 ${h2Class} ${dark ? "text-white" : "text-navy"}`}>
         {title}
