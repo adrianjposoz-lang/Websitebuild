@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ClosingBand } from "@/components/ClosingBand";
 import { PageHero } from "@/components/PageHero";
+import { FaqHashOpener } from "@/components/FaqHashOpener";
 import { FaqList } from "@/components/FaqList";
 import { faqPageJsonLd, jsonLdHtml, pageMetadata } from "@/lib/seo";
 import { faqs, site } from "@/lib/site";
@@ -36,6 +37,7 @@ export default function FaqsPage() {
         <div className="mx-auto w-full max-w-[75rem] px-[1.125rem] py-16 lg:px-8 lg:py-20">
           <div className="max-w-3xl">
             <FaqList items={faqs} headingLevel="h2" />
+            <FaqHashOpener />
           </div>
         </div>
       </div>
