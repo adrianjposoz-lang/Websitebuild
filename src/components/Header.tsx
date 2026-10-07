@@ -57,13 +57,9 @@ export function Header() {
         </nav>
 
         <div className="ml-auto flex items-center gap-[1.375rem] lg:ml-0">
-          <Link
-            href="/portal"
-            aria-current={pathname === "/portal" ? "page" : undefined}
-            className="hidden text-[0.9375rem] font-medium text-navy underline lg:inline"
-          >
+          <a href={site.portalUrl} className="hidden text-[0.9375rem] font-medium text-navy underline lg:inline">
             Borrower Portal
-          </Link>
+          </a>
           {/* Below lg every page hero leads with a full-width Submit a Scenario, so the header drops its copy. */}
           <Link
             href="/contact"
@@ -109,13 +105,9 @@ export function Header() {
             >
               Submit a Scenario
             </Link>
-            <Link
-              href="/portal"
-              aria-current={pathname === "/portal" ? "page" : undefined}
-              className="self-start py-2 font-medium text-navy underline"
-            >
+            <a href={site.portalUrl} className="self-start py-2 font-medium text-navy underline">
               Borrower Portal
-            </Link>
+            </a>
           </div>
         </nav>
       ) : null}
