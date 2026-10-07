@@ -34,7 +34,7 @@ export default function ContactPage() {
       <div className="border-t border-hair">
         <div className="mx-auto grid w-full max-w-[75rem] gap-14 px-[1.125rem] py-16 lg:grid-cols-12 lg:gap-x-12 lg:px-8 lg:py-20">
           <section id="scenario" className="scroll-mt-8 lg:col-span-6" aria-labelledby="scenario-heading">
-            <h2 id="scenario-heading" className="text-[2.5rem] leading-[1.05] text-navy lg:text-[3.5rem]">
+            <h2 id="scenario-heading" className="text-[1.75rem] leading-[2.25rem] lg:text-4xl lg:leading-10">
               Submit a Scenario
             </h2>
             <p className="mt-4 text-lg leading-[1.6] text-body">
