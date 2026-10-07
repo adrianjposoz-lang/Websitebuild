@@ -1,6 +1,7 @@
 import { Phone } from "lucide-react";
 import Link from "next/link";
 import { LoanCalculator } from "@/components/LoanCalculator";
+import { Panel } from "@/components/Panel";
 import { ProductIcon } from "@/components/ProductIcon";
 import { h2Class } from "@/components/SectionHeading";
 import { SiteLink } from "@/components/SiteLink";
@@ -11,10 +12,11 @@ export function ProductShell({ product }: { product: Product }) {
 
   return (
     <>
-      <header className="bg-navy text-white">
+      <header className="relative isolate bg-navy text-white">
+        <div aria-hidden="true" className="bg-grid-dark absolute inset-0 -z-10" />
         <div className="mx-auto w-full max-w-6xl px-5 py-14 lg:grid lg:grid-cols-[1fr_20rem] lg:items-center lg:gap-12 lg:px-8 lg:py-20">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-gold">
+            <p className="label-mono text-gold">
               <Link href="/loan-products" className="underline underline-offset-4">
                 Loan products
               </Link>
@@ -58,9 +60,14 @@ export function ProductShell({ product }: { product: Product }) {
               <LoanCalculator showConstructionBudget={product.showConstructionBudget} />
             </div>
           </div>
-          <aside
+          <Panel
+            as="aside"
+            skin="dark"
+            label="Next step"
+            chip={product.showConstructionBudget ? "Construction budget" : "Business purpose"}
             aria-labelledby="ready-heading"
-            className="h-fit rounded-lg bg-navy-raised p-6 text-white lg:sticky lg:top-28"
+            className="h-fit text-white lg:sticky lg:top-28"
+            bodyClassName="p-6"
           >
             <h2 id="ready-heading" className="text-2xl font-semibold">
               Ready to submit?
@@ -78,7 +85,7 @@ export function ProductShell({ product }: { product: Product }) {
                 {site.phoneDisplay}
               </a>
             </div>
-          </aside>
+          </Panel>
         </div>
       </div>
 

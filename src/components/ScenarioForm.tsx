@@ -11,7 +11,7 @@ export function ScenarioForm() {
 
   if (reviewed) {
     return (
-      <div className="rounded-lg border border-line bg-paper p-6 shadow-sm" role="status">
+      <div className="p-6 lg:p-8" role="status">
         <h3 className="text-2xl font-semibold text-navy">Nothing was sent</h3>
         <p className="mt-3 leading-7 text-muted">
           This preview does not deliver a scenario yet. Call {site.phoneDisplay} or email{" "}
@@ -23,7 +23,7 @@ export function ScenarioForm() {
 
   return (
     <form
-      className="rounded-lg border border-line bg-paper p-6 shadow-sm lg:p-8"
+      className="p-6 lg:p-8"
       onSubmit={(event) => {
         event.preventDefault();
         setReviewed(true);
