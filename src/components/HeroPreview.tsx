@@ -3,12 +3,15 @@ import { PanelHeader } from "@/components/Panel";
 import { ProductIcon } from "@/components/ProductIcon";
 import { products } from "@/lib/site";
 
+export const previewShellClass =
+  "hero-rise pointer-events-none hidden select-none overflow-hidden rounded-lg border border-white/15 bg-navy-raised/95 shadow-[0_1px_0_0_rgb(255_255_255/0.06)_inset] backdrop-blur-sm lg:block";
+
 const fieldLabel = "font-mono text-xs uppercase tracking-[0.06em] text-slate-300";
 const fieldBox = "mt-2 flex h-10 items-center rounded-md border border-white/25 px-3";
 
 const steps = ["Submit", "Term sheet", "Underwriting", "Close"];
 
-function Field({ label, width }: { label: string; width: string }) {
+export function PreviewField({ label, width }: { label: string; width: string }) {
   return (
     <div>
       <p className={fieldLabel}>{label}</p>
@@ -26,10 +29,7 @@ function Field({ label, width }: { label: string; width: string }) {
  */
 export function HeroPreview() {
   return (
-    <div
-      aria-hidden="true"
-      className="hero-rise pointer-events-none hidden select-none overflow-hidden rounded-lg border border-white/15 bg-navy-raised/95 shadow-[0_1px_0_0_rgb(255_255_255/0.06)_inset] backdrop-blur-sm lg:block"
-    >
+    <div aria-hidden="true" className={previewShellClass}>
       <PanelHeader
         skin="dark"
         label={
@@ -41,7 +41,7 @@ export function HeroPreview() {
         chip="Draft"
       />
       <div className="space-y-5 px-5 py-6">
-        <Field label="Property address" width="w-4/5" />
+        <PreviewField label="Property address" width="w-4/5" />
         <div>
           <p className={fieldLabel}>Loan program</p>
           <ul className="mt-2 flex gap-2">
@@ -56,10 +56,10 @@ export function HeroPreview() {
           </ul>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <Field label="Purchase price" width="w-3/5" />
-          <Field label="Estimated rehab" width="w-1/2" />
+          <PreviewField label="Purchase price" width="w-3/5" />
+          <PreviewField label="Estimated rehab" width="w-1/2" />
         </div>
-        <Field label="Exit strategy" width="w-2/3" />
+        <PreviewField label="Exit strategy" width="w-2/3" />
       </div>
       <ol className="flex flex-wrap justify-between gap-x-2 gap-y-1 border-t border-white/10 px-5 py-3 font-mono text-[0.6875rem] uppercase tracking-[0.06em] text-slate-400">
         {steps.map((step, index) => (
