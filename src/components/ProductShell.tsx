@@ -1,10 +1,9 @@
-import { Phone } from "lucide-react";
 import Link from "next/link";
+import { withAmp } from "@/components/Amp";
+import { ClosingBand } from "@/components/ClosingBand";
+import { EditorialHero } from "@/components/EditorialHero";
 import { LoanCalculator } from "@/components/LoanCalculator";
-import { Panel } from "@/components/Panel";
-import { ProductIcon } from "@/components/ProductIcon";
-import { h2Class } from "@/components/SectionHeading";
-import { SiteLink } from "@/components/SiteLink";
+import type { SketchSlug } from "@/components/PropertySketch";
 import { products, site, type Product } from "@/lib/site";
 
 export function ProductShell({ product }: { product: Product }) {
@@ -12,98 +11,50 @@ export function ProductShell({ product }: { product: Product }) {
 
   return (
     <>
-      <header className="relative isolate bg-navy text-white">
-        <div aria-hidden="true" className="bg-grid-dark absolute inset-0 -z-10" />
-        <div className="mx-auto w-full max-w-6xl px-5 py-14 lg:grid lg:grid-cols-[1fr_20rem] lg:items-center lg:gap-12 lg:px-8 lg:py-20">
-          <div>
-            <p className="label-mono text-gold">
-              <Link href="/loan-products" className="underline underline-offset-4">
-                Loan products
-              </Link>
-            </p>
-            <span className="mt-6 inline-flex size-14 items-center justify-center rounded-lg bg-navy-raised text-gold">
-              <ProductIcon slug={product.slug} className="size-7" strokeWidth={1.75} />
-            </span>
-            <h1 className="mt-5 text-4xl font-semibold leading-[1.1] tracking-[-0.02em] lg:text-[3.25rem] lg:leading-[1.08]">
-              {product.name}
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-[1.875rem] text-slate-100 lg:text-xl lg:leading-8">
-              {product.summary}
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <SiteLink href="/contact" size="lg">
-                Submit a Scenario
-              </SiteLink>
-              <SiteLink href="/loan-products" variant="secondary-on-dark" size="lg">
-                View Loan Programs
-              </SiteLink>
-            </div>
-          </div>
-          <div
-            aria-hidden="true"
-            className="mt-10 hidden aspect-[4/3] items-center justify-center rounded-lg bg-navy-raised text-gold lg:mt-0 lg:flex"
-          >
-            <ProductIcon slug={product.slug} className="size-24" strokeWidth={1.25} />
-          </div>
-        </div>
-      </header>
+      <EditorialHero
+        crumbs={[{ label: "Loan products", href: "/loan-products" }, { label: product.name }]}
+        title={withAmp(product.name)}
+        lede={product.summary}
+        quiet={
+          <>
+            or call the Houston office,{" "}
+            <a href={site.phoneHref} className="whitespace-nowrap font-semibold text-navy underline">
+              {site.phoneLocal}
+            </a>
+          </>
+        }
+        facts={product.facts}
+        sketch={product.slug as SketchSlug}
+      />
 
-      <div className="bg-paper">
-        <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-16 lg:grid-cols-[1fr_20rem] lg:px-8 lg:py-20">
-          <div>
-            <p className="max-w-3xl text-lg leading-8">{product.body}</p>
-            <h2 className={`mt-12 text-navy ${h2Class}`}>Illustration calculator</h2>
-            <p className="mt-3 max-w-3xl leading-7 text-muted">
-              Type your own figures. Results are an illustration, not RSC pricing or a quote.
+      <section aria-labelledby="calculator" className="border-t border-rule py-20 lg:py-24">
+        <div className="mx-auto grid w-full max-w-[76rem] gap-10 px-[1.125rem] lg:grid-cols-12 lg:gap-x-14 lg:px-8">
+          <div className="lg:col-span-4">
+            <h2 id="calculator" className="text-[2.5rem] leading-[1.05] text-navy lg:text-[3.5rem]">
+              Example calculator
+            </h2>
+            <p className="mt-5 text-lg leading-[1.6] text-ink">
+              Type your own figures. Results are an example, not RSC pricing or a quote.
             </p>
-            <div className="mt-6 max-w-3xl">
+          </div>
+          <div className="max-w-3xl lg:col-span-8">
+            <p className="text-lg leading-[1.6] text-ink">{product.body}</p>
+            <div className="mt-10">
               <LoanCalculator showConstructionBudget={product.showConstructionBudget} />
             </div>
           </div>
-          <Panel
-            as="aside"
-            skin="dark"
-            label="Next step"
-            chip={product.showConstructionBudget ? "Construction budget" : "Business purpose"}
-            aria-labelledby="ready-heading"
-            className="h-fit text-white lg:sticky lg:top-28"
-            bodyClassName="p-6"
-          >
-            <h2 id="ready-heading" className="text-2xl font-semibold">
-              Ready to submit?
-            </h2>
-            <p className="mt-3 leading-7 text-slate-100">
-              Send the property and what you need for {product.name}.
-            </p>
-            <div className="mt-6 flex flex-col gap-3">
-              <SiteLink href="/contact">Submit a Scenario</SiteLink>
-              <a
-                href={site.phoneHref}
-                className="inline-flex items-center gap-2 font-semibold underline underline-offset-4"
-              >
-                <Phone aria-hidden="true" className="size-4 text-gold" />
-                {site.phoneDisplay}
-              </a>
-            </div>
-          </Panel>
         </div>
-      </div>
+      </section>
 
-      <section className="border-t border-line bg-background py-16 lg:py-20" aria-labelledby="other-programs">
-        <div className="mx-auto w-full max-w-6xl px-5 lg:px-8">
-          <h2 id="other-programs" className={`text-navy ${h2Class}`}>
+      <section aria-labelledby="other-programs" className="border-t border-rule py-12">
+        <div className="mx-auto flex w-full max-w-[76rem] flex-col gap-3 px-[1.125rem] lg:flex-row lg:items-baseline lg:gap-6 lg:px-8">
+          <h2 id="other-programs" className="font-serif text-[1.375rem] italic text-warm">
             Other programs
           </h2>
-          <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[1.0625rem]">
             {others.map((item) => (
               <li key={item.slug}>
-                <Link
-                  href={item.href}
-                  className="flex items-center gap-3 rounded-lg border border-line bg-paper px-4 py-3 font-semibold text-navy transition hover:border-navy/40 hover:shadow-sm"
-                >
-                  <span className="inline-flex size-8 items-center justify-center rounded-md bg-cta-tint text-cta">
-                    <ProductIcon slug={item.slug} className="size-[18px]" strokeWidth={2} />
-                  </span>
+                <Link href={item.href} className="font-medium text-navy underline">
                   {item.name}
                 </Link>
               </li>
@@ -111,6 +62,8 @@ export function ProductShell({ product }: { product: Product }) {
           </ul>
         </div>
       </section>
+
+      <ClosingBand />
     </>
   );
 }

@@ -1,332 +1,101 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4f6f8;
-  --foreground: #0f172a;
+  --paper: #f6f1e7;
+  --paper-2: #efe8da;
+  --slot: #e9e1d1;
+  --ink: #0f172a;
   --navy: #0b1f3a;
   --navy-deep: #071422;
-  --navy-raised: #182e48;
+  --warm: #5c5346;
+  --rule: #cfc6b5;
+  --field-border: #8a7f6d;
   --cta: #cd2727;
   --cta-hover: #a51f1f;
-  --cta-tint: #fbeaea;
-  --accent-on-dark: #e14141;
-  --gold: #c9a55c;
-  --sand: #f7f4ee;
-  --muted: #334155;
-  --line: #d0d7e2;
-  --field-border: #64748b;
-  --paper: #ffffff;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-slot: var(--slot);
+  --color-ink: var(--ink);
   --color-navy: var(--navy);
   --color-navy-deep: var(--navy-deep);
-  --color-navy-raised: var(--navy-raised);
+  --color-warm: var(--warm);
+  --color-rule: var(--rule);
+  --color-field-border: var(--field-border);
   --color-cta: var(--cta);
   --color-cta-hover: var(--cta-hover);
-  --color-cta-tint: var(--cta-tint);
-  --color-accent-on-dark: var(--accent-on-dark);
-  --color-gold: var(--gold);
-  --color-sand: var(--sand);
-  --color-muted: var(--muted);
-  --color-line: var(--line);
-  --color-field-border: var(--field-border);
-  --color-paper: var(--paper);
-  --font-sans: var(--font-source-sans), "Segoe UI", sans-serif;
-  --font-serif: var(--font-source-serif), Georgia, serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-display: var(--font-caslon-display), Georgia, serif;
+  --font-serif: var(--font-caslon-text), Georgia, serif;
+  --font-sans: var(--font-franklin), system-ui, sans-serif;
 }
 
-@utility label-mono {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  line-height: 1.25rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+html {
+  background: var(--paper);
 }
 
-/* Text over these layers is checked at >= 4.5:1 for gold; keep line alpha at or below these values. */
-@utility bg-grid-dark {
-  --grid-line: rgb(255 255 255 / 0.06);
-  background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 80% 70% at 30% 40%, #000 40%, transparent 100%);
-}
-
-/* Over the photo scrim (navy 0.90 on a white pixel) 6% lines drop gold to 4.43:1; 4% holds 4.71:1. */
-@utility grid-over-photo {
-  --grid-line: rgb(255 255 255 / 0.04);
-}
-
-/* White sections only: red on navy/4 over mist is 4.57:1, too thin to rely on. */
-@utility bg-grid-light {
-  --grid-line: rgb(11 31 58 / 0.04);
-  background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 80% 70% at 30% 40%, #000 40%, transparent 100%);
-}
-
-@utility bg-dots-dark {
-  background-image: radial-gradient(rgb(255 255 255 / 0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-@utility skeleton {
-  background-color: rgb(255 255 255 / 0.1);
-  background-image: linear-gradient(90deg, transparent 0, rgb(255 255 255 / 0.14) 50%, transparent 100%);
-  background-size: 200% 100%;
-  background-repeat: no-repeat;
-  background-position: 200% 0;
-  animation: shimmer 1.2s ease-in-out 2;
-}
-
-@utility chip-dot {
-  animation: chip-pulse 2s ease-in-out 3;
-}
-
-@keyframes shimmer {
-  from {
-    background-position: 200% 0;
-  }
-  to {
-    background-position: -100% 0;
-  }
-}
-
-@keyframes chip-pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
-}
-
-:root {
-  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
-  --ease-pop: cubic-bezier(0.34, 1.4, 0.64, 1);
+body {
+  position: relative;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
 }
 
 /*
- * Motion uses transform and clip-path only, never opacity on text, so every visible glyph keeps
- * its full contrast mid-animation. Transforms do not count toward CLS.
- * Reveal state is set by RevealObserver; server HTML has none, so no-JS renders everything.
+ * Paper grain at 4% multiply. Contrast was checked against the darkest 6% speck (#e7e3d9).
+ * It covers the whole document; dark bands sit at z-index 1 so the grain never lands on navy.
  */
-[data-reveal] {
-  transition:
-    transform 700ms var(--ease-out-soft),
-    clip-path 800ms var(--ease-out-soft);
-  transition-delay: var(--reveal-delay, 0ms);
+body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
-[data-reveal="rise"][data-reveal-state="pending"] {
-  transform: translateY(1.75rem);
-  clip-path: inset(0 0 100% 0);
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-wrap: balance;
 }
 
-/* Negative inset keeps hover shadows and focus rings unclipped once shown. */
-[data-reveal="rise"][data-reveal-state="shown"] {
-  clip-path: inset(-3rem);
+h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  text-wrap: balance;
 }
 
-[data-stepper-line] {
-  transition: transform 1100ms var(--ease-out-soft) 150ms;
+a {
+  text-underline-offset: 4px;
 }
 
-[data-stepper-line="x"] {
-  transform-origin: left;
+:focus-visible {
+  outline: 3px solid var(--navy);
+  outline-offset: 3px;
 }
 
-[data-stepper-line="y"] {
-  transform-origin: top;
+.bg-navy :focus-visible,
+.bg-navy-deep :focus-visible {
+  outline-color: #f8d3d8;
 }
 
-[data-reveal-state="pending"] [data-stepper-line="x"] {
-  transform: scaleX(0);
-}
-
-[data-reveal-state="pending"] [data-stepper-line="y"] {
-  transform: scaleY(0);
-}
-
-[data-step-marker] {
-  transition: transform 520ms var(--ease-pop);
-  transition-delay: calc(var(--step, 0) * 260ms + 150ms);
-}
-
-[data-reveal-state="pending"] [data-step-marker] {
-  transform: scale(0.4);
-}
-
-[data-step-body] {
-  transition:
-    transform 650ms var(--ease-out-soft),
-    clip-path 750ms var(--ease-out-soft);
-  transition-delay: calc(var(--step, 0) * 260ms + 260ms);
-}
-
-[data-reveal-state="pending"] [data-step-body] {
-  transform: translateY(1rem);
-  clip-path: inset(0 0 100% 0);
-}
-
-[data-reveal-state="shown"] [data-step-body] {
-  clip-path: inset(-1rem);
-}
-
-/* Base styles are the end state, so with animation off each element is simply at rest. */
-@utility hero-settle {
-  animation: hero-settle 2400ms var(--ease-out-soft) both;
-}
-
-/* The glow's own alpha is the 0.18 ceiling; this only fades it in and drifts it, never brightens it. */
-@utility hero-glow {
-  animation: hero-glow 2800ms var(--ease-out-soft) both;
-}
-
-@utility hero-rise {
-  animation: hero-rise 900ms var(--ease-out-soft) 250ms backwards;
-}
-
-/* Slate-400 and gold both clear 4.5:1 on navy-raised, so every in-between color does too. */
-@utility step-tick {
-  animation: step-tick 900ms ease-in-out both;
-  animation-delay: calc(1300ms + var(--tick, 0) * 450ms);
-}
-
-@utility card-lift {
-  transition:
-    transform 220ms var(--ease-out-soft),
-    box-shadow 220ms var(--ease-out-soft),
-    border-color 220ms var(--ease-out-soft);
-
-  &:hover,
-  &:focus-visible,
-  &:focus-within {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 28px -14px rgb(11 31 58 / 0.35);
-  }
-}
-
-@utility media-zoom {
-  transition: transform 600ms var(--ease-out-soft);
-
-  :where(.group):hover &,
-  :where(.group):focus-within & {
-    transform: scale(1.04);
-  }
-}
-
-@utility arrow-nudge {
-  transition: transform 220ms var(--ease-out-soft);
-
-  :where(.group):hover &,
-  :where(.group):focus-visible & {
-    transform: translateX(4px);
-  }
-}
-
-@keyframes hero-settle {
-  from {
-    transform: scale(1.06);
-  }
-}
-
-@keyframes hero-glow {
-  from {
-    opacity: 0;
-    transform: translate3d(6%, 4%, 0) scale(0.85);
-  }
-}
-
-@keyframes hero-rise {
-  from {
-    transform: translateY(1.5rem);
-    clip-path: inset(0 0 100% 0);
-  }
-  to {
-    clip-path: inset(0);
-  }
-}
-
-@keyframes step-tick {
-  35%,
-  65% {
-    color: var(--gold);
-  }
+/* Programs whose name contains "&" set it in Caslon Text italic, in brand red, as a large accent. */
+.amp {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--cta);
+  font-size: 0.86em;
+  padding: 0 0.02em;
 }
 
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    animation: none !important;
     transition: none !important;
-  }
-
-  [data-reveal],
-  [data-stepper-line],
-  [data-step-marker],
-  [data-step-body],
-  .card-lift,
-  .media-zoom,
-  .arrow-nudge {
-    transform: none !important;
-    clip-path: none !important;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-}
-
-h1,
-h2,
-h3 {
-  font-family: var(--font-serif);
-  text-wrap: balance;
-  letter-spacing: -0.02em;
-}
-
-:focus-visible {
-  outline: 3px solid #0b1f3a;
-  outline-offset: 2px;
-}
-
-.bg-navy :focus-visible,
-.bg-navy-deep :focus-visible,
-.bg-navy-raised :focus-visible,
-.bg-cta :focus-visible {
-  outline-color: #f8d3d8;
-}
-
-/* Every text zone sits on navy at >= 0.90 alpha so gold text holds 4.5:1 over a white pixel. */
-.hero-scrim {
-  background-image: linear-gradient(
-    to bottom,
-    rgb(11 31 58 / 0.5) 0,
-    rgb(11 31 58 / 0.9) 11rem,
-    rgb(11 31 58 / 0.95) 100%
-  );
-}
-
-@media (min-width: 64rem) {
-  .hero-scrim {
-    background-image: linear-gradient(
-      to right,
-      rgb(11 31 58 / 0.95) 0%,
-      rgb(11 31 58 / 0.9) 62%,
-      rgb(11 31 58 / 0.35) 100%
-    );
   }
 }

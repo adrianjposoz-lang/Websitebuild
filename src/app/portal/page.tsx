@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/Hero";
-import { Panel } from "@/components/Panel";
-import { h3Class } from "@/components/SectionHeading";
-import { SiteLink } from "@/components/SiteLink";
+import { EditorialHero } from "@/components/EditorialHero";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
@@ -19,42 +16,27 @@ export const metadata: Metadata = {
 export default function PortalPage() {
   return (
     <main id="main">
-      <Hero
-        as="header"
-        texture="dots"
-        eyebrow="Coming soon"
+      <EditorialHero
+        crumbs={[{ label: "Home", href: "/" }, { label: "Borrower Portal" }]}
         title="Borrower Portal"
         lede="The borrower portal is coming soon. Until it opens, call or email the office about an existing loan."
+        quiet="Have a new deal? Send the property, the program, and what you need."
       />
-      <section className="bg-background py-16" aria-label="While the portal is coming soon">
-        <ul className="mx-auto grid w-full max-w-6xl gap-6 px-5 md:grid-cols-2 lg:px-8">
-          <Panel as="li" label="New deal">
-            <h2 className={`text-navy ${h3Class}`}>Have a new deal?</h2>
-            <p className="mt-2 leading-7 text-muted">
-              Send the property, the program, and what you need.
-            </p>
-            <div className="mt-6">
-              <SiteLink href="/contact">Submit a Scenario</SiteLink>
-            </div>
-          </Panel>
-          <Panel as="li" label="Portal" chip="Coming soon">
-            <h2 className={`text-navy ${h3Class}`}>Questions about an existing loan?</h2>
-            <p className="mt-2 leading-7 text-muted">Reach the Houston office directly.</p>
-            <ul className="mt-6 space-y-2 font-semibold text-navy">
-              <li>
-                <a href={site.phoneHref} className="underline underline-offset-4">
-                  {site.phoneDisplay}
-                </a>
-              </li>
-              <li>
-                <a href={`mailto:${site.email}`} className="underline underline-offset-4">
-                  {site.email}
-                </a>
-              </li>
-            </ul>
-          </Panel>
-        </ul>
-      </section>
+      <div className="border-t border-rule">
+        <div className="mx-auto w-full max-w-[76rem] px-[1.125rem] py-16 lg:px-8 lg:py-20">
+          <p className="max-w-[60ch] font-serif text-[1.1875rem] leading-[1.6] text-ink lg:text-[1.3125rem]">
+            Questions about an existing loan? Reach the Houston office directly at{" "}
+            <a href={site.phoneHref} className="whitespace-nowrap text-navy underline">
+              {site.phoneLocal}
+            </a>{" "}
+            or{" "}
+            <a href={`mailto:${site.email}`} className="break-words text-navy underline">
+              {site.email}
+            </a>
+            .
+          </p>
+        </div>
+      </div>
     </main>
   );
 }

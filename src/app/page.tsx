@@ -1,23 +1,13 @@
 import type { Metadata } from "next";
-import { ChevronRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import type { CSSProperties } from "react";
-import dealBuilds from "@/assets/images/deal-builds.jpg";
-import dealRenovation from "@/assets/images/deal-renovation.jpg";
-import dealStabilized from "@/assets/images/deal-stabilized.jpg";
-import dealTransitional from "@/assets/images/deal-transitional.jpg";
-import homeHero from "@/assets/images/home-hero.jpg";
-import { FundingSteps } from "@/components/FundingSteps";
-import { Hero } from "@/components/Hero";
-import { HeroPreview } from "@/components/HeroPreview";
-import { Panel } from "@/components/Panel";
-import { ProductGrid } from "@/components/ProductGrid";
-import { h2Class, h3Class, SectionHeading } from "@/components/SectionHeading";
+import { ClosingBand } from "@/components/ClosingBand";
+import { EditorialHero } from "@/components/EditorialHero";
+import { FaqList } from "@/components/FaqList";
+import { ProgramIndex } from "@/components/ProgramIndex";
 import { SiteLink } from "@/components/SiteLink";
-import { TrustBar } from "@/components/TrustBar";
+import { Timeline } from "@/components/Timeline";
 import { pageMetadata } from "@/lib/seo";
-import { deals, faqs, whyPoints } from "@/lib/site";
+import { faqs } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Private Lending for Real Estate Investors | RSC Private Lending",
@@ -26,202 +16,77 @@ export const metadata: Metadata = pageMetadata({
   path: "/",
 });
 
-const dealImages = {
-  "Stabilized rentals": { src: dealStabilized, alt: "Two-story single-family home with a two-car garage" },
-  "Transitional holds": { src: dealTransitional, alt: "Row of attached townhomes with garages" },
-  "Renovation for resale": { src: dealRenovation, alt: "Kitchen mid-renovation with cabinets under plastic" },
-  "New or in-progress builds": { src: dealBuilds, alt: "House under construction with open wood framing" },
-} as const;
-
 export default function HomePage() {
   return (
     <main id="main">
-      <Hero
-        variant="home"
-        image={homeHero}
-        imagePosition="object-[62%_50%]"
-        preload
-        eyebrow="Private & hard-money lending · Houston, TX"
-        title="Capital for real estate investors"
-        lede="Hard money and private lending for real estate investors."
-        actions={
+      <EditorialHero
+        kicker={
           <>
-            <SiteLink href="/contact" size="lg">
-              Submit a Scenario
-            </SiteLink>
-            <SiteLink href="/loan-products" variant="secondary-on-dark" size="lg">
-              View Loan Programs
-            </SiteLink>
+            Private &amp; hard-money lending&nbsp;·{" "}
+            <span className="whitespace-nowrap">Houston,&nbsp;TX</span>
           </>
         }
-        footnote={
-          <p>
+        title="Capital for real estate investors"
+        lede="Hard money and private lending for real estate investors."
+        quiet={
+          <>
             Returning borrower?{" "}
-            <Link href="/portal" className="font-semibold text-white underline underline-offset-4">
+            <Link href="/portal" className="font-semibold text-navy underline">
               Borrower Portal
             </Link>
-          </p>
+          </>
         }
-        preview={<HeroPreview />}
+        sketch="street"
       />
 
-      <TrustBar />
-
-      <section className="bg-background py-20 lg:py-28" aria-labelledby="programs">
-        <div className="mx-auto w-full max-w-6xl px-5 lg:px-8">
-          <SectionHeading
-            id="programs"
-            eyebrow="Loan programs"
-            title="Six programs for investor real estate"
-            lede="From stabilized rentals to ground-up construction. Pick a program to see how it works."
-          />
-          <div className="mt-12">
-            <ProductGrid />
-          </div>
-        </div>
-      </section>
-
-      <section className="relative isolate bg-paper py-20 lg:py-28" aria-labelledby="process">
-        <div aria-hidden="true" className="bg-grid-light absolute inset-0 -z-10" />
-        <div className="mx-auto w-full max-w-6xl px-5 lg:px-8">
-          <SectionHeading id="process" eyebrow="How funding works" title="From scenario to closing" />
-          <FundingSteps />
-        </div>
-      </section>
-
-      <section className="border-y border-line bg-sand py-20 lg:py-28" aria-labelledby="deals">
-        <div className="mx-auto w-full max-w-6xl px-5 lg:px-8">
-          <SectionHeading
-            id="deals"
-            eyebrow="Deal types"
-            title="The deals we finance"
-            lede="RSC lends on investor real estate. These are the transaction types the programs cover."
-          />
-          <ul className="mt-12 grid gap-6 md:grid-cols-2">
-            {deals.map((deal, index) => {
-              const image = dealImages[deal.title];
-              return (
-                <li
-                  key={deal.title}
-                  data-reveal="rise"
-                  style={{ "--reveal-delay": `${(index % 2) * 120}ms` } as CSSProperties}
-                >
-                  <div className="card-lift group h-full overflow-hidden rounded-lg border border-line bg-paper shadow-sm hover:border-navy/40 focus-within:border-navy/40">
-                    <div className="overflow-hidden">
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        placeholder="blur"
-                        sizes="(min-width: 1024px) 544px, (min-width: 768px) 50vw, 100vw"
-                        className="media-zoom aspect-[3/2] w-full object-cover"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className={`text-navy ${h3Class}`}>{deal.title}</h3>
-                      <p className="mt-2 text-base leading-7 text-muted">{deal.text}</p>
-                      <p className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
-                        {deal.links.map((link) => (
-                          <Link
-                            key={link.href}
-                            href={link.href}
-                            className="font-semibold text-cta underline underline-offset-4"
-                          >
-                            {link.label}
-                          </Link>
-                        ))}
-                      </p>
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </section>
-
-      <section
-        className="relative isolate bg-navy bg-linear-to-br from-navy-raised via-navy to-navy-deep py-20 text-white lg:py-28"
-        aria-labelledby="why"
-      >
-        <div aria-hidden="true" className="bg-grid-dark absolute inset-0 -z-10" />
-        <div className="mx-auto w-full max-w-6xl px-5 lg:px-8">
-          <SectionHeading id="why" eyebrow="Why RSC" title="A lender built for investors" tone="dark" />
-          <ul className="mt-12 grid gap-6 md:grid-cols-2">
-            {whyPoints.map((point, index) => (
-              <li
-                key={point.title}
-                data-reveal="rise"
-                style={{ "--reveal-delay": `${(index % 2) * 120}ms` } as CSSProperties}
-              >
-                <Panel
-                  skin="dark"
-                  label={point.label}
-                  chip={point.chip}
-                  className="h-full transition-colors duration-300 hover:border-gold/40"
-                >
-                  <h3 className={`text-white ${h3Class}`}>{point.title}</h3>
-                  <p className="mt-3 leading-7 text-slate-100">{point.text}</p>
-                </Panel>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section
-        className="relative isolate bg-paper pb-20 pt-20 lg:pb-28 lg:pt-28"
-        aria-labelledby="faq-teaser"
-      >
-        <div aria-hidden="true" className="bg-grid-light absolute inset-0 -z-10" />
-        <div className="mx-auto w-full max-w-6xl px-5 lg:px-8">
-          <SectionHeading id="faq-teaser" eyebrow="Questions" title="Common questions" />
-          <ul data-reveal="rise" className="mt-12 divide-y divide-line border-y border-line">
-            {faqs.slice(0, 3).map((faq) => (
-              <li key={faq.id} className="flex items-start justify-between gap-6 py-5">
-                <div>
-                  <h3 className="text-xl font-semibold text-navy">
-                    <Link href={`/faqs#${faq.id}`} className="underline underline-offset-4">
-                      {faq.question}
-                    </Link>
-                  </h3>
-                  <p className="mt-2 leading-7 text-muted">{faq.answer}</p>
-                </div>
-                <ChevronRight aria-hidden="true" className="mt-1 size-5 shrink-0 text-cta" />
-              </li>
-            ))}
-          </ul>
-          <div className="mt-8">
-            <SiteLink href="/faqs" variant="secondary">
-              Read FAQs
-            </SiteLink>
-          </div>
-
-          <section
-            data-reveal="rise"
-            className="relative isolate mt-20 overflow-hidden rounded-2xl border-t-4 border-cta bg-navy bg-linear-to-br from-navy-raised via-navy to-navy-deep px-8 py-12 text-white lg:mt-28 lg:px-14 lg:py-14"
-            aria-labelledby="final-cta"
-          >
-            <div aria-hidden="true" className="bg-grid-dark absolute inset-0 -z-10" />
-            <p className="label-mono text-gold">
-              Ready when you are
+      <div className="border-t border-rule">
+        <ProgramIndex
+          id="programs"
+          title="Six ways we lend"
+          intro={
+            <p>
+              From stabilized rentals to ground-up construction. Every loan is for business
+              purposes on investment real estate.
             </p>
-            <h2 id="final-cta" className={`mt-3 text-white ${h2Class}`}>
-              Submit a Scenario
+          }
+        />
+      </div>
+
+      <section aria-labelledby="process" className="border-t border-rule py-24">
+        <div className="mx-auto grid w-full max-w-[76rem] gap-12 px-[1.125rem] lg:grid-cols-12 lg:gap-x-14 lg:px-8">
+          <div className="lg:col-span-4">
+            <h2 id="process" className="text-[2.5rem] leading-[1.05] text-navy lg:text-[3.5rem]">
+              From scenario to closing
             </h2>
-            <p className="mt-4 max-w-xl text-lg leading-[1.875rem] text-slate-100">
-              Send the property, the program, and what you need through the scenario form.
+            <p className="mt-5 text-lg leading-[1.6] text-ink">
+              Four steps, starting with the scenario form.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <SiteLink href="/contact" size="lg">
-                Submit a Scenario
-              </SiteLink>
-              <SiteLink href="/loan-products" variant="secondary-on-dark" size="lg">
-                View Loan Programs
-              </SiteLink>
-            </div>
-          </section>
+          </div>
+          <div className="lg:col-span-8 lg:pt-4">
+            <Timeline />
+          </div>
         </div>
       </section>
+
+      <section aria-labelledby="faq-teaser" className="border-t border-rule py-20">
+        <div className="mx-auto grid w-full max-w-[76rem] gap-10 px-[1.125rem] lg:grid-cols-12 lg:gap-x-14 lg:px-8">
+          <div className="lg:col-span-4">
+            <h2 id="faq-teaser" className="text-[2.5rem] leading-[1.05] text-navy lg:text-[3.5rem]">
+              Common questions
+            </h2>
+          </div>
+          <div className="lg:col-span-8">
+            <FaqList items={faqs.slice(0, 3)} />
+            <p className="mt-8">
+              <SiteLink href="/faqs" variant="text">
+                All questions
+              </SiteLink>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <ClosingBand />
     </main>
   );
 }
