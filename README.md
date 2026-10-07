@@ -72,6 +72,26 @@ The form on `/contact` posts to a server action (`src/app/contact/actions.ts`). 
 - When it is unset, the form shows a "does not deliver scenarios yet" note with the phone and email, and a submit reports that nothing was sent.
 - The rate limit (5 delivery attempts per IP per 10 minutes) lives in memory. Each serverless instance keeps its own count and loses it on cold start, so treat it as a speed bump, not abuse protection.
 - To test, point `GHL_WEBHOOK_URL` at a local mock such as `http://localhost:4010/hook`, never at the real webhook.
+- Phone is required and must be a US number: 10 digits, or 11 starting with 1. Punctuation, spaces, and a leading `+` are ignored. Anything else gets a field error and nothing is sent.
+- `npm test` runs the name and phone helper tests with `node:test` (Node 22.6 or newer).
+
+The webhook receives one JSON object per scenario:
+
+| Field | Value |
+| --- | --- |
+| `name` | Full name as typed, with whitespace collapsed |
+| `firstName` | First word of `name` |
+| `lastName` | The rest of `name` after the first space, or `""` for a one-word name |
+| `email` | Email address |
+| `phone` | US E.164, such as `+18325550123` |
+| `propertyAddress` | Property address |
+| `program` | Program slug, such as `fix-and-flip` |
+| `programName` | Program display name |
+| `notes` | Scenario notes |
+| `source` | Page URL, `https://rscprivatelending.com/contact` |
+| `submittedAt` | ISO 8601 timestamp |
+
+`firstName` and `lastName` come from `splitName()` and `phone` from `toUsE164()`, both in `src/lib/contact-fields.ts`.
 
 ## Brand and images
 
