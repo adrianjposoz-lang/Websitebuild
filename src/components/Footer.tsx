@@ -109,7 +109,16 @@ export function Footer() {
             based on borrower profile, property type, transaction structure, and applicable
             state regulations.
           </p>
-          <p>Equal Housing Opportunity.</p>
+          <p className="flex items-center gap-3">
+            <Image
+              src="/brand/equal-housing-opportunity-white.png"
+              alt="Equal Housing Opportunity"
+              width={30}
+              height={32}
+              className="h-8 w-auto shrink-0"
+            />
+            <span>Equal Housing Opportunity.</span>
+          </p>
           <p>AAPL — American Association of Private Lenders.</p>
           <p>
             © <CopyrightYear /> {site.legalName} d/b/a {site.name}. All Rights Reserved.

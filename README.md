@@ -94,7 +94,7 @@ The webhook receives one JSON object per scenario:
 
 ## Brand and images
 
-- Full-color logo on paper: `public/brand/rsc-logo.png`. Reversed logo: `public/brand/rsc-logo-reversed.png` (navy surfaces only: the footer and the share image). Favicon and app icons: `src/app/favicon.ico`, `src/app/icon.png`, `src/app/apple-icon.png`.
+- Full-color logo on paper: `public/brand/rsc-logo.png`. Reversed logo: `public/brand/rsc-logo-reversed.png` (navy surfaces only: the footer and the share image). Equal Housing Opportunity mark in the footer: `public/brand/equal-housing-opportunity-white.png`, HUD's official artwork from [hud.gov/contactus/hudgraphics](https://www.hud.gov/contactus/hudgraphics) (`https://www.hud.gov/sites/dfiles/FHEO/images/fheo400.eps`, rendered at its native 1130×1209 and recolored white on transparent, shapes unchanged). Favicon and app icons: `src/app/favicon.ico`, `src/app/icon.png`, `src/app/apple-icon.png`.
 - Type: Libre Caslon Display (H1, H2), Libre Caslon Text (H3, list terms, captions, the program ampersand), and Libre Franklin (body and UI), all through `next/font/google`.
 - Colors live in `src/app/globals.css`: paper `#f6f1e7`, navy `#0b1f3a` for headings, links, and line art, and red `#cd2727` for button fills and large accents only. Paper grain (4% multiply) sits on light surfaces; the navy closing band and footer sit above it.
 - No stock photography. Until real RSC project photos arrive, photo slots carry the hand-drawn property sketches in `src/components/PropertySketch.tsx` (inline SVG, one per program).
