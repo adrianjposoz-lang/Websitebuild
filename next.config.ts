@@ -29,6 +29,11 @@ const nextConfig: NextConfig = {
       { source: "/faq", destination: "/faqs", statusCode: 301 },
       { source: "/privacy-notice", destination: "/privacy", statusCode: 301 },
       { source: "/terms-of-service", destination: "/terms", statusCode: 301 },
+      {
+        source: "/portal",
+        destination: "https://homebase.rscprivatelending.com/portal/auth/login",
+        statusCode: 301,
+      },
     ];
   },
   async headers() {

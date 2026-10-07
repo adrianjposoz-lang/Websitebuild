@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Suspense } from "react";
 import { EditorialHero } from "@/components/EditorialHero";
 import { ScenarioDeliveryNotice } from "@/components/ScenarioDeliveryNotice";
@@ -87,11 +86,11 @@ export default function ContactPage() {
               </div>
             </dl>
             <p className="mt-6 leading-[1.6] text-ink">
-              Returning borrower? The{" "}
-              <Link href="/portal" className="font-semibold text-navy underline">
+              Returning borrower? Sign in to the{" "}
+              <a href={site.portalUrl} className="font-semibold text-navy underline">
                 Borrower Portal
-              </Link>{" "}
-              is coming soon.
+              </a>
+              .
             </p>
           </section>
         </div>

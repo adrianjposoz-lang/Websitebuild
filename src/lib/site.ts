@@ -15,6 +15,8 @@ export const site = {
     region: "TX",
     postalCode: "77070",
   },
+  /** External sign-in. Link with a plain `<a>`, never next/link. */
+  portalUrl: "https://homebase.rscprivatelending.com/portal/auth/login",
 } as const;
 
 export const nav = [
@@ -217,7 +219,7 @@ export const faqs = [
     id: "how-to-apply",
     question: "How do I start a loan file?",
     answer:
-      "Use Submit a Scenario on the contact page. The Borrower Portal for existing loans is coming soon.",
+      "Use Submit a Scenario on the contact page. For an existing loan, sign in to the Borrower Portal.",
   },
   {
     id: "office",

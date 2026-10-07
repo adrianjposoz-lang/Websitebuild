@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ClosingBand } from "@/components/ClosingBand";
 import { EditorialHero } from "@/components/EditorialHero";
 import { FaqList } from "@/components/FaqList";
@@ -7,7 +6,7 @@ import { ProgramIndex } from "@/components/ProgramIndex";
 import { SiteLink } from "@/components/SiteLink";
 import { Timeline } from "@/components/Timeline";
 import { pageMetadata } from "@/lib/seo";
-import { faqs } from "@/lib/site";
+import { faqs, site } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Private Lending for Real Estate Investors | RSC Private Lending",
@@ -31,9 +30,9 @@ export default function HomePage() {
         quiet={
           <>
             Returning borrower?{" "}
-            <Link href="/portal" className="font-semibold text-navy underline">
+            <a href={site.portalUrl} className="font-semibold text-navy underline">
               Borrower Portal
-            </Link>
+            </a>
           </>
         }
         sketch="street"

@@ -38,16 +38,15 @@ npm run lint
 | `/loan-products/commercial-dscr` | Commercial DSCR |
 | `/faqs` | FAQs |
 | `/contact` | Contact |
-| `/portal` | Borrower Portal (coming soon, `noindex`, not in the sitemap) |
-| `/privacy` | Privacy stub |
-| `/terms` | Terms stub |
-| `/sitemap.xml` | XML sitemap of the routes above, except `/portal` |
+| `/privacy` | Privacy Policy, verbatim from the live site (`src/lib/legal.ts`) |
+| `/terms` | Terms of Service, verbatim from the live site (`src/lib/legal.ts`) |
+| `/sitemap.xml` | XML sitemap of the routes above |
 | `/robots.txt` | Crawl rules plus the `Sitemap:` line |
 | `/opengraph-image` | Default 1200×630 share image (Open Graph and Twitter) |
 
 Unknown URLs render `not-found` and are served with an HTTP 404.
 
-Header navigation is Home, Our Story, Loan Products, FAQs, and Contact. The primary button is **Submit a Scenario** and links to `/contact`. **Borrower Portal** links to `/portal`: a plain text link in the desktop header and the mobile menu, and the quiet link under the home hero. Below the `lg` breakpoint the header is one row (logo, Menu) and drops its Submit a Scenario button, because every page hero leads with a full-width one; the mobile menu also carries it.
+Header navigation is Home, Our Story, Loan Products, FAQs, and Contact. The primary button is **Submit a Scenario** and links to `/contact`. **Borrower Portal** links to `https://homebase.rscprivatelending.com/portal/auth/login` (`site.portalUrl`) with a plain `<a>`, in the same tab: a text link in the desktop header and the mobile menu, the footer, the contact page, and the quiet link under the home hero. `/portal` 301-redirects there. Below the `lg` breakpoint the header is one row (logo, Menu) and drops its Submit a Scenario button, because every page hero leads with a full-width one; the mobile menu also carries it.
 
 ## Search and environments
 

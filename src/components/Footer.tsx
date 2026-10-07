@@ -83,10 +83,10 @@ export function Footer() {
               <p className="mt-1 text-slate-100">Tell us about the property and the program.</p>
             </li>
             <li>
-              <Link href="/portal" className="font-semibold underline">
+              <a href={site.portalUrl} className="font-semibold underline">
                 Borrower Portal
-              </Link>
-              <p className="mt-1 text-slate-100">Coming soon for existing loans.</p>
+              </a>
+              <p className="mt-1 text-slate-100">Sign in to manage an existing loan.</p>
             </li>
           </ul>
         </div>
