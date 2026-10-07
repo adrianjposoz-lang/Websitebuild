@@ -16,6 +16,14 @@ type PageSeo = {
   path: string;
 };
 
+/** A page-level `openGraph` replaces the root one, so the default image is listed explicitly. */
+export const shareImage = {
+  url: "/opengraph-image",
+  width: 1200,
+  height: 630,
+  alt: `${site.name}: private lending for real estate investors`,
+};
+
 export function pageMetadata({ title, description, path }: PageSeo): Metadata {
   return {
     title: { absolute: title },
@@ -28,11 +36,13 @@ export function pageMetadata({ title, description, path }: PageSeo): Metadata {
       url: path,
       title,
       description,
+      images: [shareImage],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [shareImage],
     },
   };
 }

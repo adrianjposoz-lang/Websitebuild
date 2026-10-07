@@ -43,7 +43,7 @@ npm run lint
 | `/terms` | Terms stub |
 | `/sitemap.xml` | XML sitemap of the routes above, except `/portal` |
 | `/robots.txt` | Crawl rules plus the `Sitemap:` line |
-| `/opengraph-image`, `/twitter-image` | Default 1200×630 share image |
+| `/opengraph-image` | Default 1200×630 share image (Open Graph and Twitter) |
 
 Unknown URLs render `not-found` and are served with an HTTP 404.
 

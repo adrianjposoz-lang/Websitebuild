@@ -1,10 +1,10 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
-import { site } from "@/lib/site";
+import { shareImage } from "@/lib/seo";
 
-export const alt = `${site.name}: private lending for real estate investors`;
-export const size = { width: 1200, height: 630 };
+export const alt = shareImage.alt;
+export const size = { width: shareImage.width, height: shareImage.height };
 export const contentType = "image/png";
 
 const logoData = await readFile(join(process.cwd(), "public/brand/rsc-logo-reversed.png"), "base64");
@@ -26,11 +26,8 @@ export default function Image() {
         }}
       >
         <img src={logoSrc} width={300} height={298} alt="" />
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 28, letterSpacing: 4, textTransform: "uppercase", color: "#c9a55c" }}>
-            {site.name}
-          </div>
-          <div style={{ marginTop: 24, fontSize: 64, fontWeight: 700, lineHeight: 1.1 }}>
+        <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+          <div style={{ fontSize: 68, lineHeight: 1.15 }}>
             Private lending for real estate investors
           </div>
           <div style={{ marginTop: 32, width: 120, height: 6, background: "#cd2727" }} />
