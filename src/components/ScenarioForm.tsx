@@ -12,7 +12,7 @@ import {
 import { products } from "@/lib/site";
 
 const fieldClass =
-  "mt-2 w-full rounded-md border border-field-border bg-white px-3 py-2.5 text-base font-normal text-foreground aria-invalid:border-red-700 aria-invalid:ring-1 aria-invalid:ring-red-700";
+  "mt-2 w-full scroll-mt-32 rounded-md border border-field-border bg-white px-3 py-2.5 text-base font-normal text-foreground aria-invalid:border-red-700 aria-invalid:ring-1 aria-invalid:ring-red-700";
 
 const labelClass = "block text-sm font-semibold text-navy";
 
@@ -65,7 +65,7 @@ export function ScenarioForm({ notice }: { notice?: ReactNode }) {
       </p>
       <div aria-live="polite" aria-atomic="true">
         {status === "success" ? (
-          <div ref={summaryRef} tabIndex={-1} className="outline-none">
+          <div ref={summaryRef} tabIndex={-1} className="scroll-mt-28 outline-none">
             <span className="inline-flex size-10 items-center justify-center rounded-lg bg-cta-tint text-cta">
               <CircleCheck aria-hidden="true" className="size-5" strokeWidth={1.75} />
             </span>
@@ -76,7 +76,7 @@ export function ScenarioForm({ notice }: { notice?: ReactNode }) {
           <div
             ref={summaryRef}
             tabIndex={-1}
-            className="mb-6 flex gap-3 rounded-md border border-red-700/40 bg-red-50 p-4 text-[0.9375rem] leading-6 text-red-800 outline-none focus-visible:ring-2 focus-visible:ring-red-700"
+            className="mb-6 flex scroll-mt-28 gap-3 rounded-md border border-red-700/40 bg-red-50 p-4 text-[0.9375rem] leading-6 text-red-800 outline-none focus-visible:ring-2 focus-visible:ring-red-700"
           >
             <CircleAlert aria-hidden="true" className="mt-0.5 size-5 shrink-0" strokeWidth={1.75} />
             <p>{message}</p>
