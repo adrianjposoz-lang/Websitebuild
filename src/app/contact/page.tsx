@@ -46,46 +46,46 @@ export default function ContactPage() {
               Reach the office
             </h2>
             <dl className="mt-6 space-y-6 text-base leading-7">
-              <div className="flex gap-4">
-                <span className={tileClass}>
-                  <Phone aria-hidden="true" className="size-5" strokeWidth={1.75} />
-                </span>
-                <div>
-                  <dt className="font-semibold text-navy">Phone</dt>
-                  <dd>
-                    <a href={site.phoneHref} className="underline underline-offset-4">
-                      {site.phoneDisplay}
-                    </a>
-                  </dd>
-                </div>
+              <div className="relative min-h-10 pl-14">
+                <dt className="font-semibold text-navy">
+                  <span className={`absolute left-0 top-0 ${tileClass}`}>
+                    <Phone aria-hidden="true" className="size-5" strokeWidth={1.75} />
+                  </span>
+                  Phone
+                </dt>
+                <dd>
+                  <a href={site.phoneHref} className="underline underline-offset-4">
+                    {site.phoneDisplay}
+                  </a>
+                </dd>
               </div>
-              <div className="flex gap-4">
-                <span className={tileClass}>
-                  <Mail aria-hidden="true" className="size-5" strokeWidth={1.75} />
-                </span>
-                <div className="min-w-0">
-                  <dt className="font-semibold text-navy">Email</dt>
-                  <dd className="break-words">
-                    <a href={`mailto:${site.email}`} className="underline underline-offset-4">
-                      {site.email}
-                    </a>
-                  </dd>
-                </div>
+              <div className="relative min-h-10 pl-14">
+                <dt className="font-semibold text-navy">
+                  <span className={`absolute left-0 top-0 ${tileClass}`}>
+                    <Mail aria-hidden="true" className="size-5" strokeWidth={1.75} />
+                  </span>
+                  Email
+                </dt>
+                <dd className="break-words">
+                  <a href={`mailto:${site.email}`} className="underline underline-offset-4">
+                    {site.email}
+                  </a>
+                </dd>
               </div>
-              <div className="flex gap-4">
-                <span className={tileClass}>
-                  <MapPin aria-hidden="true" className="size-5" strokeWidth={1.75} />
-                </span>
-                <div>
-                  <dt className="font-semibold text-navy">Office</dt>
-                  <dd>
-                    {site.addressLines.map((line) => (
-                      <span key={line} className="block">
-                        {line}
-                      </span>
-                    ))}
-                  </dd>
-                </div>
+              <div className="relative min-h-10 pl-14">
+                <dt className="font-semibold text-navy">
+                  <span className={`absolute left-0 top-0 ${tileClass}`}>
+                    <MapPin aria-hidden="true" className="size-5" strokeWidth={1.75} />
+                  </span>
+                  Office
+                </dt>
+                <dd>
+                  {site.addressLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </dd>
               </div>
             </dl>
             <p className="mt-8 border-t border-line pt-6 leading-7 text-muted">
