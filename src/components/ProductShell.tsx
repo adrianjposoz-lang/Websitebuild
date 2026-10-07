@@ -3,7 +3,7 @@ import { withAmp } from "@/components/Amp";
 import { ClosingBand } from "@/components/ClosingBand";
 import { EditorialHero } from "@/components/EditorialHero";
 import { LoanCalculator } from "@/components/LoanCalculator";
-import type { SketchSlug } from "@/components/PropertySketch";
+import { programPhotos } from "@/lib/photos";
 import { products, site, type Product } from "@/lib/site";
 
 export function ProductShell({ product }: { product: Product }) {
@@ -24,11 +24,11 @@ export function ProductShell({ product }: { product: Product }) {
           </>
         }
         facts={product.facts}
-        sketch={product.slug as SketchSlug}
+        photo={programPhotos[product.slug]}
       />
 
       <section aria-labelledby="calculator" className="border-t border-rule py-20 lg:py-24">
-        <div className="mx-auto grid w-full max-w-[76rem] gap-10 px-[1.125rem] lg:grid-cols-12 lg:gap-x-14 lg:px-8">
+        <div data-reveal className="mx-auto grid w-full max-w-[76rem] gap-10 px-[1.125rem] lg:grid-cols-12 lg:gap-x-14 lg:px-8">
           <div className="lg:col-span-4">
             <h2 id="calculator" className="text-[2.5rem] leading-[1.05] text-navy lg:text-[3.5rem]">
               Example calculator
@@ -47,7 +47,7 @@ export function ProductShell({ product }: { product: Product }) {
       </section>
 
       <section aria-labelledby="other-programs" className="border-t border-rule py-12">
-        <div className="mx-auto flex w-full max-w-[76rem] flex-col gap-3 px-[1.125rem] lg:flex-row lg:items-baseline lg:gap-6 lg:px-8">
+        <div data-reveal className="mx-auto flex w-full max-w-[76rem] flex-col gap-3 px-[1.125rem] lg:flex-row lg:items-baseline lg:gap-6 lg:px-8">
           <h2 id="other-programs" className="font-serif text-[1.375rem] italic text-warm">
             Other programs
           </h2>

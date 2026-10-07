@@ -1,11 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { PropertySketch, sketchLabels, streetLabels, StreetSketch, type SketchSlug } from "@/components/PropertySketch";
 import { SiteLink } from "@/components/SiteLink";
+import type { Photo } from "@/lib/photos";
 
 export type Crumb = { label: string; href?: string };
-
-const streetSlugs: SketchSlug[] = ["dscr", "fix-and-flip", "mid-construction"];
 
 function Breadcrumbs({ crumbs }: { crumbs: Crumb[] }) {
   return (
@@ -28,28 +27,7 @@ function Breadcrumbs({ crumbs }: { crumbs: Crumb[] }) {
   );
 }
 
-function SketchLabels({ labels }: { labels: string[] }) {
-  return (
-    <p
-      className={`mt-2 font-serif text-[0.8125rem] italic text-warm ${
-        labels.length === 3
-          ? "grid grid-cols-3 text-center"
-          : labels.length === 2
-            ? "flex justify-between"
-            : "flex justify-center"
-      }`}
-    >
-      {labels.map((label) => (
-        <span key={label}>{label}</span>
-      ))}
-    </p>
-  );
-}
-
-/**
- * Paper hero on a 5/7 grid. Until Adrian supplies a real project photo, the media column carries
- * the property drawing on its own, larger. Never stock.
- */
+/** Hero on a 5/7 grid. The photo column bleeds to the right edge from `lg` up. */
 export function EditorialHero({
   crumbs,
   kicker,
@@ -58,7 +36,7 @@ export function EditorialHero({
   action = { href: "/contact", label: "Submit a Scenario" },
   quiet,
   facts,
-  sketch,
+  photo,
 }: {
   crumbs?: Crumb[];
   kicker?: ReactNode;
@@ -67,9 +45,9 @@ export function EditorialHero({
   action?: { href: string; label: string } | null;
   quiet?: ReactNode;
   facts?: { term: string; detail: string }[];
-  sketch?: SketchSlug | "street";
+  photo?: Photo;
 }) {
-  const media = sketch !== undefined;
+  const media = photo !== undefined;
 
   return (
     <section
@@ -123,33 +101,18 @@ export function EditorialHero({
         ) : null}
       </div>
 
-      {media ? (
-        <div
-          aria-hidden="true"
-          className="order-5 -mx-[1.125rem] mt-9 lg:order-none lg:mx-0 lg:mr-[calc((100vw-min(100vw,76rem))/-2-2rem)] lg:mt-0"
-        >
-          <div className="flex aspect-[4/3] items-center justify-center bg-paper-2 px-6 lg:aspect-auto lg:h-[37.5rem] lg:px-12">
-            {sketch === "street" ? (
-              <>
-                <div className="w-full lg:hidden">
-                  <StreetSketch />
-                  <SketchLabels labels={streetLabels} />
-                </div>
-                <ul className="hidden w-full max-w-[30rem] flex-col gap-3 lg:flex">
-                  {streetSlugs.map((slug, index) => (
-                    <li key={slug} className={`w-[17.5rem] ${index === 1 ? "self-end" : ""}`}>
-                      <PropertySketch slug={slug} />
-                      <SketchLabels labels={[streetLabels[index]]} />
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : (
-              <div className="w-full max-w-[18.75rem] lg:max-w-[33rem]">
-                <PropertySketch slug={sketch} />
-                <SketchLabels labels={sketchLabels[sketch]} />
-              </div>
-            )}
+      {photo ? (
+        <div className="order-5 -mx-[1.125rem] mt-9 lg:order-none lg:mx-0 lg:mr-[calc((100vw-min(100vw,76rem))/-2-2rem)] lg:mt-0">
+          <div className="relative z-[1] aspect-[4/3] overflow-hidden bg-slot lg:aspect-auto lg:h-[37.5rem]">
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              fill
+              preload
+              sizes="(min-width: 1024px) 62vw, 100vw"
+              placeholder="blur"
+              className="hero-settle object-cover"
+            />
           </div>
         </div>
       ) : null}

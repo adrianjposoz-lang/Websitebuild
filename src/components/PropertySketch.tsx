@@ -113,15 +113,6 @@ const drawings: Record<SketchSlug, ReactNode> = {
   ),
 };
 
-export const sketchLabels: Record<SketchSlug, string[]> = {
-  dscr: ["a rented bungalow"],
-  bridge: ["the purchase", "the refinance or sale"],
-  "fix-and-flip": ["as bought", "after the rehab"],
-  "ground-up": ["slab, stakes, and string line"],
-  "mid-construction": ["framed and underway"],
-  "commercial-dscr": ["a two-story storefront"],
-};
-
 function Svg({ viewBox, className, children }: { viewBox: string; className?: string; children: ReactNode }) {
   return (
     <svg
@@ -148,17 +139,3 @@ export function PropertySketch({ slug, className }: { slug: SketchSlug; classNam
     </Svg>
   );
 }
-
-/** Home: a rental, a rehab, and a build on one street. */
-export function StreetSketch({ className }: { className?: string }) {
-  return (
-    <Svg viewBox="0 0 840 150" className={className}>
-      <path d="M8 138 C150 137 290 138.8 430 137.6 S 700 138.6 832 137.8" />
-      {drawings.dscr}
-      <g transform="translate(280 0)">{drawings["fix-and-flip"]}</g>
-      <g transform="translate(560 0)">{drawings["mid-construction"]}</g>
-    </Svg>
-  );
-}
-
-export const streetLabels = ["a rental", "a rehab", "a build"];

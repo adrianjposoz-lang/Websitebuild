@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { ClosingBand } from "@/components/ClosingBand";
-import { EditorialHero } from "@/components/EditorialHero";
 import { FaqList } from "@/components/FaqList";
+import { GlanceRow, PhotoHero } from "@/components/PhotoHero";
 import { ProgramIndex } from "@/components/ProgramIndex";
 import { SiteLink } from "@/components/SiteLink";
 import { Timeline } from "@/components/Timeline";
+import { homeHeroPhoto } from "@/lib/photos";
 import { pageMetadata } from "@/lib/seo";
 import { faqs, site } from "@/lib/site";
 
@@ -18,7 +19,7 @@ export const metadata: Metadata = pageMetadata({
 export default function HomePage() {
   return (
     <main id="main">
-      <EditorialHero
+      <PhotoHero
         kicker={
           <>
             Private &amp; hard-money lending&nbsp;·{" "}
@@ -30,15 +31,16 @@ export default function HomePage() {
         quiet={
           <>
             Returning borrower?{" "}
-            <a href={site.portalUrl} className="font-semibold text-navy underline">
+            <a href={site.portalUrl} className="font-semibold text-white underline">
               Borrower Portal
             </a>
           </>
         }
-        sketch="street"
+        photo={homeHeroPhoto}
       />
+      <GlanceRow />
 
-      <div className="border-t border-rule">
+      <div>
         <ProgramIndex
           id="programs"
           title="Six ways we lend"
@@ -52,7 +54,7 @@ export default function HomePage() {
       </div>
 
       <section aria-labelledby="process" className="border-t border-rule py-24">
-        <div className="mx-auto grid w-full max-w-[76rem] gap-12 px-[1.125rem] lg:grid-cols-12 lg:gap-x-14 lg:px-8">
+        <div data-reveal className="mx-auto grid w-full max-w-[76rem] gap-12 px-[1.125rem] lg:grid-cols-12 lg:gap-x-14 lg:px-8">
           <div className="lg:col-span-4">
             <h2 id="process" className="text-[2.5rem] leading-[1.05] text-navy lg:text-[3.5rem]">
               From scenario to closing
@@ -68,7 +70,7 @@ export default function HomePage() {
       </section>
 
       <section aria-labelledby="faq-teaser" className="border-t border-rule py-20">
-        <div className="mx-auto grid w-full max-w-[76rem] gap-10 px-[1.125rem] lg:grid-cols-12 lg:gap-x-14 lg:px-8">
+        <div data-reveal className="mx-auto grid w-full max-w-[76rem] gap-10 px-[1.125rem] lg:grid-cols-12 lg:gap-x-14 lg:px-8">
           <div className="lg:col-span-4">
             <h2 id="faq-teaser" className="text-[2.5rem] leading-[1.05] text-navy lg:text-[3.5rem]">
               Common questions
