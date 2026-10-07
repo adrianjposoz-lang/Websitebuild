@@ -122,6 +122,7 @@ export function ScenarioForm({ notice }: { notice?: ReactNode }) {
                   name="phone"
                   type="tel"
                   autoComplete="tel"
+                  required
                   maxLength={scenarioLimits.phone}
                   defaultValue={values.phone}
                   className={fieldClass}

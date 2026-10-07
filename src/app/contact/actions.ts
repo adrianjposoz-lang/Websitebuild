@@ -1,6 +1,7 @@
 "use server";
 
 import { headers } from "next/headers";
+import { splitName } from "@/lib/contact-fields";
 import { getGhlWebhookUrl, sendToGhl } from "@/lib/ghl";
 import { rateLimit } from "@/lib/rate-limit";
 import {
@@ -36,7 +37,7 @@ export async function submitScenario(
     };
   }
 
-  const { values, fieldErrors } = readScenario(formData);
+  const { values, fieldErrors, phoneE164 } = readScenario(formData);
   const invalidCount = Object.keys(fieldErrors).length;
   if (invalidCount > 0) {
     return {
@@ -71,6 +72,8 @@ export async function submitScenario(
 
   const delivered = await sendToGhl(url, {
     ...values,
+    ...splitName(values.name),
+    phone: phoneE164,
     programName: getProduct(values.program).name,
     source: `${site.url}/contact`,
     submittedAt: new Date().toISOString(),

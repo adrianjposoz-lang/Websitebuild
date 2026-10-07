@@ -1,3 +1,4 @@
+import { toUsE164 } from "@/lib/contact-fields";
 import { products } from "@/lib/site";
 
 export const scenarioLimits = {
@@ -65,11 +66,12 @@ function clean(raw: FormDataEntryValue | null, multiline = false) {
 }
 
 const emailPattern = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/;
-const phonePattern = /^\+?[0-9 ().-]+$/;
 
+/** `values` keeps what the person typed so it can be re-rendered; `phoneE164` is "" unless the phone is valid. */
 export function readScenario(formData: FormData): {
   values: ScenarioValues;
   fieldErrors: ScenarioState["fieldErrors"];
+  phoneE164: string;
 } {
   const values: ScenarioValues = {
     name: clean(formData.get("name")),
@@ -89,16 +91,10 @@ export function readScenario(formData: FormData): {
   else if (values.email.length > scenarioLimits.email || !emailPattern.test(values.email))
     fieldErrors.email = "Enter an email address like name@example.com.";
 
-  if (values.phone) {
-    const digits = values.phone.replace(/\D/g, "").length;
-    if (
-      values.phone.length > scenarioLimits.phone ||
-      !phonePattern.test(values.phone) ||
-      digits < 7 ||
-      digits > 15
-    )
-      fieldErrors.phone = "Enter a phone number with 7 to 15 digits, or leave it blank.";
-  }
+  const phoneE164 = values.phone.length <= scenarioLimits.phone ? toUsE164(values.phone) : null;
+  if (!values.phone) fieldErrors.phone = "Enter your phone number.";
+  else if (!phoneE164)
+    fieldErrors.phone = "Enter a 10-digit US phone number, like 555-555-0123.";
 
   if (!values.propertyAddress) fieldErrors.propertyAddress = "Enter the property address.";
   else if (values.propertyAddress.length > scenarioLimits.propertyAddress)
@@ -113,5 +109,5 @@ export function readScenario(formData: FormData): {
   else if (values.notes.length > scenarioLimits.notes)
     fieldErrors.notes = `Use ${scenarioLimits.notes} characters or fewer.`;
 
-  return { values, fieldErrors };
+  return { values, fieldErrors, phoneE164: phoneE164 ?? "" };
 }
