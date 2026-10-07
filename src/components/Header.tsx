@@ -112,7 +112,7 @@ export function Header() {
             <Link
               href="/portal"
               aria-current={pathname === "/portal" ? "page" : undefined}
-              className="font-medium text-navy underline"
+              className="self-start py-2 font-medium text-navy underline"
             >
               Borrower Portal
             </Link>
