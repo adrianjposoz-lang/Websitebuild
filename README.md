@@ -52,3 +52,5 @@ Header navigation is Home, Our Story, Loan Products, FAQs, and Contact. The prim
 - Reversed logo: `public/brand/rsc-logo-reversed.png` (navy surfaces only). Favicon and app icons: `src/app/favicon.ico`, `src/app/icon.png`, `src/app/apple-icon.png`.
 - Photos are free Unsplash placeholders until real deal photos replace them. Source URLs and licenses are in `src/assets/images/CREDITS.md`.
 - Icons are from `lucide-react` (ISC).
+- Mono accents (eyebrows, panel labels, step numbers, chips) use IBM Plex Mono (OFL) through `next/font`. Shared card chrome lives in `src/components/Panel.tsx`.
+- All animation and transitions turn off under `prefers-reduced-motion: reduce` (one rule at the end of `src/app/globals.css`).
