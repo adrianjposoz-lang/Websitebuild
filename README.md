@@ -97,8 +97,13 @@ The webhook receives one JSON object per scenario:
 - Full-color logo on paper: `public/brand/rsc-logo.png`. Reversed logo: `public/brand/rsc-logo-reversed.png` (navy surfaces only: the footer and the share image). Favicon and app icons: `src/app/favicon.ico`, `src/app/icon.png`, `src/app/apple-icon.png`.
 - Type: Libre Caslon Display (H1, H2), Libre Caslon Text (H3, list terms, captions, the program ampersand), and Libre Franklin (body and UI), all through `next/font/google`.
 - Colors live in `src/app/globals.css`: paper `#f6f1e7`, navy `#0b1f3a` for headings, links, and line art, and red `#cd2727` for button fills and large accents only. Paper grain (4% multiply) sits on light surfaces; the navy closing band and footer sit above it.
-- No stock photography. Until real RSC project photos arrive, photo slots carry the hand-drawn property sketches in `src/components/PropertySketch.tsx` (inline SVG, one per program).
+- Photos: licensed Unsplash stock in `src/assets/images/`, credited in `src/assets/images/CREDITS.md`, with alt text in `src/lib/photos.ts`. The home hero (`PhotoHero`) is full-bleed from `lg` with a left navy scrim, and stacks the photo above solid navy below `lg`. Program pages and Our Story put the photo in the `EditorialHero` media column. Each page preloads its one hero photo. Photo sections sit above the paper grain. They are stock, not RSC projects, so they carry no captions.
+- The hand-drawn property sketches in `src/components/PropertySketch.tsx` remain only as small accents in the program index rows.
+- Home "at a glance" row (`GlanceRow`): term sheet in 24 hours, close in 10 days, and 40 states (every state except VT, MN, UT, NV, ND, SD, WV, ME, OR and ID). Add only confirmed figures.
 
 ## Motion
 
-Hover color changes only (`transition-colors duration-150`), turned off under `prefers-reduced-motion: reduce`. There is no scroll-triggered or auto-playing animation.
+- Hover color changes (`transition-colors duration-150`).
+- Scroll reveal: blocks marked `data-reveal` fade in and rise 12px over 420ms (ease-out), once, when they enter the viewport. `RevealObserver` (in the root layout) hides only blocks that start below the viewport, and only when IntersectionObserver exists and motion is allowed, so content is visible without JS. Opacity and transform only, so there is no layout shift.
+- Hero photos settle from `scale(1.04)` to `1` over 1.4s on load (`.hero-settle`), transform only.
+- `prefers-reduced-motion: reduce` turns off all transitions, animations, and reveals.
