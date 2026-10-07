@@ -64,6 +64,15 @@ Unset means not production, so a preview can't be indexed by accident. The produ
 - JSON-LD: Organization and FinancialService on every page (`src/app/layout.tsx`), and FAQPage on `/faqs`, built from the same `faqs` array the page renders.
 - Redirects live in `next.config.ts` and return HTTP 301: `www.rscprivatelending.com` to the apex, `/resources` and `/faq` to `/faqs`, `/privacy-notice` to `/privacy`, and `/terms-of-service` to `/terms`. The www rule only works if requests for the www host reach this app. HTTP-to-HTTPS belongs at the host or DNS layer.
 
+## Scenario form delivery
+
+The form on `/contact` posts to a server action (`src/app/contact/actions.ts`). The action validates and sanitizes the fields, drops submissions that fill the hidden honeypot field, rate-limits by IP, and POSTs JSON to the GoHighLevel inbound webhook in `GHL_WEBHOOK_URL`. GoHighLevel emails the team; the site never sends email.
+
+- Set `GHL_WEBHOOK_URL` in `.env.local` locally (see `.env.example`) or in the host's environment settings. It is read only on the server, at request time, so changing it needs a restart, not a rebuild.
+- When it is unset, the form shows a "does not deliver scenarios yet" note with the phone and email, and a submit reports that nothing was sent.
+- The rate limit (5 delivery attempts per IP per 10 minutes) lives in memory. Each serverless instance keeps its own count and loses it on cold start, so treat it as a speed bump, not abuse protection.
+- To test, point `GHL_WEBHOOK_URL` at a local mock such as `http://localhost:4010/hook`, never at the real webhook.
+
 ## Brand and images
 
 - Reversed logo: `public/brand/rsc-logo-reversed.png` (navy surfaces only). Favicon and app icons: `src/app/favicon.ico`, `src/app/icon.png`, `src/app/apple-icon.png`.
