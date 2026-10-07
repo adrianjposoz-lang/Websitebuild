@@ -8,16 +8,16 @@ export default function HomePage() {
     <main id="main">
       <section className="bg-navy text-white">
         <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:py-24">
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-100">
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-100">
             {site.legalName}
           </p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight sm:text-6xl">
+          <h1 className="mt-5 max-w-3xl text-4xl font-semibold leading-[1.08] sm:text-6xl">
             Capital for real estate investors
           </h1>
-          <p className="mt-6 max-w-2xl text-xl leading-8 text-white">
+          <p className="mt-6 max-w-xl border-l-4 border-cta pl-4 text-lg font-semibold leading-7 text-white sm:text-xl">
             Hard money and private lending for real estate investors.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <SiteLink href="/contact">Submit a Scenario</SiteLink>
             <SiteLink href="/loan-products" variant="secondary-on-dark">
               View Loan Programs
@@ -26,31 +26,31 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-5 py-16" aria-labelledby="programs">
+      <section className="mx-auto w-full max-w-6xl px-5 py-16 sm:py-20" aria-labelledby="programs">
         <h2 id="programs" className="text-3xl font-semibold text-navy sm:text-4xl">
           Loan programs
         </h2>
-        <p className="mt-4 max-w-3xl text-lg leading-8 text-muted">
+        <p className="mt-4 max-w-2xl text-lg leading-8 text-muted">
           Six programs, with the same names on the home page, the hub, and each product
           page.
         </p>
-        <div className="mt-8">
+        <div className="mt-10">
           <ProductGrid />
         </div>
       </section>
 
       <section className="border-y border-line bg-paper" aria-labelledby="deals">
-        <div className="mx-auto w-full max-w-6xl px-5 py-16">
+        <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:py-20">
           <h2 id="deals" className="text-3xl font-semibold text-navy sm:text-4xl">
             Deals
           </h2>
-          <p className="mt-4 max-w-3xl text-lg leading-8 text-muted">
+          <p className="mt-4 max-w-2xl text-lg leading-8 text-muted">
             RSC lends on investor real estate. Confirmed closings are not listed on this
             shell. These are the transaction types the programs are meant to cover.
           </p>
-          <ul className="mt-8 grid gap-4 md:grid-cols-2">
+          <ul className="mt-10 grid gap-5 md:grid-cols-2">
             {deals.map((deal) => (
-              <li key={deal.title} className="border border-line p-5">
+              <li key={deal.title} className="border border-line bg-background p-6">
                 <h3 className="text-2xl font-semibold text-navy">{deal.title}</h3>
                 <p className="mt-3 leading-7 text-muted">{deal.text}</p>
                 <p className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
@@ -70,13 +70,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-5 py-16" aria-labelledby="process">
+      <section className="mx-auto w-full max-w-6xl px-5 py-16 sm:py-20" aria-labelledby="process">
         <h2 id="process" className="text-3xl font-semibold text-navy sm:text-4xl">
           Funding process
         </h2>
-        <ol className="mt-8 grid gap-4 md:grid-cols-2">
+        <ol className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {processSteps.map((step, index) => (
-            <li key={step.title} className="border border-line bg-paper p-5">
+            <li key={step.title} className="border border-line bg-paper p-6">
               <p className="text-sm font-semibold uppercase tracking-[0.14em] text-cta">
                 Step {index + 1}
               </p>
@@ -88,13 +88,13 @@ export default function HomePage() {
       </section>
 
       <section className="bg-navy text-white" aria-labelledby="why">
-        <div className="mx-auto w-full max-w-6xl px-5 py-16">
+        <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:py-20">
           <h2 id="why" className="text-3xl font-semibold sm:text-4xl">
             Why RSC
           </h2>
-          <ul className="mt-8 grid gap-4 md:grid-cols-2">
+          <ul className="mt-10 grid gap-5 md:grid-cols-2">
             {whyPoints.map((point) => (
-              <li key={point.title} className="border border-white/20 p-5">
+              <li key={point.title} className="border border-white/20 p-6">
                 <h3 className="text-2xl font-semibold">{point.title}</h3>
                 <p className="mt-3 leading-7 text-slate-100">{point.text}</p>
               </li>
@@ -103,11 +103,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-5 py-16" aria-labelledby="faq-teaser">
+      <section className="mx-auto w-full max-w-6xl px-5 py-16 sm:py-20" aria-labelledby="faq-teaser">
         <h2 id="faq-teaser" className="text-3xl font-semibold text-navy sm:text-4xl">
           Questions
         </h2>
-        <ul className="mt-8 divide-y divide-line border-y border-line">
+        <ul className="mt-10 divide-y divide-line border-y border-line">
           {faqs.slice(0, 3).map((faq) => (
             <li key={faq.id} className="py-5">
               <h3 className="text-xl font-semibold text-navy">
@@ -119,7 +119,7 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
-        <div className="mt-6">
+        <div className="mt-8">
           <SiteLink href="/faqs" variant="secondary">
             Read FAQs
           </SiteLink>
