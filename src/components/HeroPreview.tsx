@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { PanelHeader } from "@/components/Panel";
 import { ProductIcon } from "@/components/ProductIcon";
 import { products } from "@/lib/site";
@@ -27,7 +28,7 @@ export function HeroPreview() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none hidden select-none overflow-hidden rounded-lg border border-white/15 bg-navy-raised/95 shadow-[0_1px_0_0_rgb(255_255_255/0.06)_inset] backdrop-blur-sm lg:block"
+      className="hero-rise pointer-events-none hidden select-none overflow-hidden rounded-lg border border-white/15 bg-navy-raised/95 shadow-[0_1px_0_0_rgb(255_255_255/0.06)_inset] backdrop-blur-sm lg:block"
     >
       <PanelHeader
         skin="dark"
@@ -62,7 +63,11 @@ export function HeroPreview() {
       </div>
       <ol className="flex flex-wrap justify-between gap-x-2 gap-y-1 border-t border-white/10 px-5 py-3 font-mono text-[0.6875rem] uppercase tracking-[0.06em] text-slate-400">
         {steps.map((step, index) => (
-          <li key={step} className={index === 0 ? "text-gold" : undefined}>
+          <li
+            key={step}
+            style={index === 0 ? undefined : ({ "--tick": index - 1 } as CSSProperties)}
+            className={index === 0 ? "text-gold" : "step-tick"}
+          >
             {String(index + 1).padStart(2, "0")} {step}
           </li>
         ))}

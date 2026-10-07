@@ -80,3 +80,10 @@ The form on `/contact` posts to a server action (`src/app/contact/actions.ts`). 
 - Icons are from `lucide-react` (ISC).
 - Mono accents (eyebrows, panel labels, step numbers, chips) use IBM Plex Mono (OFL) through `next/font`. Shared card chrome lives in `src/components/Panel.tsx`.
 - All animation and transitions turn off under `prefers-reduced-motion: reduce` (one rule at the end of `src/app/globals.css`).
+
+## Motion
+
+- Scroll reveal: add `data-reveal="rise"` to an element. `src/components/RevealObserver.tsx` (mounted in the root layout) marks only below-the-fold elements as pending and reveals them with IntersectionObserver, with a scroll/resize check, focus, and print as fallbacks. Server HTML has no reveal state, so the page renders fully without JS.
+- Motion uses `transform` and `clip-path` only, never opacity on text, so contrast holds mid-animation and CLS stays at 0.
+- Hero: photo settle, red glow fade-in (capped at its 18% alpha), and Scenario preview rise. Funding stepper: line draws, numbers pop, step text rises in sequence. Cards: `card-lift`, `media-zoom`, and `arrow-nudge` utilities.
+- Every auto-playing animation is finite and finishes within about 5 seconds. No motion library is used.
