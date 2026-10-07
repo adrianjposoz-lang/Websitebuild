@@ -146,18 +146,26 @@ export const trustFacts = [
 
 export const whyPoints = [
   {
+    label: "Borrowers",
+    chip: "Real estate investors",
     title: "Built for investors",
     text: "RSC Private Lending is hard money and private lending for real estate investors, offered by Red Sun Capital, LLC.",
   },
   {
+    label: "Programs",
+    chip: "Rentals to construction",
     title: "Six programs",
     text: "DSCR, Bridge, Fix & Flip, Ground-Up, Mid-Construction, and Commercial DSCR, from stabilized rentals to new construction.",
   },
   {
+    label: "Loan purpose",
+    chip: "Business purpose",
     title: "Business purpose only",
     text: "These loans are for investment real estate. They are not for personal, family, or household use.",
   },
   {
+    label: "Office",
+    chip: "Houston, TX",
     title: "A Houston office",
     text: "The published office is 118 Vintage Park Blvd #W317, Houston, TX 77070. Call or email for a general question.",
   },

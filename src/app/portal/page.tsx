@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/Hero";
+import { Panel } from "@/components/Panel";
 import { h3Class } from "@/components/SectionHeading";
 import { SiteLink } from "@/components/SiteLink";
 import { site } from "@/lib/site";
@@ -14,13 +15,14 @@ export default function PortalPage() {
     <main id="main">
       <Hero
         as="header"
+        texture="dots"
         eyebrow="Coming soon"
         title="Borrower Portal"
         lede="The borrower portal is coming soon. Until it opens, call or email the office about an existing loan."
       />
       <section className="bg-background py-16" aria-label="While the portal is coming soon">
         <ul className="mx-auto grid w-full max-w-6xl gap-6 px-5 md:grid-cols-2 lg:px-8">
-          <li className="rounded-lg border border-line bg-paper p-6 shadow-sm lg:p-8">
+          <Panel as="li" label="New deal">
             <h2 className={`text-navy ${h3Class}`}>Have a new deal?</h2>
             <p className="mt-2 leading-7 text-muted">
               Send the property, the program, and what you need.
@@ -28,8 +30,8 @@ export default function PortalPage() {
             <div className="mt-6">
               <SiteLink href="/contact">Submit a Scenario</SiteLink>
             </div>
-          </li>
-          <li className="rounded-lg border border-line bg-paper p-6 shadow-sm lg:p-8">
+          </Panel>
+          <Panel as="li" label="Portal" chip="Coming soon">
             <h2 className={`text-navy ${h3Class}`}>Questions about an existing loan?</h2>
             <p className="mt-2 leading-7 text-muted">Reach the Houston office directly.</p>
             <ul className="mt-6 space-y-2 font-semibold text-navy">
@@ -44,7 +46,7 @@ export default function PortalPage() {
                 </a>
               </li>
             </ul>
-          </li>
+          </Panel>
         </ul>
       </section>
     </main>

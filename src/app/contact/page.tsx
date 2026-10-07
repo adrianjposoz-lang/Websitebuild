@@ -2,6 +2,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Hero } from "@/components/Hero";
+import { Panel } from "@/components/Panel";
 import { h2Class } from "@/components/SectionHeading";
 import { ScenarioForm } from "@/components/ScenarioForm";
 import { site } from "@/lib/site";
@@ -33,13 +34,16 @@ export default function ContactPage() {
             <p className="mt-4 max-w-2xl text-lg leading-[1.875rem] text-muted">
               Tell us the property, the program, and what you need.
             </p>
-            <div className="mt-8">
+            <Panel label="Scenario" chip="Form" className="mt-8" bodyClassName="">
               <ScenarioForm />
-            </div>
+            </Panel>
           </section>
 
-          <section
-            className="h-fit rounded-lg border border-line bg-paper p-6 shadow-sm lg:p-8"
+          <Panel
+            as="section"
+            label="Office"
+            chip="Houston, TX"
+            className="h-fit"
             aria-labelledby="channels-heading"
           >
             <h2 id="channels-heading" className="scroll-mt-28 text-2xl font-semibold text-navy">
@@ -95,7 +99,7 @@ export default function ContactPage() {
               </Link>{" "}
               is coming soon.
             </p>
-          </section>
+          </Panel>
         </div>
       </div>
     </main>

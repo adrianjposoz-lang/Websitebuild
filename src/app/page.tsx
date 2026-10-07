@@ -8,6 +8,8 @@ import dealTransitional from "@/assets/images/deal-transitional.jpg";
 import homeHero from "@/assets/images/home-hero.jpg";
 import { FundingSteps } from "@/components/FundingSteps";
 import { Hero } from "@/components/Hero";
+import { HeroPreview } from "@/components/HeroPreview";
+import { Panel } from "@/components/Panel";
 import { ProductGrid } from "@/components/ProductGrid";
 import { h2Class, h3Class, SectionHeading } from "@/components/SectionHeading";
 import { SiteLink } from "@/components/SiteLink";
@@ -50,6 +52,7 @@ export default function HomePage() {
             </Link>
           </p>
         }
+        preview={<HeroPreview />}
       />
 
       <TrustBar />
@@ -68,7 +71,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-paper py-20 lg:py-28" aria-labelledby="process">
+      <section className="relative isolate bg-paper py-20 lg:py-28" aria-labelledby="process">
+        <div aria-hidden="true" className="bg-grid-light absolute inset-0 -z-10" />
         <div className="mx-auto w-full max-w-6xl px-5 lg:px-8">
           <SectionHeading id="process" eyebrow="How funding works" title="From scenario to closing" />
           <FundingSteps />
@@ -120,24 +124,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-navy py-20 text-white lg:py-28" aria-labelledby="why">
+      <section
+        className="relative isolate bg-navy bg-linear-to-br from-navy-raised via-navy to-navy-deep py-20 text-white lg:py-28"
+        aria-labelledby="why"
+      >
+        <div aria-hidden="true" className="bg-grid-dark absolute inset-0 -z-10" />
         <div className="mx-auto w-full max-w-6xl px-5 lg:px-8">
           <SectionHeading id="why" eyebrow="Why RSC" title="A lender built for investors" tone="dark" />
           <ul className="mt-12 grid gap-6 md:grid-cols-2">
             {whyPoints.map((point) => (
-              <li
-                key={point.title}
-                className="rounded-lg border-t-2 border-gold bg-navy-raised p-6 lg:p-8"
-              >
+              <Panel as="li" key={point.title} skin="dark" label={point.label} chip={point.chip}>
                 <h3 className={`text-white ${h3Class}`}>{point.title}</h3>
                 <p className="mt-3 leading-7 text-slate-100">{point.text}</p>
-              </li>
+              </Panel>
             ))}
           </ul>
         </div>
       </section>
 
-      <section className="bg-paper pb-20 pt-20 lg:pb-28 lg:pt-28" aria-labelledby="faq-teaser">
+      <section
+        className="relative isolate bg-paper pb-20 pt-20 lg:pb-28 lg:pt-28"
+        aria-labelledby="faq-teaser"
+      >
+        <div aria-hidden="true" className="bg-grid-light absolute inset-0 -z-10" />
         <div className="mx-auto w-full max-w-6xl px-5 lg:px-8">
           <SectionHeading id="faq-teaser" eyebrow="Questions" title="Common questions" />
           <ul className="mt-12 divide-y divide-line border-y border-line">
@@ -162,10 +171,11 @@ export default function HomePage() {
           </div>
 
           <section
-            className="mt-20 rounded-2xl border-t-4 border-cta bg-navy px-8 py-12 text-white lg:mt-28 lg:px-14 lg:py-14"
+            className="relative isolate mt-20 overflow-hidden rounded-2xl border-t-4 border-cta bg-navy bg-linear-to-br from-navy-raised via-navy to-navy-deep px-8 py-12 text-white lg:mt-28 lg:px-14 lg:py-14"
             aria-labelledby="final-cta"
           >
-            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-gold">
+            <div aria-hidden="true" className="bg-grid-dark absolute inset-0 -z-10" />
+            <p className="label-mono text-gold">
               Ready when you are
             </p>
             <h2 id="final-cta" className={`mt-3 text-white ${h2Class}`}>

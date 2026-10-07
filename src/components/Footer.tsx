@@ -25,7 +25,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-gold">
+          <h2 className="label-mono text-gold">
             Reach us
           </h2>
           <ul className="mt-4 space-y-2 text-sm">
@@ -46,7 +46,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-gold">
+          <h2 className="label-mono text-gold">
             Explore
           </h2>
           <ul className="mt-4 space-y-2 text-sm">
@@ -71,7 +71,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-gold">
+          <h2 className="label-mono text-gold">
             Get started
           </h2>
           <ul className="mt-4 space-y-3 text-sm leading-6">
