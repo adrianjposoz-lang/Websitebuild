@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/Hero";
+import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Terms",
+export const metadata: Metadata = pageMetadata({
+  title: "Terms of Service | RSC Private Lending",
   description: "Terms of use for RSC Private Lending.",
-};
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (

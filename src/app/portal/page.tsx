@@ -3,11 +3,17 @@ import { Hero } from "@/components/Hero";
 import { Panel } from "@/components/Panel";
 import { h3Class } from "@/components/SectionHeading";
 import { SiteLink } from "@/components/SiteLink";
+import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Borrower Portal",
-  description: "The RSC Private Lending borrower portal is coming soon.",
+  ...pageMetadata({
+    title: "Borrower Portal (Coming Soon) | RSC Private Lending",
+    description:
+      "The RSC borrower portal is coming soon. Have a new deal? Submit a scenario. Existing loan? Call or email the Houston office.",
+    path: "/portal",
+  }),
+  robots: { index: false, follow: true },
 };
 
 export default function PortalPage() {

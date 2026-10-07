@@ -2,7 +2,7 @@
 
 Marketing site for RSC Private Lending (Red Sun Capital, LLC), a hard-money and private lender for real estate investors.
 
-This repository is a clean Next.js app. It does not copy the live Squarespace/CMS site, and it does not include analytics or a tag manager.
+This repository is a clean Next.js app. It does not copy the live site (a client-rendered React app), and it does not include analytics or a tag manager.
 
 ## Stack
 
@@ -38,14 +38,31 @@ npm run lint
 | `/loan-products/commercial-dscr` | Commercial DSCR |
 | `/faqs` | FAQs |
 | `/contact` | Contact |
-| `/portal` | Borrower Portal (coming soon) |
+| `/portal` | Borrower Portal (coming soon, `noindex`, not in the sitemap) |
 | `/privacy` | Privacy stub |
 | `/terms` | Terms stub |
-| `/sitemap.xml` | XML sitemap of the routes above |
+| `/sitemap.xml` | XML sitemap of the routes above, except `/portal` |
+| `/robots.txt` | Crawl rules plus the `Sitemap:` line |
+| `/opengraph-image` | Default 1200×630 share image (Open Graph and Twitter) |
 
 Unknown URLs render `not-found` and are served with an HTTP 404.
 
 Header navigation is Home, Our Story, Loan Products, FAQs, and Contact. The primary button is **Submit a Scenario** and links to `/contact`. **Borrower Portal** links to `/portal`: a gold outline button in the desktop header, the first item in the mobile menu, and a text link under the home hero. The mobile header is one 64px row (logo, Submit a Scenario, Menu).
+
+## Search and environments
+
+`NEXT_PUBLIC_SITE_ENV` decides whether a build may be indexed. It is read at build time, so set it before `npm run build`.
+
+| `NEXT_PUBLIC_SITE_ENV` | Result |
+| --- | --- |
+| `production` | Indexable. `robots.txt` allows `/`. |
+| anything else, or unset | `<meta name="robots" content="noindex, nofollow">` on every page, an `X-Robots-Tag: noindex, nofollow` header on every response, and `robots.txt` disallows `/`. |
+
+Unset means not production, so a preview can't be indexed by accident. The production deploy **must** set `NEXT_PUBLIC_SITE_ENV=production`, or the live site ships with `noindex`. This variable is host-agnostic. `VERCEL_ENV` is not used.
+
+- Titles, descriptions, canonicals, and Open Graph/Twitter tags come from `pageMetadata()` in `src/lib/seo.ts`. Canonicals use the apex host `https://rscprivatelending.com` with no trailing slash.
+- JSON-LD: Organization and FinancialService on every page (`src/app/layout.tsx`), and FAQPage on `/faqs`, built from the same `faqs` array the page renders.
+- Redirects live in `next.config.ts` and return HTTP 301: `www.rscprivatelending.com` to the apex, `/resources` and `/faq` to `/faqs`, `/privacy-notice` to `/privacy`, and `/terms-of-service` to `/terms`. The www rule only works if requests for the www host reach this app. HTTP-to-HTTPS belongs at the host or DNS layer.
 
 ## Scenario form delivery
 

@@ -4,12 +4,14 @@ import { Hero } from "@/components/Hero";
 import { ProductGrid } from "@/components/ProductGrid";
 import { h2Class, SectionHeading } from "@/components/SectionHeading";
 import { SiteLink } from "@/components/SiteLink";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Loan Products",
+export const metadata: Metadata = pageMetadata({
+  title: "Investor Loan Programs: DSCR, Bridge, Fix & Flip | RSC",
   description:
-    "DSCR, Bridge, Fix & Flip, Ground-Up, Mid-Construction, and Commercial DSCR from RSC Private Lending.",
-};
+    "Compare RSC programs: DSCR, bridge, fix & flip, ground-up, mid-construction, and commercial DSCR. Find the fit, then submit your scenario.",
+  path: "/loan-products",
+});
 
 export default function LoanProductsPage() {
   return (
