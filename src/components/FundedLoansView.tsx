@@ -1,17 +1,10 @@
+import Link from "next/link";
 import { ClosingBand } from "@/components/ClosingBand";
 import { DealCardGrid } from "@/components/FundedDeals";
 import { PageHero } from "@/components/PageHero";
-import {
-  filterHref,
-  filterLoans,
-  fundedLoans,
-  programs,
-  stateNames,
-  statesInData,
-  type LoanFilter,
-} from "@/data/funded-loans";
+import { filterHref, filterLoans, fundedLoans, programs, type LoanFilter } from "@/data/funded-loans";
 import { jsonLdHtml, pageMetadata } from "@/lib/seo";
-import { site } from "@/lib/site";
+import { lendingStates, site } from "@/lib/site";
 
 export const fundedLoansMetadata = pageMetadata({
   title: "Funded Loans by City and State | RSC Private Lending",
@@ -35,7 +28,7 @@ const breadcrumbJsonLd = {
  */
 export function FundedLoansView({ filter }: { filter: LoanFilter }) {
   const loans = filterLoans(fundedLoans, filter);
-  const filtered = Boolean(filter.program || filter.state);
+  const filtered = Boolean(filter.program);
 
   return (
     <main id="main">
@@ -59,32 +52,23 @@ export function FundedLoansView({ filter }: { filter: LoanFilter }) {
           <h2 id="loan-list" className="sr-only">
             Loans
           </h2>
-          <div className="grid gap-5">
-            <ChipGroup
-              id="filter-program"
-              label="Program"
-              chips={[
-                { label: "All", href: filterHref({ state: filter.state }), active: !filter.program },
-                ...programs.map((program) => ({
-                  label: program.label,
-                  href: filterHref({ program: program.slug, state: filter.state }),
-                  active: filter.program === program.slug,
-                })),
-              ]}
-            />
-            <ChipGroup
-              id="filter-state"
-              label="State"
-              chips={[
-                { label: "All", href: filterHref({ program: filter.program }), active: !filter.state },
-                ...statesInData().map((code) => ({
-                  label: stateNames[code],
-                  href: filterHref({ program: filter.program, state: code }),
-                  active: filter.state === code,
-                })),
-              ]}
-            />
-          </div>
+          <ChipGroup
+            id="filter-program"
+            label="Program"
+            chips={[
+              { label: "All", href: filterHref({}), active: !filter.program },
+              ...programs.map((program) => ({
+                label: program.label,
+                href: filterHref({ program: program.slug }),
+                active: filter.program === program.slug,
+              })),
+            ]}
+          />
+          <p className="mt-4 text-[0.9375rem] text-body md:pl-24">
+            <Link href="/faqs#where-we-lend" className="font-semibold text-navy underline decoration-1 hover:decoration-2">
+              We lend in {lendingStates.length} states.
+            </Link>
+          </p>
 
           <p role="status" className="mt-8 text-[0.9375rem] text-muted">
             Showing {loans.length} {loans.length === 1 ? "loan" : "loans"}

@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { programs, statesInData } from "./src/data/funded-loans";
+import { programs } from "./src/data/funded-loans";
 
 const isProductionSite = process.env.NEXT_PUBLIC_SITE_ENV === "production";
 
@@ -7,13 +7,6 @@ const programQuery = {
   type: "query",
   key: "program",
   value: `(?<program>${programs.map((program) => program.slug).join("|")})`,
-} as const;
-const stateQuery = {
-  type: "query",
-  key: "state",
-  value: `(?<state>${statesInData()
-    .map((code) => code.toLowerCase())
-    .join("|")})`,
 } as const;
 
 const nextConfig: NextConfig = {
@@ -56,17 +49,10 @@ const nextConfig: NextConfig = {
     ];
   },
   async rewrites() {
-    // Unknown filter values match no rule, so they fall through to the unfiltered page.
+    // Unknown program values match no rule, so they fall through to the unfiltered page. A legacy
+    // `state` param is not matched at all: it neither filters nor blocks the program rewrite.
     return {
-      beforeFiles: [
-        {
-          source: "/funded-loans",
-          has: [programQuery, stateQuery],
-          destination: "/funded-loans/filter/:program/:state",
-        },
-        { source: "/funded-loans", has: [programQuery], destination: "/funded-loans/filter/:program/all" },
-        { source: "/funded-loans", has: [stateQuery], destination: "/funded-loans/filter/all/:state" },
-      ],
+      beforeFiles: [{ source: "/funded-loans", has: [programQuery], destination: "/funded-loans/filter/:program" }],
       afterFiles: [],
       fallback: [],
     };

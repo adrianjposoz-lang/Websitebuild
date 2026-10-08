@@ -319,33 +319,22 @@ export function programHref(program: Program): string {
   return `/loan-products/${programSlug(program)}`;
 }
 
-/** States that have at least one loan, by full name. */
-export function statesInData(loans: readonly FundedLoan[] = fundedLoans): StateCode[] {
-  return [...new Set(loans.map((loan) => loan.state))].sort((a, b) => stateNames[a].localeCompare(stateNames[b]));
-}
+export type LoanFilter = { program?: ProgramSlug };
 
-export type LoanFilter = { program?: ProgramSlug; state?: StateCode };
-
-/** Lowercase URL values (`fix-and-flip`, `hi`) to a filter; unknown values are ignored. */
+/**
+ * Lowercase URL values (`fix-and-flip`) to a filter; unknown values are ignored. There is no state
+ * filter: a list of states with deals would read as the only states RSC lends in. An old `state`
+ * value is ignored, so `?state=` URLs show every deal for the chosen program.
+ */
 export function parseFilter(query: { program?: string; state?: string }): LoanFilter {
   const program = programs.find((item) => item.slug === query.program)?.slug;
-  const state = statesInData().find((code) => code.toLowerCase() === query.state?.toLowerCase());
-  return { ...(program ? { program } : {}), ...(state ? { state } : {}) };
+  return program ? { program } : {};
 }
 
 export function filterLoans(loans: readonly FundedLoan[], filter: LoanFilter): FundedLoan[] {
-  return byAmount(
-    loans.filter(
-      (loan) =>
-        (!filter.program || programSlug(loan.program) === filter.program) && (!filter.state || loan.state === filter.state),
-    ),
-  );
+  return byAmount(loans.filter((loan) => !filter.program || programSlug(loan.program) === filter.program));
 }
 
 export function filterHref(filter: LoanFilter): string {
-  const query = new URLSearchParams();
-  if (filter.program) query.set("program", filter.program);
-  if (filter.state) query.set("state", filter.state.toLowerCase());
-  const search = query.toString();
-  return search ? `/funded-loans?${search}` : "/funded-loans";
+  return filter.program ? `/funded-loans?program=${filter.program}` : "/funded-loans";
 }
