@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { existsSync } from "node:fs";
 import { test } from "node:test";
 import { faqs, lendingStates, nav, verifiedFacts } from "./site.ts";
 
@@ -66,4 +67,20 @@ test("nav order: Funded Loans follows Loan Products", () => {
     nav.map((item) => item.label),
     ["Home", "Our Story", "Loan Products", "Funded Loans", "FAQs", "Contact"],
   );
+});
+
+test("every video has a self-hosted thumbnail; nothing points at YouTube's image host", async () => {
+  const { videos, videoThumbnail } = await import("./site.ts");
+  for (const video of Object.values(videos)) {
+    assert.equal(videoThumbnail(video), `/video-thumbs/${video.id}.jpg`);
+    assert.ok(existsSync(new URL(`../../public${videoThumbnail(video)}`, import.meta.url)), video.id);
+    assert.ok(!("poster" in video), video.id);
+  }
+});
+
+test("the Where do you lend? answer (also the FAQPage JSON-LD text) names no excluded state or DC", () => {
+  const faq = faqs.find((item) => item.id === "where-we-lend");
+  assert.equal(faq.question, "Where do you lend?");
+  for (const state of excluded) assert.ok(!faq.answer.includes(state), state);
+  assert.doesNotMatch(faq.answer, /columbia|\bDC\b/i);
 });

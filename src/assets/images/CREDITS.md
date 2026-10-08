@@ -54,13 +54,13 @@ These are stock photos, not RSC projects. Do not caption them as RSC deals.
 
 Originals are re-encoded JPEGs (mozjpeg): `home-street.jpg` at 2400px wide, the rest at 1800px. `next/image` serves AVIF or WebP at the requested size.
 
-## Video posters (`src/assets/video/`)
+## Video thumbnails (`public/video-thumbs/`)
 
-Self-hosted, so the site makes no request to YouTube or Google before a play click. None uses the channel's published thumbnails.
+Source: video thumbnails from RSC Private Lending's own YouTube channel (https://www.youtube.com/@rscprivatelending).
 
-- Title cards: navy, the verbatim video title, and "RSC Private Lending", set in the site's Schibsted Grotesk (rendered locally, 1280×720). Used for Lt3MwArGP_Q, bMoVComyyfI, ncIvS1Es3uc, rrFlOT9AbeE, -jjMuLRIk4s, XTrthacQyiw, lNZkzlCaoIU, V8--nI2muqQ, and ajg_JxlUPVM.
-- Clean in-video frames with no burned-in text, from RSC's own on-location videos via YouTube's auto-generated stills (downloaded 2026-10-08): `A8AWfpc4oag.jpg` (`maxres3`, the finished Dallas kitchen) and `pPumrpAaiwc.jpg` (`maxres1`, the street outside the walkthrough property).
-- On the Dallas and Honolulu funded-deal cards, the RSC deal photo for that city replaces the poster; `A8AWfpc4oag.jpg` and `Lt3MwArGP_Q.jpg` remain the fallback for those videos anywhere a card has no deal photo.
+Each video's published thumbnail, downloaded 2026-10-08 from `https://i.ytimg.com/vi/<id>/maxresdefault.jpg`, falling back to `hqdefault.jpg` when maxres is missing or is YouTube's 120×90 gray placeholder. All 11 had a real 1280×720 maxres, so none fell back: A8AWfpc4oag, Lt3MwArGP_Q, pPumrpAaiwc, bMoVComyyfI, ncIvS1Es3uc, rrFlOT9AbeE, -jjMuLRIk4s, XTrthacQyiw, lNZkzlCaoIU, V8--nI2muqQ, ajg_JxlUPVM. Re-encoded (mozjpeg, quality 85) with all metadata stripped, named `<videoId>.jpg`, and served through `next/image` (AVIF or WebP), so the site makes no request to YouTube or Google before a play click.
+
+- On the Dallas and Honolulu funded-deal cards, the RSC deal photo for that city is the poster instead; the thumbnail is used for those videos anywhere a card has no deal photo.
 - The play glyph and duration badge are drawn by `VideoFacade`, not baked into the image.
 
 ## Home hero mobile crop

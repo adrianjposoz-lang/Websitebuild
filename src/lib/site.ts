@@ -93,8 +93,8 @@ export type VideoPlacement =
 
 /**
  * RSC's own YouTube videos. Titles are verbatim and durations come from the channel's videos tab
- * (2026-10-08). `poster` is a self-hosted file in src/assets/video/: a neutral title card, or a
- * clean frame for the on-location deal videos. Never feature 8CTBPkEEN9A, oiWG4yO81Wk,
+ * (2026-10-08). Each video's poster is its own YouTube thumbnail, self-hosted at
+ * public/video-thumbs/<id>.jpg (see videoThumbnail). Never feature 8CTBPkEEN9A, oiWG4yO81Wk,
  * X6OaUKN9nps, svQIB5oWumw, or LDSxPywBu5Q, or show their titles.
  */
 export const videos = {
@@ -102,14 +102,12 @@ export const videos = {
     id: "A8AWfpc4oag",
     title: "How This $4.3M Dallas Home Got Funded (Real Numbers)",
     duration: "3:59",
-    poster: "A8AWfpc4oag.jpg",
     placement: ["home-deals", "loan-products-deals"],
   },
   Lt3MwArGP_Q: {
     id: "Lt3MwArGP_Q",
     title: "How We Closed a $1.6 Million Honolulu Flip in 5 Days",
     duration: "6:57",
-    poster: "Lt3MwArGP_Q.jpg",
     placement: ["home-deals", "loan-products-deals"],
   },
   pPumrpAaiwc: {
@@ -117,63 +115,54 @@ export const videos = {
     title: "$1,000,000+ Hard Money real estate deal (in person walkthrough)",
     caption: "Fix and flip walkthrough",
     duration: "6:39",
-    poster: "pPumrpAaiwc.jpg",
     placement: ["home-explainers"],
   },
   bMoVComyyfI: {
     id: "bMoVComyyfI",
     title: "Hard Money Loans for Beginners (Only Video You Will Ever Need)",
     duration: "9:09",
-    poster: "bMoVComyyfI.jpg",
     placement: ["home-explainers"],
   },
   ncIvS1Es3uc: {
     id: "ncIvS1Es3uc",
     title: "How to Get Your Hard Money Loan Funded Fast (6 Steps)",
     duration: "5:05",
-    poster: "ncIvS1Es3uc.jpg",
     placement: ["home-explainers"],
   },
   rrFlOT9AbeE: {
     id: "rrFlOT9AbeE",
     title: "How Hard Money Lenders Calculate Your Loan Amount (From a Lender)",
     duration: "6:31",
-    poster: "rrFlOT9AbeE.jpg",
     placement: ["home-explainers"],
   },
   "-jjMuLRIk4s": {
     id: "-jjMuLRIk4s",
     title: "What Most Investors Don't Know About Fix and Flip Loan Draws",
     duration: "7:49",
-    poster: "-jjMuLRIk4s.jpg",
     placement: ["program:fix-and-flip"],
   },
   XTrthacQyiw: {
     id: "XTrthacQyiw",
     title: "DSCR Loans Explained (How Rental Property Financing Really Works)",
     duration: "7:29",
-    poster: "XTrthacQyiw.jpg",
     placement: ["program:dscr"],
   },
   lNZkzlCaoIU: {
     id: "lNZkzlCaoIU",
     title: "How to Use Hard Money and Refinance into a DSCR Loan (BRRRR Method)",
     duration: "9:06",
-    poster: "lNZkzlCaoIU.jpg",
     placement: ["program:bridge"],
   },
   "V8--nI2muqQ": {
     id: "V8--nI2muqQ",
     title: "What's an Interest Reserve and Should You Use One?",
     duration: "5:12",
-    poster: "V8--nI2muqQ.jpg",
     placement: ["program:ground-up", "program:mid-construction"],
   },
   ajg_JxlUPVM: {
     id: "ajg_JxlUPVM",
     title: "Applying For Hard Money? Send These Documents First",
     duration: "7:28",
-    poster: "ajg_JxlUPVM.jpg",
     placement: ["contact"],
   },
 } as const satisfies Record<
@@ -184,12 +173,16 @@ export const videos = {
     /** Shown under the poster instead of the title; the play button keeps the real title. */
     caption?: string;
     duration: string;
-    poster: string;
     placement: readonly VideoPlacement[];
   }
 >;
 
 export type Video = (typeof videos)[keyof typeof videos];
+
+/** The video's own YouTube thumbnail, self-hosted so no request leaves the site before a play click. */
+export function videoThumbnail(video: Video): string {
+  return `/video-thumbs/${video.id}.jpg`;
+}
 
 export function videosFor(placement: VideoPlacement): Video[] {
   return Object.values(videos).filter((video) => (video.placement as readonly string[]).includes(placement));

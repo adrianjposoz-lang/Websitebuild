@@ -3,6 +3,7 @@ import { Schibsted_Grotesk } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { RevealObserver } from "@/components/RevealObserver";
+import { VideoModalProvider } from "@/components/VideoModal";
 import { isProductionSite, jsonLdHtml, organizationJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -48,7 +49,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <Header />
-        {children}
+        <VideoModalProvider>{children}</VideoModalProvider>
         <Footer />
         <RevealObserver />
       </body>
