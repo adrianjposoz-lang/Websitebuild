@@ -19,7 +19,6 @@ export const stateNames = {
   FL: "Florida",
   GA: "Georgia",
   HI: "Hawaii",
-  NC: "North Carolina",
   TX: "Texas",
 } as const;
 
@@ -277,19 +276,6 @@ export const fundedLoans: readonly FundedLoan[] = [
     photo: "hollywood-fl.jpg",
     featured: false,
     source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08; photo from the appraisal report",
-  },
-  {
-    id: "fayetteville-nc",
-    city: "Fayetteville",
-    state: "NC",
-    program: "Fix & Flip",
-    loanAmount: 459_250,
-    closed: "2025-03",
-    photo: "fayetteville-nc.jpg",
-    photoAlt: "Property in Fayetteville, NC",
-    photoWidth: 720,
-    featured: false,
-    source: "Adrian, 2026-10-08 01:38 CDT; close date from the lender's loan records, 2026-10-08; listing photo, watermark cropped off, used with the lender's permission",
   },
 ];
 
