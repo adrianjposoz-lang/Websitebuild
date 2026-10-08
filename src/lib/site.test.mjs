@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { faqs, lendingStates, verifiedFacts } from "./site.ts";
+import { faqs, lendingStates, nav, verifiedFacts } from "./site.ts";
 
 const excluded = ["Vermont", "Minnesota", "Utah", "Nevada", "North Dakota", "South Dakota", "West Virginia", "Maine", "Oregon", "Idaho"];
 
@@ -59,4 +59,11 @@ test("the walkthrough is captioned, its button keeps the real title", async () =
   const { videos } = await import("./site.ts");
   assert.equal(videos.pPumrpAaiwc.caption, "Fix and flip walkthrough");
   assert.equal(videos.pPumrpAaiwc.title, "$1,000,000+ Hard Money real estate deal (in person walkthrough)");
+});
+
+test("nav order: Funded Loans follows Loan Products", () => {
+  assert.deepEqual(
+    nav.map((item) => item.label),
+    ["Home", "Our Story", "Loan Products", "Funded Loans", "FAQs", "Contact"],
+  );
 });

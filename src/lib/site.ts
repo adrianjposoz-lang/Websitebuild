@@ -22,8 +22,8 @@ export const site = {
 export const nav = [
   { href: "/", label: "Home" },
   { href: "/our-story", label: "Our Story" },
-  { href: "/funded-loans", label: "Funded Loans" },
   { href: "/loan-products", label: "Loan Products" },
+  { href: "/funded-loans", label: "Funded Loans" },
   { href: "/faqs", label: "FAQs" },
   { href: "/contact", label: "Contact" },
 ] as const;

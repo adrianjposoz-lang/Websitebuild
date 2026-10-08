@@ -40,6 +40,10 @@ export type FundedLoan = {
   closed?: `${number}-${number}`;
   /** File name in public/deals/. Without one the card shows a neutral placeholder. */
   photo?: string;
+  /** Defaults to "Property in City, ST". */
+  photoAlt?: string;
+  /** A short visible label on the photo, for a photo that does not show the funded property as built. */
+  photoCaption?: string;
   videoId?: keyof typeof videos;
   history?: string;
   copy?: string;
@@ -180,7 +184,6 @@ export const fundedLoans: readonly FundedLoan[] = [
     featured: true,
     source: "Adrian, 2026-10-08 00:12 CDT",
   },
-  // TODO(photos): replace placeholder with appraisal photo kailua-hi-2.jpg
   {
     id: "kailua-hi-2",
     city: "Kailua",
@@ -189,8 +192,11 @@ export const fundedLoans: readonly FundedLoan[] = [
     purpose: "Rate-and-term refinance",
     loanAmount: 1_775_000,
     closed: "2026-04",
+    photo: "kailua-hi-2.jpg",
+    photoAlt: "Kailua, HI, the lot before construction",
+    photoCaption: "Before construction",
     featured: false,
-    source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08",
+    source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08; photo from the appraisal report, pending Adrian's call (he may send a finished-home photo)",
   },
   // TODO(photos): replace placeholder with appraisal photo dallas-tx-3.jpg
   {
@@ -244,7 +250,6 @@ export const fundedLoans: readonly FundedLoan[] = [
     featured: false,
     source: "Adrian, 2026-10-08 01:38 CDT; close date from the lender's loan records, 2026-10-08",
   },
-  // TODO(photos): replace placeholder with appraisal photo hollywood-fl.jpg
   {
     id: "hollywood-fl",
     city: "Hollywood",
@@ -253,8 +258,9 @@ export const fundedLoans: readonly FundedLoan[] = [
     purpose: "Purchase",
     loanAmount: 540_000,
     closed: "2026-10",
+    photo: "hollywood-fl.jpg",
     featured: false,
-    source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08",
+    source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08; photo from the appraisal report",
   },
   // TODO(photos): replace placeholder with appraisal photo fayetteville-nc.jpg
   {

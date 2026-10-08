@@ -116,7 +116,24 @@ test("every photo exists; every loan without one has the TODO(photos) marker", (
       assert.ok(dataSource.includes(marker), loan.id);
     }
   }
-  assert.equal(fundedLoans.filter((loan) => !loan.photo).length, 9);
+  assert.deepEqual(
+    fundedLoans.filter((loan) => !loan.photo).map((loan) => loan.id),
+    ["makawao-hi", "dallas-tx-2", "kailua-hi", "dallas-tx-3", "girdwood-ak", "denver-co", "fayetteville-nc"],
+  );
+  assert.equal(dataSource.match(/TODO\(photos\)/g).length, 7);
+});
+
+test("Hollywood and Kailua Ground-Up photos: alt text and the before-construction caption", () => {
+  const hollywood = fundedLoans.find((loan) => loan.id === "hollywood-fl");
+  assert.equal(hollywood.photo, "hollywood-fl.jpg");
+  assert.equal(hollywood.photoAlt, undefined);
+  assert.equal(hollywood.photoCaption, undefined);
+  const kailua = fundedLoans.find((loan) => loan.id === "kailua-hi-2");
+  assert.equal(kailua.program, "Ground-Up");
+  assert.equal(kailua.loanAmount, 1775000);
+  assert.equal(kailua.photo, "kailua-hi-2.jpg");
+  assert.equal(kailua.photoAlt, "Kailua, HI, the lot before construction");
+  assert.equal(kailua.photoCaption, "Before construction");
 });
 
 test("filters: program and state counts", () => {

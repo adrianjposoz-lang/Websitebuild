@@ -46,7 +46,7 @@ npm run lint
 
 Unknown URLs render `not-found` and are served with an HTTP 404.
 
-Header navigation is Home, Our Story, Funded Loans, Loan Products, FAQs, and Contact. The primary button is **Submit a Scenario** and links to `/contact`. **Borrower Portal** links to `https://homebase.rscprivatelending.com/portal/auth/login` (`site.portalUrl`) with a plain `<a>`, in the same tab: a text link in the desktop header and the mobile menu, the footer, the contact page, and the quiet link under the home hero. `/portal` 301-redirects there. Below the `lg` breakpoint the header is one row (logo, Submit a Scenario, Menu), and Borrower Portal moves into the menu.
+Header navigation is Home, Our Story, Loan Products, Funded Loans, FAQs, and Contact. The primary button is **Submit a Scenario** and links to `/contact`. **Borrower Portal** links to `https://homebase.rscprivatelending.com/portal/auth/login` (`site.portalUrl`) with a plain `<a>`, in the same tab: a text link in the desktop header and the mobile menu, the footer, the contact page, and the quiet link under the home hero. `/portal` 301-redirects there. Below the `lg` breakpoint the header is one row (logo, Submit a Scenario, Menu), and Borrower Portal moves into the menu.
 
 ## Funded loans
 
@@ -54,7 +54,7 @@ Header navigation is Home, Our Story, Funded Loans, Loan Products, FAQs, and Con
 
 - City and state only, never a street, house number or borrower name. Never a deal in CA, AZ or NV; `npm test` fails if one is added.
 - Only facts Adrian has confirmed. Leave `purpose` or `closed` out when unknown; the card then omits that row.
-- To add a photo, put it in `public/deals/` as `<id>.jpg` and set `photo: "<id>.jpg"`. Until then the card shows a neutral placeholder, and the entry carries a `TODO(photos)` comment.
+- To add a photo, put it in `public/deals/` as `<id>.jpg` and set `photo: "<id>.jpg"`. Set `photoAlt` and `photoCaption` when the photo does not show the property as funded (for example, a lot before construction). Until then the card shows a neutral placeholder, and the entry carries a `TODO(photos)` comment.
 - Filters are plain links to `/funded-loans?program=<slug>&state=<st>`. `next.config.ts` rewrites those to prerendered views under `/funded-loans/filter/<program>/<state>`, so filtering works without JavaScript; direct requests to the internal path 301 to `/funded-loans`. Unknown values show all loans.
 
 ## Search and environments

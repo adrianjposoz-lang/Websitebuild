@@ -12,6 +12,8 @@ Approved by Adrian (2026-10-08). House numbers, signs and plates were blurred be
 | `houston-tx-2.jpg` | Funded deal: Houston, TX $4,029,512 (`/`, `/loan-products`, `/funded-loans`) | RSC Private Lending, from appraisal reports, used with permission | 1025×768 |
 | `roswell-ga.jpg` | Funded deal: Roswell, GA (`/`, `/loan-products`, `/funded-loans`) | RSC Private Lending, from appraisal reports, used with permission | 1367×1025 |
 | `marietta-ga.jpg` | Funded deal: Marietta, GA (`/`, `/loan-products`, `/funded-loans`) | RSC Private Lending, from appraisal reports, used with permission | 1330×998 |
+| `hollywood-fl.jpg` | Funded deal: Hollywood, FL (`/funded-loans`) | RSC Private Lending, from appraisal reports, used with permission | 736×518 |
+| `kailua-hi-2.jpg` | Funded deal: Kailua, HI Ground-Up (`/funded-loans`), the lot before construction, captioned "Before construction"; pending Adrian's call on a finished-home photo | RSC Private Lending, from appraisal reports, used with permission | 907×680 |
 
 ## RSC deal photos (source: rscprivatelending.com)
 

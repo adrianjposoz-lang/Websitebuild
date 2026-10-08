@@ -14,10 +14,15 @@ import { videos, videosFor, youtubeChannelUrl, type VideoPlacement } from "@/lib
 
 const intro = "Real loans we funded. Some are walked through on our YouTube channel.";
 
-const mediaSizes = "(min-width: 1024px) 270px, (min-width: 768px) 45vw, 100vw";
+/**
+ * The card's real media width (page gutters, card padding and border subtracted below 768px), so at
+ * 1x no request exceeds 695px and the smallest deal photos (736px wide) are never upscaled.
+ */
+const mediaSizes = "(min-width: 1024px) 270px, (min-width: 768px) 45vw, calc(100vw - 72px)";
 
 function dealPhoto(loan: FundedLoan): DealPhoto | undefined {
-  return loan.photo ? { src: `/deals/${loan.photo}`, alt: `Property in ${loan.city}, ${loan.state}` } : undefined;
+  if (!loan.photo) return undefined;
+  return { src: `/deals/${loan.photo}`, alt: loan.photoAlt ?? `Property in ${loan.city}, ${loan.state}` };
 }
 
 /** Real loans only. The featured ones, minus any whose video is not placed on this page. */
@@ -63,6 +68,14 @@ export function DealCardGrid({
             ) : photo ? (
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-surface">
                 <Image src={photo.src} alt={photo.alt} fill sizes={mediaSizes} className="object-cover" />
+                {loan.photoCaption ? (
+                  <span
+                    aria-hidden="true"
+                    className="absolute bottom-2.5 left-2.5 rounded-full bg-navy-deep/85 px-2.5 py-1 text-sm font-semibold text-white"
+                  >
+                    {loan.photoCaption}
+                  </span>
+                ) : null}
               </div>
             ) : (
               <PhotoPlaceholder loan={loan} />
@@ -120,12 +133,9 @@ export function DealCardGrid({
 /** Stands in for the appraisal photo until it arrives. Decorative: the card title says the same. */
 function PhotoPlaceholder({ loan }: { loan: FundedLoan }) {
   return (
-    <div
-      aria-hidden="true"
-      className="flex aspect-[4/3] w-full flex-col justify-end rounded-lg border border-hair bg-surface p-4"
-    >
-      <span className="text-xs font-semibold uppercase tracking-[0.08em] text-muted">{loan.program}</span>
-      <span className="mt-1 text-xl font-medium leading-[1.625rem] text-navy">
+    <div aria-hidden="true" className="flex aspect-[4/3] w-full flex-col justify-end rounded-lg bg-navy p-5">
+      <span className="text-xs font-semibold uppercase tracking-[0.1em] text-on-navy">{loan.program}</span>
+      <span className="mt-1.5 text-[1.75rem] font-medium leading-[2.125rem] tracking-[-0.01em] text-white">
         {loan.city}, {loan.state}
       </span>
     </div>
