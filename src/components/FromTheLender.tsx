@@ -9,14 +9,14 @@ export function FromTheLender() {
   if (!hasDeals && explainers.length === 0) return null;
 
   return (
-    <section aria-labelledby="from-the-lender" className="border-t border-hair py-16 lg:py-24">
+    <section aria-labelledby="real-deals" className="border-t border-hair py-16 lg:py-24">
       <div className="mx-auto w-full max-w-[75rem] px-[1.125rem] lg:px-8">
         <div data-reveal className="max-w-[44rem]">
-          <h2 id="from-the-lender" className="text-[1.75rem] leading-[2.25rem] lg:text-4xl lg:leading-10">
-            From the lender
+          <h2 id="real-deals" className="text-[1.75rem] leading-[2.25rem] lg:text-4xl lg:leading-10">
+            Real deals and how hard money works
           </h2>
           <p className="mt-4 text-lg leading-[1.6] text-body">
-            Deals we funded and how hard money works, on video.
+            Loans we funded, plus explainer videos from our YouTube channel.
           </p>
         </div>
 

@@ -168,7 +168,7 @@ function KeepHyphens({ text }: { text: string }) {
   );
 }
 
-/** Standalone band, used on /loan-products. Home nests the cards in the From the lender band. */
+/** Standalone band, used on /loan-products. Home nests the cards in the Real deals and how hard money works band. */
 export function FundedDeals({ placement }: { placement: VideoPlacement }) {
   if (videosFor(placement).length === 0) return null;
   return (
