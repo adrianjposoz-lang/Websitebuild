@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { cacheLife } from "next/cache";
-import { nav, site } from "@/lib/site";
+import { nav, site, youtubeChannelUrl } from "@/lib/site";
 
 async function CopyrightYear() {
   "use cache";
@@ -11,8 +11,8 @@ async function CopyrightYear() {
 
 export function Footer() {
   return (
-    <footer className="relative z-[1] mt-auto bg-navy-deep text-white">
-      <div className="mx-auto grid w-full max-w-[76rem] gap-10 px-[1.125rem] py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+    <footer className="mt-auto bg-navy-deep text-on-navy">
+      <div className="mx-auto grid w-full max-w-[75rem] gap-10 px-[1.125rem] py-16 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
         <div>
           <Image
             src="/brand/rsc-logo-reversed.png"
@@ -21,8 +21,8 @@ export function Footer() {
             height={358}
             className="h-16 w-auto"
           />
-          <p className="mt-4 font-serif text-lg text-white">{site.legalName}</p>
-          <address className="mt-1 font-serif text-base not-italic leading-7 text-slate-100">
+          <p className="mt-4 text-base font-semibold text-white">{site.legalName}</p>
+          <address className="tnum mt-1 text-[0.9375rem] not-italic leading-6">
             {site.addressLines.map((line) => (
               <span key={line} className="block">
                 {line}
@@ -32,41 +32,52 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="font-serif text-lg italic text-slate-100">Reach us</h2>
+          <h2 className="text-[0.9375rem] font-semibold text-white">Reach us</h2>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
-              <a href={site.phoneHref} className="whitespace-nowrap font-semibold underline">
+              <a href={site.phoneHref} className="tnum whitespace-nowrap font-semibold text-white underline">
                 {site.phoneDisplay}
               </a>
             </li>
             <li>
               <a
                 href={`mailto:${site.email}`}
-                className="font-semibold underline"
+                className="font-semibold text-white underline"
               >
                 {site.email}
+              </a>
+            </li>
+            <li>
+              <a
+                href={youtubeChannelUrl}
+                target="_blank"
+                rel="noopener"
+                aria-label="Watch on YouTube (opens YouTube in a new tab)"
+                className="font-semibold text-white underline"
+              >
+                Watch on YouTube
               </a>
             </li>
           </ul>
         </div>
 
         <div>
-          <h2 className="font-serif text-lg italic text-slate-100">Explore</h2>
+          <h2 className="text-[0.9375rem] font-semibold text-white">Explore</h2>
           <ul className="mt-4 space-y-2 text-sm">
             {nav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="underline">
+                <Link href={item.href} className="text-white underline">
                   {item.label}
                 </Link>
               </li>
             ))}
             <li>
-              <Link href="/privacy" className="underline">
+              <Link href="/privacy" className="text-white underline">
                 Privacy
               </Link>
             </li>
             <li>
-              <Link href="/terms" className="underline">
+              <Link href="/terms" className="text-white underline">
                 Terms
               </Link>
             </li>
@@ -74,26 +85,26 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="font-serif text-lg italic text-slate-100">Get started</h2>
+          <h2 className="text-[0.9375rem] font-semibold text-white">Get started</h2>
           <ul className="mt-4 space-y-3 text-sm leading-6">
             <li>
-              <Link href="/contact" className="font-semibold underline">
+              <Link href="/contact" className="font-semibold text-white underline">
                 Submit a Scenario
               </Link>
-              <p className="mt-1 text-slate-100">Tell us about the property and the program.</p>
+              <p className="mt-1">Tell us about the property and the program.</p>
             </li>
             <li>
-              <a href={site.portalUrl} className="font-semibold underline">
+              <a href={site.portalUrl} className="font-semibold text-white underline">
                 Borrower Portal
               </a>
-              <p className="mt-1 text-slate-100">Sign in to manage an existing loan.</p>
+              <p className="mt-1">Sign in to manage an existing loan.</p>
             </li>
           </ul>
         </div>
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto w-full max-w-[76rem] space-y-3 px-[1.125rem] py-6 text-sm leading-6 text-slate-100 lg:px-8">
+        <div className="mx-auto w-full max-w-[75rem] space-y-3 px-[1.125rem] py-6 text-sm leading-6 lg:px-8">
           <p>
             <strong className="text-white">Business purpose.</strong> Loans are for
             investment real estate and are not for personal, family, or household use.
