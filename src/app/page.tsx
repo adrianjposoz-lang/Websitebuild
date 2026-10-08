@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ClosingBand } from "@/components/ClosingBand";
 import { FactsBand } from "@/components/FactsBand";
-import { FundedDeals } from "@/components/FundedDeals";
+import { FromTheLender } from "@/components/FromTheLender";
 import { PageHero } from "@/components/PageHero";
 import { ProgramIndex } from "@/components/ProgramIndex";
 import { SampleScenarios } from "@/components/SampleScenarios";
@@ -26,12 +26,13 @@ export default function HomePage() {
         quiet={
           <>
             Returning borrower?{" "}
-            <a href={site.portalUrl} className="font-semibold text-navy underline">
+            <a href={site.portalUrl} className="font-semibold text-white underline">
               Borrower Portal
             </a>
           </>
         }
         photo={homeHeroPhoto}
+        variant="full"
       />
       <FactsBand />
 
@@ -63,7 +64,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <FundedDeals />
+      <FromTheLender />
       <SampleScenarios />
 
       <ClosingBand />

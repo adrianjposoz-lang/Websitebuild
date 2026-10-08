@@ -5,13 +5,17 @@ import dscr from "@/assets/images/dscr-rental-house.jpg";
 import fixAndFlip from "@/assets/images/fix-and-flip-kitchen-renovation.jpg";
 import groundUp from "@/assets/images/ground-up-framing.jpg";
 import homeStreet from "@/assets/images/home-street.jpg";
+import homeStreetMobile from "@/assets/images/home-street-mobile.jpg";
 import midConstruction from "@/assets/images/mid-construction-framed-house.jpg";
 import ourStory from "@/assets/images/our-story-modern-house.jpg";
 
 /** Licensed stock, credited in src/assets/images/CREDITS.md. Never caption these as RSC deals. */
 export type Photo = { src: StaticImageData; alt: string };
 
-export const homeHeroPhoto: Photo = { src: homeStreet, alt: "" };
+/** A full-bleed photo with an art-directed 4:5 crop for screens under 768px. */
+export type HeroPhoto = Photo & { mobileSrc: StaticImageData };
+
+export const homeHeroPhoto: HeroPhoto = { src: homeStreet, mobileSrc: homeStreetMobile, alt: "" };
 
 export const ourStoryPhoto: Photo = {
   src: ourStory,
