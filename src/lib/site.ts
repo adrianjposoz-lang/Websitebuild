@@ -361,27 +361,6 @@ export const products: Product[] = [
       businessPurpose,
     ],
   },
-  {
-    slug: "commercial-dscr",
-    name: "Commercial DSCR",
-    href: "/loan-products/commercial-dscr",
-    summary:
-      "A debt-service approach for commercial investment property, not a consumer mortgage.",
-    body: "Commercial DSCR applies debt-service coverage to commercial investment property. Submit a scenario to discuss leverage and pricing for your property.",
-    showConstructionBudget: false,
-    facts: [
-      {
-        term: "What it covers",
-        detail: "Commercial investment property, weighed on debt-service coverage.",
-      },
-      noConstructionBudget,
-      {
-        term: "Leverage & pricing",
-        detail: "Discussed when you submit a scenario. Not published here.",
-      },
-      businessPurpose,
-    ],
-  },
 ];
 
 export function getProduct(slug: string): Product {
@@ -428,7 +407,7 @@ export const faqs = [
     id: "which-programs",
     question: "Which loan programs do you offer?",
     answer:
-      "DSCR, Bridge, Fix & Flip, Ground-Up, Mid-Construction, and Commercial DSCR. Each program has its own page under Loan Products.",
+      "DSCR, Bridge, Fix & Flip, Ground-Up, and Mid-Construction. Each program has its own page under Loan Products.",
   },
   {
     id: "where-we-lend",
@@ -466,7 +445,6 @@ export const shippedPaths = [
   "/loan-products/fix-and-flip",
   "/loan-products/ground-up",
   "/loan-products/mid-construction",
-  "/loan-products/commercial-dscr",
   "/faqs",
   "/contact",
   "/privacy",

@@ -32,7 +32,7 @@ export default function OurStoryPage() {
           <div data-reveal className="max-w-[60ch] lg:col-span-7 lg:col-start-2">
             <p className="text-lg leading-[1.6] text-body lg:text-xl">
               {site.name} provides hard money and private lending for real estate investors,
-              across six programs from stabilized rentals to new construction. Loans are for
+              across five programs from stabilized rentals to new construction. Loans are for
               business purposes on investment real estate.
             </p>
             <p className="mt-6 text-lg leading-[1.6] text-body lg:text-xl">

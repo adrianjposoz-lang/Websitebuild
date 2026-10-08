@@ -1,6 +1,5 @@
 import type { StaticImageData } from "next/image";
 import bridge from "@/assets/images/bridge-residential-street.jpg";
-import commercialDscr from "@/assets/images/commercial-dscr-storefronts.jpg";
 import dscr from "@/assets/images/dscr-rental-house.jpg";
 import fixAndFlip from "@/assets/images/fix-and-flip-kitchen-renovation.jpg";
 import groundUp from "@/assets/images/ground-up-framing.jpg";
@@ -34,5 +33,4 @@ export const programPhotos: Record<string, Photo> = {
     src: midConstruction,
     alt: "Two-story house in framing, with roof tiles going on",
   },
-  "commercial-dscr": { src: commercialDscr, alt: "Row of small brick commercial buildings on a street" },
 };

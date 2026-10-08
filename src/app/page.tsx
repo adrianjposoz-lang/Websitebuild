@@ -38,7 +38,7 @@ export default function HomePage() {
 
       <ProgramIndex
         id="programs"
-        title="Six ways we lend"
+        title="Five ways we lend"
         intro={
           <p>
             From stabilized rentals to ground-up construction. Every loan is for business purposes on

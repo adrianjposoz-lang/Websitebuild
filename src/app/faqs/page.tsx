@@ -9,7 +9,7 @@ import { faqs, site } from "@/lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "Private Lending FAQs | RSC Private Lending",
   description:
-    "Answers about RSC Private Lending: business-purpose loans, our six programs, how to start a loan file, and how to reach the Houston office.",
+    "Answers about RSC Private Lending: business-purpose loans, our five programs, how to start a loan file, and how to reach the Houston office.",
   path: "/faqs",
 });
 

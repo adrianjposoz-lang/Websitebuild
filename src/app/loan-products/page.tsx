@@ -10,7 +10,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "Investor Loan Programs: DSCR, Bridge, Fix & Flip | RSC",
   description:
-    "Compare RSC programs: DSCR, bridge, fix & flip, ground-up, mid-construction, and commercial DSCR. Find the fit, then submit your scenario.",
+    "Compare RSC programs: DSCR, bridge, fix & flip, ground-up, and mid-construction. Find the fit, then submit your scenario.",
   path: "/loan-products",
 });
 
@@ -34,7 +34,7 @@ export default function LoanProductsPage() {
       <div className="border-t border-hair">
         <ProgramIndex
           id="all-programs"
-          title="All six programs"
+          title="All five programs"
           intro={
             <p>
               Rentals, short-term holds, renovations, and construction. Not sure which program

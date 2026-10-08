@@ -31,9 +31,18 @@ test("videos never include the excluded IDs or titles, and placements match the 
   const ids = (placement) => videosFor(placement).map((video) => video.id);
   assert.deepEqual(ids("home-deals"), ["A8AWfpc4oag", "Lt3MwArGP_Q", "pPumrpAaiwc"]);
   assert.deepEqual(ids("home-explainers"), ["bMoVComyyfI", "ncIvS1Es3uc", "rrFlOT9AbeE"]);
-  assert.deepEqual(ids("program:commercial-dscr"), []);
   assert.deepEqual(ids("program:ground-up"), ["V8--nI2muqQ"]);
   assert.deepEqual(ids("program:mid-construction"), ["V8--nI2muqQ"]);
   assert.deepEqual(ids("contact"), ["ajg_JxlUPVM"]);
   for (const deal of fundedDeals) assert.ok(videos[deal.videoId].placement.includes("home-deals"));
+});
+
+test("the five programs, with no Commercial DSCR anywhere in the program data", async () => {
+  const { products, shippedPaths, faqs } = await import("./site.ts");
+  assert.deepEqual(
+    products.map((product) => product.slug),
+    ["dscr", "bridge", "fix-and-flip", "ground-up", "mid-construction"],
+  );
+  assert.ok(!shippedPaths.some((path) => path.includes("commercial")));
+  assert.ok(!faqs.some((faq) => /commercial/i.test(faq.answer)));
 });

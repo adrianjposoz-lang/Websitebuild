@@ -35,7 +35,6 @@ npm run lint
 | `/loan-products/fix-and-flip` | Fix & Flip |
 | `/loan-products/ground-up` | Ground-Up |
 | `/loan-products/mid-construction` | Mid-Construction |
-| `/loan-products/commercial-dscr` | Commercial DSCR |
 | `/faqs` | FAQs |
 | `/contact` | Contact |
 | `/privacy` | Privacy Policy, verbatim from the live site (`src/lib/legal.ts`) |
@@ -61,7 +60,7 @@ Unset means not production, so a preview can't be indexed by accident. The produ
 
 - Titles, descriptions, canonicals, and Open Graph/Twitter tags come from `pageMetadata()` in `src/lib/seo.ts`. Canonicals use the apex host `https://rscprivatelending.com` with no trailing slash.
 - JSON-LD: Organization and FinancialService on every page (`src/app/layout.tsx`), and FAQPage on `/faqs`, built from the same `faqs` array the page renders.
-- Redirects live in `next.config.ts` and return HTTP 301: `www.rscprivatelending.com` to the apex, `/resources` and `/faq` to `/faqs`, `/privacy-notice` to `/privacy`, and `/terms-of-service` to `/terms`. The www rule only works if requests for the www host reach this app. HTTP-to-HTTPS belongs at the host or DNS layer.
+- Redirects live in `next.config.ts` and return HTTP 301: `www.rscprivatelending.com` to the apex, `/resources` and `/faq` to `/faqs`, `/privacy-notice` to `/privacy`, `/terms-of-service` to `/terms`, and `/loan-products/commercial-dscr` to `/loan-products/dscr`, since RSC does not offer Commercial DSCR (with a trailing slash, Next first 308s to the slash-less URL, then the 301 applies). The www rule only works if requests for the www host reach this app. HTTP-to-HTTPS belongs at the host or DNS layer.
 
 ## Scenario form delivery
 
@@ -113,7 +112,6 @@ The webhook receives one JSON object per scenario:
 | `program:dscr` | XTrthacQyiw |
 | `program:bridge` | lNZkzlCaoIU |
 | `program:ground-up`, `program:mid-construction` | V8--nI2muqQ |
-| `program:commercial-dscr` | none, so no video section |
 | `contact` (beside the form, below it on mobile) | ajg_JxlUPVM |
 
 - Posters are self-hosted in `src/assets/video/` (title cards, or clean frames for the on-location deal videos), mapped in `src/lib/video-posters.ts` and rendered lazily with `next/image`. Never use the channel thumbnails.
