@@ -55,7 +55,7 @@ export type FundedLoan = {
 };
 
 /**
- * Every funded loan, highest loan amount first. City and state only: never a street, street number
+ * Every funded loan, highest loan amount first; equal amounts, latest close first. City and state only: never a street, street number
  * or borrower name. Never list a deal in CA, AZ or NV. To add a photo, put the appraisal exterior in
  * public/deals/ and set `photo` to its file name.
  */
@@ -207,6 +207,17 @@ export const fundedLoans: readonly FundedLoan[] = [
     featured: false,
     source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08; photo from the appraisal report, pending Adrian's call (he may send a finished-home photo)",
   },
+  // TODO(photos): replace placeholder with appraisal photo koloa-hi.jpg
+  {
+    id: "koloa-hi",
+    city: "Koloa",
+    state: "HI",
+    program: "Fix & Flip",
+    loanAmount: 1_750_000,
+    closed: "2026-09",
+    featured: false,
+    source: "Adrian, 2026-10-08 15:25 CDT; amount and close date from the lender's loan records, 2026-10-08",
+  },
   {
     id: "dallas-tx-3",
     city: "Dallas",
@@ -252,6 +263,17 @@ export const fundedLoans: readonly FundedLoan[] = [
     photoWidth: 728,
     featured: false,
     source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08; photo from the appraisal report, scan frame trimmed; photoWidth 740 requested, set to the trimmed 728",
+  },
+  // TODO(photos): replace placeholder with appraisal photo atlanta-ga.jpg
+  {
+    id: "atlanta-ga",
+    city: "Atlanta",
+    state: "GA",
+    program: "Fix & Flip",
+    loanAmount: 1_000_000,
+    closed: "2025-09",
+    featured: false,
+    source: "Adrian, 2026-10-08 15:25 CDT; amount and close date from the lender's loan records, 2026-10-08",
   },
   {
     id: "denver-co",

@@ -17,18 +17,19 @@ import { lendingStates, videos } from "./site.ts";
 
 const dataSource = readFileSync(new URL("../data/funded-loans.ts", import.meta.url), "utf8");
 
-test("15 funded loans with unique ids", () => {
-  assert.equal(fundedLoans.length, 15);
-  assert.equal(new Set(fundedLoans.map((loan) => loan.id)).size, 15);
+test("17 funded loans with unique ids", () => {
+  assert.equal(fundedLoans.length, 17);
+  assert.equal(new Set(fundedLoans.map((loan) => loan.id)).size, 17);
 });
 
-test("loan amounts are whole-dollar integers, sorted high to low", () => {
+test("loan amounts are whole-dollar integers, sorted high to low, ties by latest close", () => {
   for (const loan of fundedLoans) {
     assert.ok(Number.isInteger(loan.loanAmount) && loan.loanAmount > 0, loan.id);
     assert.match(formatAmount(loan.loanAmount), /^\$\d{1,3}(,\d{3})+$/);
   }
   for (let i = 1; i < fundedLoans.length; i++) {
-    assert.ok(fundedLoans[i - 1].loanAmount > fundedLoans[i].loanAmount, fundedLoans[i].id);
+    const [prev, loan] = [fundedLoans[i - 1], fundedLoans[i]];
+    assert.ok(prev.loanAmount > loan.loanAmount || (prev.loanAmount === loan.loanAmount && prev.closed > loan.closed), loan.id);
   }
   assert.deepEqual(byAmount(fundedLoans), [...fundedLoans]);
 });
@@ -45,7 +46,7 @@ test("city and state only: no street names, house numbers or ZIP codes in loan t
   }
 });
 
-test("all 15 loans have a YYYY-MM close date", () => {
+test("all 17 loans have a YYYY-MM close date", () => {
   for (const loan of fundedLoans) assert.match(loan.closed ?? "", /^20\d{2}-(0[1-9]|1[0-2])$/, loan.id);
   assert.equal(formatClosed("2026-02"), "Feb 2026");
   assert.equal(formatClosed("2025-11"), "Nov 2025");
@@ -82,7 +83,7 @@ test("the featured 7 are unchanged, in order", () => {
   }
 });
 
-test("the 8 new loans, exactly as given", () => {
+test("the 10 new loans, exactly as given", () => {
   assert.deepEqual(
     fundedLoans
       .filter((loan) => !loan.featured)
@@ -92,8 +93,10 @@ test("the 8 new loans, exactly as given", () => {
       ["Dallas, TX", "Fix & Flip", 3480000, "2026-05", "Rate-and-term refinance"],
       ["Kailua, HI", "Fix & Flip", 3185545, "2025-11", undefined],
       ["Kailua, HI", "Ground-Up", 1775000, "2026-04", "Rate-and-term refinance"],
+      ["Koloa, HI", "Fix & Flip", 1750000, "2026-09", undefined],
       ["Dallas, TX", "Fix & Flip", 1537500, "2025-10", undefined],
       ["Girdwood, AK", "Fix & Flip", 1000000, "2026-02", "Cash-out refinance"],
+      ["Atlanta, GA", "Fix & Flip", 1000000, "2025-09", undefined],
       ["Denver, CO", "Fix & Flip", 647200, "2026-01", undefined],
       ["Hollywood, FL", "DSCR", 540000, "2026-10", "Purchase"],
     ],
@@ -112,9 +115,22 @@ test("every photo exists; every loan without one has the TODO(photos) marker", (
   }
   assert.deepEqual(
     fundedLoans.filter((loan) => !loan.photo).map((loan) => loan.id),
-    ["makawao-hi", "kailua-hi"],
+    ["makawao-hi", "kailua-hi", "koloa-hi", "atlanta-ga"],
   );
-  assert.equal(dataSource.match(/TODO\(photos\)/g).length, 2);
+  assert.equal(dataSource.match(/TODO\(photos\)/g).length, 4);
+});
+
+test("Atlanta and Koloa: lender-approved, no photo yet, same source note", () => {
+  for (const id of ["atlanta-ga", "koloa-hi"]) {
+    const loan = fundedLoans.find((item) => item.id === id);
+    assert.equal(loan.photo, undefined, id);
+    assert.equal(loan.featured, false, id);
+    assert.equal(
+      loan.source,
+      "Adrian, 2026-10-08 15:25 CDT; amount and close date from the lender's loan records, 2026-10-08",
+      id,
+    );
+  }
 });
 
 test("Dallas and Girdwood appraisal photos: alt text, caption, and Girdwood's native width", () => {
@@ -156,17 +172,17 @@ test("Hollywood and Kailua Ground-Up photos: alt text and the before-constructio
 
 test("filters: program counts; a state value is ignored", () => {
   const count = (query) => filterLoans(fundedLoans, parseFilter(query)).length;
-  assert.equal(count({}), 15);
-  assert.equal(count({ program: "fix-and-flip" }), 7);
+  assert.equal(count({}), 17);
+  assert.equal(count({ program: "fix-and-flip" }), 9);
   assert.equal(count({ program: "ground-up" }), 1);
   assert.equal(count({ program: "mid-construction" }), 3);
   assert.equal(count({ program: "bridge" }), 1);
   assert.equal(count({ program: "dscr" }), 3);
-  assert.equal(count({ program: "nope" }), 15);
+  assert.equal(count({ program: "nope" }), 17);
   assert.deepEqual(parseFilter({ state: "hi" }), {});
   assert.deepEqual(parseFilter({ program: "fix-and-flip", state: "HI" }), { program: "fix-and-flip" });
-  assert.equal(count({ state: "hi" }), 15);
-  assert.equal(count({ program: "fix-and-flip", state: "hi" }), 7);
+  assert.equal(count({ state: "hi" }), 17);
+  assert.equal(count({ program: "fix-and-flip", state: "hi" }), 9);
   assert.equal(count({ program: "bridge", state: "hi" }), 1);
 });
 
