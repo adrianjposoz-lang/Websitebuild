@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ClosingBand } from "@/components/ClosingBand";
 import { FactsBand } from "@/components/FactsBand";
+import { FundedDeals } from "@/components/FundedDeals";
 import { PageHero } from "@/components/PageHero";
 import { ProgramIndex } from "@/components/ProgramIndex";
 import { SampleScenarios } from "@/components/SampleScenarios";
@@ -62,6 +63,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      <FundedDeals />
       <SampleScenarios />
 
       <ClosingBand />

@@ -1,17 +1,11 @@
 import Link from "next/link";
 
 /**
- * Illustrative only, never real loans. Figures must match the former live-site examples exactly:
- * no new entries, no rounding, no added rates, terms, or LTVs.
+ * Illustrative only, never real loans, and always under the bold illustrative label. Figures must
+ * match the former live-site examples exactly: no new entries, no rounding, no added rates, terms,
+ * or LTVs. The Dallas and Honolulu examples were dropped because real funded deals cover them.
  */
 const scenarios = [
-  {
-    type: "Mid-Construction Refinance",
-    location: "Dallas, TX",
-    amount: "$3,847,254.00",
-    program: { label: "Mid-Construction", href: "/loan-products/mid-construction" },
-    purpose: "Refinance",
-  },
   {
     type: "Mid-Construction Refinance",
     location: "Houston, TX",
@@ -26,18 +20,11 @@ const scenarios = [
     program: { label: "DSCR", href: "/loan-products/dscr" },
     purpose: "Rental",
   },
-  {
-    type: "Fix and Flip",
-    location: "Honolulu, HI",
-    amount: "$1,475,250",
-    program: { label: "Fix and Flip", href: "/loan-products/fix-and-flip" },
-    purpose: "Renovation",
-  },
 ] as const;
 
 export function SampleScenarios() {
   return (
-    <section aria-labelledby="sample-scenarios" data-sample-scenarios="" className="bg-surface py-16 lg:py-24">
+    <section aria-labelledby="sample-scenarios" data-sample-scenarios="" className="border-t border-hair py-16 lg:py-24">
       <div className="mx-auto w-full max-w-[75rem] px-[1.125rem] lg:px-8">
         <div data-reveal className="max-w-[44rem]">
           <h2 id="sample-scenarios" className="text-[1.75rem] leading-[2.25rem] lg:text-4xl lg:leading-10">
@@ -51,7 +38,7 @@ export function SampleScenarios() {
         <ul
           data-reveal
           aria-describedby="sample-scenarios-note"
-          className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6"
+          className="mt-10 grid max-w-[50rem] gap-4 sm:grid-cols-2 lg:gap-6"
         >
           {scenarios.map((scenario) => (
             <li
