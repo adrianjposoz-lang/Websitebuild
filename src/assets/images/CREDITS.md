@@ -4,15 +4,14 @@ Three sources: RSC's appraisal exteriors (first table), RSC's own deal photos fr
 
 ## RSC deal photos (source: RSC Private Lending, from appraisal reports, used with permission)
 
-Approved by Adrian (2026-10-08). House numbers and signs were blurred before delivery; no license plate is legible. Re-encoded (mozjpeg, quality 90) with all metadata stripped: no EXIF, GPS, XMP, IPTC or ICC. File names are city only.
+Approved by Adrian (2026-10-08). House numbers, signs and plates were blurred before delivery, and no license plate is legible. Re-encoded (mozjpeg, quality 90) with all metadata stripped: no EXIF, GPS, XMP, IPTC or ICC. File names are city only.
 
 | File | Used on | Source | Pixels |
 | --- | --- | --- | --- |
 | `dallas-tx.jpg` | Funded deal: Preston Hollow, Dallas, TX (`/`, `/loan-products`), shown on the video facade | RSC Private Lending, from appraisal reports, used with permission | 1343×900 |
+| `houston-tx-2.jpg` | Funded deal: Houston, TX $4,029,512 (`/`, `/loan-products`) | RSC Private Lending, from appraisal reports, used with permission | 1025×768 |
 | `roswell-ga.jpg` | Funded deal: Roswell, GA (`/`, `/loan-products`) | RSC Private Lending, from appraisal reports, used with permission | 1367×1025 |
 | `marietta-ga.jpg` | Funded deal: Marietta, GA (`/`, `/loan-products`) | RSC Private Lending, from appraisal reports, used with permission | 1330×998 |
-
-The Houston, TX $4,029,512 card has no photo and shows a typographic navy panel instead.
 
 ## RSC deal photos (source: rscprivatelending.com)
 

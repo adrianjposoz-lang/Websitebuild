@@ -3,6 +3,7 @@ import bridge from "@/assets/images/bridge-residential-street.jpg";
 import dealDallas from "@/assets/images/dallas-tx.jpg";
 import dealHonolulu from "@/assets/images/deal-honolulu-hi.png";
 import dealHouston from "@/assets/images/deal-houston-tx.png";
+import dealHouston2 from "@/assets/images/houston-tx-2.jpg";
 import dealMarietta from "@/assets/images/marietta-ga.jpg";
 import dealRoswell from "@/assets/images/roswell-ga.jpg";
 import dealStPetersburg from "@/assets/images/deal-petersburg-fl.png";
@@ -43,12 +44,14 @@ export const programPhotos: Record<string, Photo> = {
 
 /**
  * RSC's own deal photos, keyed by city: from the deal cards on rscprivatelending.com, or RSC's
- * appraisal exteriors (Dallas, Roswell, Marietta; house numbers and signs blurred, metadata stripped).
+ * appraisal exteriors (Dallas, Houston $4,029,512, Roswell, Marietta; house numbers, signs and plates
+ * blurred, metadata stripped).
  * Use a photo only on a card for the same city; never borrow another city's.
  */
 export const dealPhotos = {
   "dallas-tx": { src: dealDallas, alt: "Property in Dallas, TX" },
   "houston-tx": { src: dealHouston, alt: "Property in Houston, TX" },
+  "houston-tx-2": { src: dealHouston2, alt: "Property in Houston, TX" },
   "st-petersburg-fl": { src: dealStPetersburg, alt: "Property in St. Petersburg, FL" },
   "honolulu-hi": { src: dealHonolulu, alt: "Property in Honolulu, HI" },
   "roswell-ga": { src: dealRoswell, alt: "Property in Roswell, GA" },

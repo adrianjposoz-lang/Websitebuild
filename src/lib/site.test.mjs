@@ -66,6 +66,10 @@ test("funded deals: seven loans by amount, high to low, in whole dollars", async
     ],
   );
   const loans = fundedDeals;
+  assert.deepEqual(
+    loans.map((deal) => deal.photo),
+    ["dallas-tx", "houston-tx-2", "houston-tx", "st-petersburg-fl", "roswell-ga", "marietta-ga", "honolulu-hi"],
+  );
   const dollars = (deal) => Number(deal.amount.value.replace(/[$,]/g, ""));
   for (const deal of loans) {
     assert.equal(deal.amount.label, "Loan amount");

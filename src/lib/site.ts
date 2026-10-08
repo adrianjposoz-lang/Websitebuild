@@ -190,8 +190,7 @@ export function videosFor(placement: VideoPlacement): Video[] {
  * Every card leads with a whole-dollar loan amount confirmed by Adrian (2026-10-07 and 2026-10-08).
  * Each displayed fact is recorded in `source`. City and state only: never a street, street number
  * or borrower name. Show `closed` only where Adrian gave a date; never infer one. `photo` keys into
- * `dealPhotos` (src/lib/photos.ts), RSC's own photo for the same city; cards without one get the
- * decorative city panel.
+ * `dealPhotos` (src/lib/photos.ts), RSC's own photo for the same city. Every card needs one.
  */
 export const fundedDeals = [
   {
@@ -215,6 +214,7 @@ export const fundedDeals = [
     },
   },
   {
+    photo: "houston-tx-2",
     heading: "Houston, TX",
     amount: { label: "Loan amount", value: "$4,029,512" },
     programs: [{ label: "Fix & Flip (mid-construction)", href: "/loan-products/fix-and-flip" }],

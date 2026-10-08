@@ -8,24 +8,6 @@ const intro = "Real loans we funded. Some are walked through on our YouTube chan
 
 const mediaSizes = "(min-width: 1024px) 270px, (min-width: 768px) 45vw, 100vw";
 
-/**
- * Stands in for a deal photo where RSC has none: never stock or generated imagery. Decorative; the
- * card's heading and terms carry the meaning.
- */
-function CityPanel({ city, program }: { city: string; program: string }) {
-  return (
-    <div
-      aria-hidden="true"
-      className="flex aspect-[4/3] w-full flex-col justify-end rounded-lg bg-navy p-5"
-    >
-      <span className="text-sm font-medium uppercase tracking-[0.08em] text-[#cbd5e1]">{program}</span>
-      <span className="mt-1 text-[1.75rem] font-medium leading-[2.125rem] text-white">
-        {city}
-      </span>
-    </div>
-  );
-}
-
 /** Real loans only. */
 export function FundedDealCards({
   placement,
@@ -42,7 +24,7 @@ export function FundedDealCards({
   return (
     <ul data-reveal className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
       {deals.map((deal) => {
-        const photo = "photo" in deal ? dealPhotos[deal.photo] : undefined;
+        const photo = dealPhotos[deal.photo];
         return (
           <li
             key={`${deal.heading} ${deal.amount.value}`}
@@ -50,12 +32,10 @@ export function FundedDealCards({
           >
             {"videoId" in deal ? (
               <VideoFacade video={videos[deal.videoId]} photo={photo} sizes={mediaSizes} variant="badge" aspect="4/3" />
-            ) : photo ? (
+            ) : (
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-surface">
                 <Image src={photo.src} alt={photo.alt} fill sizes={mediaSizes} className="object-cover" />
               </div>
-            ) : (
-              <CityPanel city={deal.heading} program={deal.programs[0].label} />
             )}
             <div className="flex flex-col px-1 pb-1 pt-5">
               <Heading className="text-xl font-medium leading-[1.625rem] text-navy">{deal.heading}</Heading>
