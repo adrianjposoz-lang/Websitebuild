@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import type { Video } from "@/lib/videos";
+import type { Video } from "@/lib/site";
+import { videoPosters } from "@/lib/video-posters";
 
 /**
- * Click-to-load YouTube. Before the click there is only a local thumbnail and a <button>: no
- * YouTube script, iframe, or request. The click swaps in a youtube-nocookie iframe with autoplay.
- * The 16:9 box is fixed, so the swap never shifts layout.
+ * Click-to-load YouTube. Before the click there is only a self-hosted poster and a <button>: no
+ * request to YouTube or Google. The click swaps in a youtube-nocookie iframe (autoplay follows the
+ * click, captions on) in the same 16:9 box and moves focus into it.
  */
 export function VideoFacade({ video, sizes }: { video: Video; sizes: string }) {
   const [playing, setPlaying] = useState(false);
@@ -18,32 +19,33 @@ export function VideoFacade({ video, sizes }: { video: Video; sizes: string }) {
   }, [playing]);
 
   return (
-    <div className="relative aspect-video w-full rounded-lg bg-navy-deep">
+    <div className="relative aspect-video w-full rounded-lg bg-navy">
       {playing ? (
         <iframe
           ref={frameRef}
-          src={`https://www.youtube-nocookie.com/embed/${encodeURIComponent(video.id)}?autoplay=1`}
+          src={`https://www.youtube-nocookie.com/embed/${encodeURIComponent(video.id)}?autoplay=1&cc_load_policy=1&cc_lang_pref=en&rel=0`}
           title={video.title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
+          allow="autoplay; encrypted-media; picture-in-picture"
           allowFullScreen
           className="absolute inset-0 size-full rounded-lg"
         />
       ) : (
         <button
           type="button"
-          aria-label={`Play video: ${video.title}`}
+          aria-label={`Play: ${video.title} (${video.duration})`}
           onClick={() => setPlaying(true)}
           className="group absolute inset-0 size-full cursor-pointer overflow-hidden rounded-lg"
         >
-          <Image src={video.thumbnail} alt="" fill sizes={sizes} className="object-cover" />
-          <span
-            aria-hidden="true"
-            className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-navy/90 ring-2 ring-white transition-colors duration-150 group-hover:bg-navy-deep"
-          >
-            <svg viewBox="0 0 24 24" className="ml-1 size-7 fill-white" focusable="false">
-              <path d="M7 4.5v15l12-7.5z" />
-            </svg>
+          <Image src={videoPosters[video.poster]} alt="" fill sizes={sizes} className="object-cover" />
+          <span aria-hidden="true" className="absolute bottom-3 left-3 flex items-center gap-2 lg:bottom-4 lg:left-4">
+            <span className="flex size-12 items-center justify-center rounded-full bg-white/95 transition-colors duration-150 group-hover:bg-white lg:size-14">
+              <svg viewBox="0 0 24 24" className="ml-0.5 size-5 fill-navy lg:size-6" focusable="false">
+                <path d="M7 4.5v15l12-7.5z" />
+              </svg>
+            </span>
+            <span className="tnum rounded-md bg-navy-deep/85 px-2 py-0.5 text-sm font-semibold text-white">
+              {video.duration}
+            </span>
           </span>
         </button>
       )}

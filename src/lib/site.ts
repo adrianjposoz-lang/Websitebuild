@@ -81,6 +81,167 @@ export const lendingStates = [
   "Wyoming",
 ] as const;
 
+export const youtubeChannelUrl = "https://www.youtube.com/@rscprivatelending";
+
+export type VideoPlacement =
+  | "home-deals"
+  | "home-explainers"
+  | "loan-products-deals"
+  | "contact"
+  | `program:${string}`;
+
+/**
+ * RSC's own YouTube videos. Titles are verbatim and durations come from the channel's videos tab
+ * (2026-10-08). `poster` is a self-hosted file in src/assets/video/: a neutral title card, or a
+ * clean frame for the on-location deal videos. Never feature 8CTBPkEEN9A, oiWG4yO81Wk,
+ * X6OaUKN9nps, svQIB5oWumw, or LDSxPywBu5Q, or show their titles.
+ */
+export const videos = {
+  A8AWfpc4oag: {
+    id: "A8AWfpc4oag",
+    title: "How This $4.3M Dallas Home Got Funded (Real Numbers)",
+    duration: "3:59",
+    poster: "A8AWfpc4oag.jpg",
+    placement: ["home-deals", "loan-products-deals"],
+  },
+  Lt3MwArGP_Q: {
+    id: "Lt3MwArGP_Q",
+    title: "How We Closed a $1.6 Million Honolulu Flip in 5 Days",
+    duration: "6:57",
+    poster: "Lt3MwArGP_Q.jpg",
+    placement: ["home-deals", "loan-products-deals"],
+  },
+  pPumrpAaiwc: {
+    id: "pPumrpAaiwc",
+    title: "$1,000,000+ Hard Money real estate deal (in person walkthrough)",
+    duration: "6:39",
+    poster: "pPumrpAaiwc.jpg",
+    placement: ["home-deals", "loan-products-deals"],
+  },
+  bMoVComyyfI: {
+    id: "bMoVComyyfI",
+    title: "Hard Money Loans for Beginners (Only Video You Will Ever Need)",
+    duration: "9:09",
+    poster: "bMoVComyyfI.jpg",
+    placement: ["home-explainers"],
+  },
+  ncIvS1Es3uc: {
+    id: "ncIvS1Es3uc",
+    title: "How to Get Your Hard Money Loan Funded Fast (6 Steps)",
+    duration: "5:05",
+    poster: "ncIvS1Es3uc.jpg",
+    placement: ["home-explainers"],
+  },
+  rrFlOT9AbeE: {
+    id: "rrFlOT9AbeE",
+    title: "How Hard Money Lenders Calculate Your Loan Amount (From a Lender)",
+    duration: "6:31",
+    poster: "rrFlOT9AbeE.jpg",
+    placement: ["home-explainers"],
+  },
+  "-jjMuLRIk4s": {
+    id: "-jjMuLRIk4s",
+    title: "What Most Investors Don't Know About Fix and Flip Loan Draws",
+    duration: "7:49",
+    poster: "-jjMuLRIk4s.jpg",
+    placement: ["program:fix-and-flip"],
+  },
+  XTrthacQyiw: {
+    id: "XTrthacQyiw",
+    title: "DSCR Loans Explained (How Rental Property Financing Really Works)",
+    duration: "7:29",
+    poster: "XTrthacQyiw.jpg",
+    placement: ["program:dscr"],
+  },
+  lNZkzlCaoIU: {
+    id: "lNZkzlCaoIU",
+    title: "How to Use Hard Money and Refinance into a DSCR Loan (BRRRR Method)",
+    duration: "9:06",
+    poster: "lNZkzlCaoIU.jpg",
+    placement: ["program:bridge"],
+  },
+  "V8--nI2muqQ": {
+    id: "V8--nI2muqQ",
+    title: "What's an Interest Reserve and Should You Use One?",
+    duration: "5:12",
+    poster: "V8--nI2muqQ.jpg",
+    placement: ["program:ground-up", "program:mid-construction"],
+  },
+  ajg_JxlUPVM: {
+    id: "ajg_JxlUPVM",
+    title: "Applying For Hard Money? Send These Documents First",
+    duration: "7:28",
+    poster: "ajg_JxlUPVM.jpg",
+    placement: ["contact"],
+  },
+} as const satisfies Record<
+  string,
+  { id: string; title: string; duration: string; poster: string; placement: readonly VideoPlacement[] }
+>;
+
+export type Video = (typeof videos)[keyof typeof videos];
+
+export function videosFor(placement: VideoPlacement): Video[] {
+  return Object.values(videos).filter((video) => (video.placement as readonly string[]).includes(placement));
+}
+
+/**
+ * Real funded deals (Adrian, 2026-10-07). Every displayed fact is quoted from the video's YouTube
+ * title or description, recorded in `source`. Leave a field out rather than infer it: no state is
+ * given for Dallas or Honolulu, and no location for the walkthrough. Never show these under the
+ * illustrative sample-scenarios label.
+ */
+export const fundedDeals = [
+  {
+    videoId: "A8AWfpc4oag",
+    heading: "Preston Hollow, Dallas",
+    amount: { label: "Listing", value: "$4.3 million" },
+    programs: [
+      { label: "Mid-Construction", href: "/loan-products/mid-construction" },
+      { label: "Bridge", href: "/loan-products/bridge" },
+    ],
+    story:
+      "A luxury new construction home, taken from 60% built with a mid-construction takeover loan, then a bridge rate-and-term refinance with interest reserves.",
+    source: {
+      heading: "description: “a completed luxury new construction home in Preston Hollow, Dallas”",
+      amount: "description: “took this project from 60% built to a $4.3 million listing”",
+      programs:
+        "description: “a mid-construction takeover loan and a bridge rate-and-term refinance with interest reserves”",
+      story: "description (same sentence)",
+    },
+  },
+  {
+    videoId: "Lt3MwArGP_Q",
+    heading: "Honolulu",
+    amount: { label: "Purchase", value: "$1.632M" },
+    programs: [{ label: "Fix & Flip", href: "/loan-products/fix-and-flip" }],
+    story:
+      "Came in from a wholesaler with a 14-day closing window and closed in 5 business days at 90% Loan-to-Cost plus 100% rehab.",
+    source: {
+      heading: "title: “Honolulu Flip”; description: “a single-family Honolulu deal”",
+      amount: "description: “$1.632M purchase”",
+      programs: "title: “Flip”; description: “Honolulu fix-and-flip”",
+      story:
+        "description: “came to us from a wholesaler with a 14-day closing window” and “closed in 5 business days at 90% Loan-to-Cost plus 100% rehab”",
+    },
+  },
+  {
+    videoId: "pPumrpAaiwc",
+    heading: "Fix and flip walkthrough",
+    amount: { label: "Deal", value: "$1,000,000+" },
+    programs: [{ label: "Fix & Flip", href: "/loan-products/fix-and-flip" }],
+    story:
+      "An in-person walk of a hoarder-house rehab mid-project, with the purchase price, rehab budget, ARV, and projected profit broken down on site.",
+    source: {
+      heading: "title: “(in person walkthrough)”; description: “a real $1,000,000+ fix and flip”",
+      amount: "title: “$1,000,000+ Hard Money real estate deal”",
+      programs: "description: “a real $1,000,000+ fix and flip funded with hard money”",
+      story:
+        "description: “break down the purchase price, rehab budget, ARV, and projected profit, and show what a hoarder-house rehab actually looks like mid-project”",
+    },
+  },
+] as const satisfies readonly ({ videoId: keyof typeof videos } & Record<string, unknown>)[];
+
 export const officeLine = `Office: ${site.address.street}, Houston,\u00a0TX ${site.address.postalCode}.`;
 
 export type Product = {
