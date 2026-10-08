@@ -186,11 +186,11 @@ export function videosFor(placement: VideoPlacement): Video[] {
 }
 
 /**
- * Real funded deals (Adrian, 2026-10-07). Every displayed fact is quoted from the video's YouTube
- * title or description, recorded in `source`, except the TX and HI states added per Adrian/PM on
- * 2026-10-07. Leave a field out rather than infer it: the walkthrough has no location and no amount.
- * Never show these under the illustrative sample-scenarios label. `photo` keys into `dealPhotos`
- * (src/lib/photos.ts): RSC's own photo for the same city from rscprivatelending.com.
+ * Real funded deals (Adrian, 2026-10-07). Every displayed fact is quoted from its source, recorded in
+ * `source`: the video's YouTube title or description, or, for deals without a video, the deal's card
+ * on rscprivatelending.com, verbatim. The TX and HI states were added per Adrian/PM on 2026-10-07.
+ * Leave a field out rather than infer it: the walkthrough has no location and no amount. `photo` keys
+ * into `dealPhotos` (src/lib/photos.ts): RSC's own photo for the same city from rscprivatelending.com.
  */
 export const fundedDeals = [
   {
@@ -230,6 +230,32 @@ export const fundedDeals = [
     },
   },
   {
+    photo: "houston-tx",
+    heading: "Houston, TX",
+    amount: { label: "Loan amount", value: "$3,364,987.10" },
+    programs: [{ label: "Mid-Construction", href: "/loan-products/mid-construction" }],
+    purpose: "Refinance",
+    source: {
+      confirmed: "real funded loan per Adrian, 2026-10-07 23:32 CDT",
+      heading: "rscprivatelending.com “Recent Deals” card: “Houston, TX”",
+      amount: "same card: “3,364,987.10” after a drawn $ icon",
+      programs: "same card: program “Mid-Construction”, purpose “Refinance”",
+    },
+  },
+  {
+    photo: "st-petersburg-fl",
+    heading: "St. Petersburg, FL",
+    amount: { label: "Loan amount", value: "$2,500,000.00" },
+    programs: [{ label: "DSCR", href: "/loan-products/dscr" }],
+    purpose: "Rental",
+    source: {
+      confirmed: "real funded loan per Adrian, 2026-10-07 23:32 CDT",
+      heading: "rscprivatelending.com “Recent Deals” card: “Petersburg, FL” (St. Petersburg per Adrian)",
+      amount: "same card: “2,500,000.00” after a drawn $ icon",
+      programs: "same card: program “DSCR”, purpose “Rental”",
+    },
+  },
+  {
     videoId: "pPumrpAaiwc",
     heading: "Fix and flip walkthrough",
     programs: [{ label: "Fix & Flip", href: "/loan-products/fix-and-flip" }],
@@ -243,7 +269,7 @@ export const fundedDeals = [
         "description: “break down the purchase price, rehab budget, ARV, and projected profit, and show what a hoarder-house rehab actually looks like mid-project”",
     },
   },
-] as const satisfies readonly ({ videoId: keyof typeof videos } & Record<string, unknown>)[];
+] as const satisfies readonly ({ videoId?: keyof typeof videos } & Record<string, unknown>)[];
 
 export const officeLine = `Office: ${site.address.street}, Houston,\u00a0TX ${site.address.postalCode}.`;
 

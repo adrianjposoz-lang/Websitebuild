@@ -1,11 +1,39 @@
+import Image from "next/image";
 import Link from "next/link";
 import { VideoFacade } from "@/components/VideoFacade";
 import { dealPhotos } from "@/lib/photos";
-import { fundedDeals, videos, videosFor, type VideoPlacement } from "@/lib/site";
+import { fundedDeals, videos, videosFor, youtubeChannelUrl, type VideoPlacement } from "@/lib/site";
 
-const intro = "Real loans we funded, walked through on our YouTube channel. Figures are as stated in each video.";
+const intro =
+  "Real loans we funded, some walked through on our YouTube channel. Figures on a video's card are as stated in the video.";
 
-/** Real loans only. Illustrative samples live in SampleScenarios and never appear here. */
+const mediaSizes = "(min-width: 1024px) 360px, (min-width: 768px) 45vw, 100vw";
+
+/**
+ * Grid spans so no row is left with an orphan: 3 across at lg (a short last row widens to fill it),
+ * 2 across at md (an odd last card spans both). A widened card sets its media beside the text.
+ */
+function layout(index: number, count: number) {
+  const lgRemainder = count % 3;
+  const lgWide = lgRemainder > 0 && index >= count - lgRemainder;
+  const mdWide = count % 2 === 1 && index === count - 1;
+  const classes = [lgWide ? (lgRemainder === 2 ? "lg:col-span-3" : "lg:col-span-6") : "lg:col-span-2"];
+  const text: string[] = [];
+  if (mdWide) {
+    classes.push("md:col-span-2 md:grid md:grid-cols-2 md:gap-6");
+    text.push("md:pt-0");
+    if (!lgWide) {
+      classes.push("lg:flex");
+      text.push("lg:pt-5");
+    }
+  } else if (lgWide) {
+    classes.push("lg:grid lg:grid-cols-2 lg:gap-6");
+    text.push("lg:pt-0");
+  }
+  return { card: classes.join(" "), text: text.join(" ") };
+}
+
+/** Real loans only. */
 export function FundedDealCards({
   placement,
   headingLevel = "h3",
@@ -14,47 +42,62 @@ export function FundedDealCards({
   headingLevel?: "h3" | "h4";
 }) {
   const shown = new Set(videosFor(placement).map((video) => video.id));
-  const deals = fundedDeals.filter((deal) => shown.has(deal.videoId));
+  const deals = fundedDeals.filter((deal) => !("videoId" in deal) || shown.has(deal.videoId));
   if (deals.length === 0) return null;
   const Heading = headingLevel;
 
   return (
-    <ul data-reveal className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {deals.map((deal) => (
-        <li key={deal.videoId} className="flex flex-col rounded-lg border border-hair bg-white p-4 lg:p-5">
-          <VideoFacade
-            video={videos[deal.videoId]}
-            photo={"photo" in deal ? dealPhotos[deal.photo] : undefined}
-            sizes="(min-width: 1024px) 360px, (min-width: 768px) 45vw, 100vw"
-          />
-          <div className="flex flex-1 flex-col px-1 pb-1 pt-5">
-            <Heading className="text-xl font-medium leading-[1.625rem] text-navy">{deal.heading}</Heading>
-            <dl className="mt-4 grid grid-cols-2 gap-4 border-t border-hair pt-4 text-[0.9375rem] leading-normal">
-              {"amount" in deal ? (
-                <div>
-                  <dt className="text-sm text-muted">{deal.amount.label}</dt>
-                  <dd className="mt-0.5 text-[1.375rem] font-medium leading-7 text-navy">{deal.amount.value}</dd>
-                </div>
-              ) : null}
-              <div>
-                <dt className="text-sm text-muted">{deal.programs.length > 1 ? "Programs" : "Program"}</dt>
-                <dd className="mt-0.5 flex flex-col gap-1">
-                  {deal.programs.map((program) => (
-                    <Link
-                      key={program.href}
-                      href={program.href}
-                      className="inline-flex min-h-6 items-center self-start font-semibold text-navy underline"
-                    >
-                      {program.label}
-                    </Link>
-                  ))}
-                </dd>
+    <ul data-reveal className="grid gap-6 md:grid-cols-2 lg:grid-cols-6">
+      {deals.map((deal, index) => {
+        const { card, text } = layout(index, deals.length);
+        const photo = "photo" in deal ? dealPhotos[deal.photo] : undefined;
+        return (
+          <li
+            key={deal.heading}
+            className={`flex flex-col rounded-lg border border-hair bg-white p-4 lg:p-5 ${card}`}
+          >
+            {"videoId" in deal ? (
+              <VideoFacade video={videos[deal.videoId]} photo={photo} sizes={mediaSizes} />
+            ) : photo ? (
+              <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-surface">
+                <Image src={photo.src} alt={photo.alt} fill sizes={mediaSizes} className="object-cover" />
               </div>
-            </dl>
-            <p className="mt-4 text-base leading-[1.6] text-body">{deal.story}</p>
-          </div>
-        </li>
-      ))}
+            ) : null}
+            <div className={`flex flex-1 flex-col px-1 pb-1 pt-5 ${text}`}>
+              <Heading className="text-xl font-medium leading-[1.625rem] text-navy">{deal.heading}</Heading>
+              <dl className="mt-4 grid grid-cols-2 gap-4 border-t border-hair pt-4 text-[0.9375rem] leading-normal">
+                {"amount" in deal ? (
+                  <div className="col-span-2">
+                    <dt className="text-sm text-muted">{deal.amount.label}</dt>
+                    <dd className="mt-0.5 text-[1.375rem] font-medium leading-7 text-navy">{deal.amount.value}</dd>
+                  </div>
+                ) : null}
+                <div>
+                  <dt className="text-sm text-muted">{deal.programs.length > 1 ? "Programs" : "Program"}</dt>
+                  <dd className="mt-0.5 flex flex-col gap-1">
+                    {deal.programs.map((program) => (
+                      <Link
+                        key={program.href}
+                        href={program.href}
+                        className="inline-flex min-h-6 items-center self-start font-semibold text-navy underline"
+                      >
+                        {program.label}
+                      </Link>
+                    ))}
+                  </dd>
+                </div>
+                {"purpose" in deal ? (
+                  <div>
+                    <dt className="text-sm text-muted">Purpose</dt>
+                    <dd className="mt-0.5 text-body">{deal.purpose}</dd>
+                  </div>
+                ) : null}
+              </dl>
+              {"story" in deal ? <p className="mt-4 text-base leading-[1.6] text-body">{deal.story}</p> : null}
+            </div>
+          </li>
+        );
+      })}
     </ul>
   );
 }
@@ -74,8 +117,25 @@ export function FundedDeals({ placement }: { placement: VideoPlacement }) {
         <div className="mt-10">
           <FundedDealCards placement={placement} />
         </div>
+        <p className="mt-10">
+          <MoreOnYouTube />
+        </p>
       </div>
     </section>
+  );
+}
+
+export function MoreOnYouTube() {
+  return (
+    <a
+      href={youtubeChannelUrl}
+      target="_blank"
+      rel="noopener"
+      aria-label="More on YouTube (opens YouTube in a new tab)"
+      className="font-semibold text-navy underline decoration-1 hover:decoration-2"
+    >
+      More on YouTube<span aria-hidden="true"> →</span>
+    </a>
   );
 }
 

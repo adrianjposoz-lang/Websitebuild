@@ -34,7 +34,9 @@ test("videos never include the excluded IDs or titles, and placements match the 
   assert.deepEqual(ids("program:ground-up"), ["V8--nI2muqQ"]);
   assert.deepEqual(ids("program:mid-construction"), ["V8--nI2muqQ"]);
   assert.deepEqual(ids("contact"), ["ajg_JxlUPVM"]);
-  for (const deal of fundedDeals) assert.ok(videos[deal.videoId].placement.includes("home-deals"));
+  for (const deal of fundedDeals) {
+    if ("videoId" in deal) assert.ok(videos[deal.videoId].placement.includes("home-deals"));
+  }
 });
 
 test("the five programs, with no Commercial DSCR anywhere in the program data", async () => {
@@ -45,4 +47,15 @@ test("the five programs, with no Commercial DSCR anywhere in the program data", 
   );
   assert.ok(!shippedPaths.some((path) => path.includes("commercial")));
   assert.ok(!faqs.some((faq) => /commercial/i.test(faq.answer)));
+});
+
+test("funded deals: the four real deals with figures first, verbatim live-site loan amounts, walkthrough last", async () => {
+  const { fundedDeals } = await import("./site.ts");
+  assert.deepEqual(
+    fundedDeals.map((deal) => deal.heading),
+    ["Preston Hollow, Dallas, TX", "Honolulu, HI", "Houston, TX", "St. Petersburg, FL", "Fix and flip walkthrough"],
+  );
+  const amount = (heading) => fundedDeals.find((deal) => deal.heading === heading).amount;
+  assert.deepEqual(amount("Houston, TX"), { label: "Loan amount", value: "$3,364,987.10" });
+  assert.deepEqual(amount("St. Petersburg, FL"), { label: "Loan amount", value: "$2,500,000.00" });
 });

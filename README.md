@@ -116,7 +116,7 @@ The webhook receives one JSON object per scenario:
 
 - Posters are self-hosted in `src/assets/video/` (title cards, or clean frames for the on-location deal videos), mapped in `src/lib/video-posters.ts` and rendered lazily with `next/image`. Never use the channel thumbnails.
 - `VideoFacade` renders the poster and a `<button aria-label="Play: {title} ({duration})">`. Nothing loads from YouTube or Google until the click. The click swaps in `https://www.youtube-nocookie.com/embed/{id}?autoplay=1&cc_load_policy=1&cc_lang_pref=en&rel=0` (`allow="autoplay; encrypted-media; picture-in-picture"`, `allowfullscreen`) in the same 16:9 box and moves focus into it. There is no CSP in `next.config.ts`; if one is added, allow `frame-src https://www.youtube-nocookie.com`.
-- `fundedDeals` are real loans (Adrian, 2026-10-07). Every displayed fact is quoted from the video's YouTube title or description and recorded in each deal's `source`. Leave a field out rather than infer it. Never put a funded deal under the illustrative label, or a sample under Funded deals.
+- `fundedDeals` are real loans (Adrian, 2026-10-07). Every displayed fact is quoted from its source and recorded in each deal's `source`: the video's YouTube title or description, or, for Houston and St. Petersburg, the deal's card on rscprivatelending.com (loan amounts verbatim). Leave a field out rather than infer it.
 - Never feature 8CTBPkEEN9A, oiWG4yO81Wk, X6OaUKN9nps, svQIB5oWumw, or LDSxPywBu5Q, and don't display their titles. `npm test` checks this and the placements.
 - The footer links to the channel ("Watch on YouTube", new tab), as does "More on YouTube" on home.
 

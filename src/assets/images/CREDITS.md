@@ -8,8 +8,8 @@ Real photos of RSC's deals, taken from the deal cards on the live site's home pa
 
 | File | Used on | Source URL | Pixels | Live-site card |
 | --- | --- | --- | --- | --- |
-| `deal-houston-tx.png` | Sample scenario: Houston, TX (`/`, `/loan-products`) | https://rscprivatelending.com/assets/deal-houston-tx-DCw7GBFC.png | 549×413 | Mid-Construction Refinance, Houston, TX |
-| `deal-petersburg-fl.png` | Sample scenario: St. Petersburg, FL (`/`, `/loan-products`) | https://rscprivatelending.com/assets/deal-petersburg-fl-DruE1Vrj.png | 468×341 | DSCR, Petersburg, FL |
+| `deal-houston-tx.png` | Funded deal: Houston, TX (`/`, `/loan-products`) | https://rscprivatelending.com/assets/deal-houston-tx-DCw7GBFC.png | 549×413 | Mid-Construction Refinance, Houston, TX |
+| `deal-petersburg-fl.png` | Funded deal: St. Petersburg, FL (`/`, `/loan-products`) | https://rscprivatelending.com/assets/deal-petersburg-fl-DruE1Vrj.png | 468×341 | DSCR, Petersburg, FL |
 | `deal-dallas-tx.png` | Funded deal: Preston Hollow, Dallas, TX (`/`, `/loan-products`) | https://rscprivatelending.com/assets/deal-dallas-tx-cKdfP4qU.png | 674×379 | Mid-Construction Refinance, Dallas, TX |
 | `deal-honolulu-hi.png` | Funded deal: Honolulu, HI (`/`, `/loan-products`) | https://rscprivatelending.com/assets/deal-honolulu-hi-BqTRQ3Wy.png | 672×414 | Fix and Flip, Honolulu, HI |
 

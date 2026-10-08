@@ -4,7 +4,6 @@ import { FactsBand } from "@/components/FactsBand";
 import { FromTheLender } from "@/components/FromTheLender";
 import { PageHero } from "@/components/PageHero";
 import { ProgramIndex } from "@/components/ProgramIndex";
-import { SampleScenarios } from "@/components/SampleScenarios";
 import { Timeline } from "@/components/Timeline";
 import { homeHeroPhoto } from "@/lib/photos";
 import { pageMetadata } from "@/lib/seo";
@@ -65,7 +64,6 @@ export default function HomePage() {
       </section>
 
       <FromTheLender />
-      <SampleScenarios />
 
       <ClosingBand />
     </main>

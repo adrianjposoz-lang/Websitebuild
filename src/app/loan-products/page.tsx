@@ -3,7 +3,6 @@ import { ClosingBand } from "@/components/ClosingBand";
 import { FundedDeals } from "@/components/FundedDeals";
 import { PageHero } from "@/components/PageHero";
 import { ProgramIndex } from "@/components/ProgramIndex";
-import { SampleScenarios } from "@/components/SampleScenarios";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
@@ -45,7 +44,6 @@ export default function LoanProductsPage() {
       </div>
 
       <FundedDeals placement="loan-products-deals" />
-      <SampleScenarios />
 
       <ClosingBand />
     </main>

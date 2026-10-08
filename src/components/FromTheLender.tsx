@@ -1,6 +1,6 @@
-import { FundedDealCards, fundedDealsIntro } from "@/components/FundedDeals";
+import { FundedDealCards, fundedDealsIntro, MoreOnYouTube } from "@/components/FundedDeals";
 import { VideoFacade } from "@/components/VideoFacade";
-import { videosFor, youtubeChannelUrl } from "@/lib/site";
+import { videosFor } from "@/lib/site";
 
 /** Home band after the process steps: the real funded deals first, then three explainers. */
 export function FromTheLender() {
@@ -49,15 +49,7 @@ export function FromTheLender() {
         ) : null}
 
         <p className="mt-10">
-          <a
-            href={youtubeChannelUrl}
-            target="_blank"
-            rel="noopener"
-            aria-label="More on YouTube (opens YouTube in a new tab)"
-            className="font-semibold text-navy underline decoration-1 hover:decoration-2"
-          >
-            More on YouTube<span aria-hidden="true"> →</span>
-          </a>
+          <MoreOnYouTube />
         </p>
       </div>
     </section>
