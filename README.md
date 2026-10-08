@@ -104,6 +104,7 @@ The webhook receives one JSON object per scenario:
 ## Brand and images
 
 - Full-color logo on white: `public/brand/rsc-logo.png`. Reversed logo: `public/brand/rsc-logo-reversed.png` (navy surfaces only: the footer and the share image). Favicon and app icons: `src/app/favicon.ico`, `src/app/icon.png`, `src/app/apple-icon.png`.
+- Equal Housing Opportunity mark in the footer: `public/brand/equal-housing-opportunity-white.png`, HUD's official artwork from [hud.gov/contactus/hudgraphics](https://www.hud.gov/contactus/hudgraphics) (`https://www.hud.gov/sites/dfiles/FHEO/images/fheo400.eps`, rendered at its native 1130×1209 and recolored white on transparent, shapes unchanged).
 - Type: Schibsted Grotesk (400, 500, 600) through `next/font/google`, with Public Sans and the system sans as fallbacks. Headings are 500. Every figure (phone numbers, amounts, step numbers, the state count) carries the `tnum` utility for tabular numerals; keep it off running prose, since the font's `tnum` also widens periods.
 - Colors live in `src/app/globals.css`: white and `surface` `#f4f5f7` bands, navy `#0b1f3a` for headings, links, and the closing band, `navy-deep` `#071422` for the footer, `body` `#334155`, `muted` `#475569`, `hair` `#d9dee5` hairlines, and `field` `#64748b` input borders. Red `#cd2727` is only the Submit a Scenario button and the 3px active-nav marker.
 - Submit a Scenario (red, to `/contact`) is the only filled button. Everything else is a navy underlined text link.
