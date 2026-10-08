@@ -36,7 +36,7 @@ export type FundedLoan = {
   purpose?: string;
   /** Whole dollars. */
   loanAmount: number;
-  /** YYYY-MM. Only where Adrian gave a date; never inferred. */
+  /** YYYY-MM, from the lender's loan records; never inferred. */
   closed?: `${number}-${number}`;
   /** File name in public/deals/. Without one the card shows a neutral placeholder. */
   photo?: string;
@@ -79,6 +79,7 @@ export const fundedLoans: readonly FundedLoan[] = [
     program: "Bridge",
     purpose: "Refinance",
     loanAmount: 4_080_000,
+    closed: "2026-05",
     photo: "dallas-tx.jpg",
     videoId: "A8AWfpc4oag",
     history: "First funded in 2025 as a $3,847,254 mid-construction loan, then refinanced into this Bridge loan in 2026.",
@@ -88,6 +89,7 @@ export const fundedLoans: readonly FundedLoan[] = [
       heading:
         "video description: “a completed luxury new construction home in Preston Hollow, Dallas”; state (TX) added per Adrian/PM, 2026-10-07",
       amount: "Adrian, 2026-10-08 00:12 CDT: Bridge, Refinance, 2026, $4,080,000",
+      closed: "the lender's loan records, 2026-10-08",
       history:
         "Adrian, 2026-10-08: the original 2025 loan was $3,847,254, the same loan as the live site's Dallas card; wording “mid-construction loan” per Adrian/PM, 2026-10-08",
       copy: "video description: “a mid-construction takeover loan and a bridge rate-and-term refinance with interest reserves”; interest reserves confirmed by Adrian, 2026-10-08 00:13 CDT",
@@ -123,12 +125,14 @@ export const fundedLoans: readonly FundedLoan[] = [
     program: "Mid-Construction",
     purpose: "Refinance",
     loanAmount: 3_364_987,
+    closed: "2025-06",
     photo: "houston-tx.png",
     featured: true,
     source: {
       confirmed: "real funded loan per Adrian, 2026-10-07 23:32 CDT",
       heading: "rscprivatelending.com “Recent Deals” card: “Houston, TX”",
       amount: "same card: “3,364,987.10”; shown in whole dollars, cents dropped, per Adrian/PM 2026-10-08",
+      closed: "the lender's loan records, 2026-10-08",
       program: "same card: program “Mid-Construction”, purpose “Refinance”",
     },
   },
@@ -150,12 +154,14 @@ export const fundedLoans: readonly FundedLoan[] = [
     program: "DSCR",
     purpose: "Purchase",
     loanAmount: 2_500_000,
+    closed: "2025-07",
     photo: "st-petersburg-fl.png",
     featured: true,
     source: {
       confirmed: "real funded loan per Adrian, 2026-10-07 23:32 CDT",
       heading: "rscprivatelending.com “Recent Deals” card: “Petersburg, FL” (St. Petersburg per Adrian)",
       amount: "same card: “2,500,000.00”; whole dollars per Adrian/PM 2026-10-08",
+      closed: "the lender's loan records, 2026-10-08",
       program: "same card: program “DSCR”; purpose “Purchase” per Adrian, 2026-10-08 (the live card says “Rental”)",
     },
   },
@@ -216,6 +222,7 @@ export const fundedLoans: readonly FundedLoan[] = [
     program: "Fix & Flip",
     purpose: "Purchase",
     loanAmount: 1_475_250,
+    closed: "2025-03",
     photo: "honolulu-hi.png",
     videoId: "Lt3MwArGP_Q",
     copy: "Came in from a wholesaler with a 14-day closing window and closed in 5 business days at 90% Loan-to-Cost plus 100% rehab.",
@@ -223,6 +230,7 @@ export const fundedLoans: readonly FundedLoan[] = [
     source: {
       heading: "title: “Honolulu Flip”; description: “a single-family Honolulu deal”; state (HI) added per Adrian/PM, 2026-10-07",
       amount: "rscprivatelending.com “Recent Deals” Honolulu card: “1,475,250”; lead figure per Adrian/PM, 2026-10-08",
+      closed: "the lender's loan records, 2026-10-08",
       program: "Fix & Flip, purpose Purchase, per Adrian/PM 2026-10-08 (the live card says “Renovation”)",
       copy: "video description: “came to us from a wholesaler with a 14-day closing window” and “closed in 5 business days at 90% Loan-to-Cost plus 100% rehab”",
     },

@@ -46,12 +46,8 @@ test("city and state only: no street names, house numbers or ZIP codes in loan t
   }
 });
 
-test("dates are YYYY-MM and only where given", () => {
-  for (const loan of fundedLoans) if (loan.closed) assert.match(loan.closed, /^20\d{2}-(0[1-9]|1[0-2])$/, loan.id);
-  assert.deepEqual(
-    fundedLoans.filter((loan) => !loan.closed).map(loanHeading),
-    ["Preston Hollow, Dallas, TX", "Houston, TX", "St. Petersburg, FL", "Honolulu, HI"],
-  );
+test("all 16 loans have a YYYY-MM close date", () => {
+  for (const loan of fundedLoans) assert.match(loan.closed ?? "", /^20\d{2}-(0[1-9]|1[0-2])$/, loan.id);
   assert.equal(formatClosed("2026-02"), "Feb 2026");
   assert.equal(formatClosed("2025-11"), "Nov 2025");
 });
@@ -68,13 +64,13 @@ test("the featured 7 are unchanged, in order", () => {
       loan.videoId,
     ]),
     [
-      ["Preston Hollow, Dallas, TX", "$4,080,000", "Bridge", "Refinance", undefined, "dallas-tx.jpg", "A8AWfpc4oag"],
+      ["Preston Hollow, Dallas, TX", "$4,080,000", "Bridge", "Refinance", "May 2026", "dallas-tx.jpg", "A8AWfpc4oag"],
       ["Houston, TX", "$4,029,512", "Mid-Construction", undefined, "Feb 2026", "houston-tx-2.jpg", undefined],
-      ["Houston, TX", "$3,364,987", "Mid-Construction", "Refinance", undefined, "houston-tx.png", undefined],
-      ["St. Petersburg, FL", "$2,500,000", "DSCR", "Purchase", undefined, "st-petersburg-fl.png", undefined],
+      ["Houston, TX", "$3,364,987", "Mid-Construction", "Refinance", "Jun 2025", "houston-tx.png", undefined],
+      ["St. Petersburg, FL", "$2,500,000", "DSCR", "Purchase", "Jul 2025", "st-petersburg-fl.png", undefined],
       ["Roswell, GA", "$2,342,747", "Mid-Construction", "Refinance", "Apr 2026", "roswell-ga.jpg", undefined],
       ["Marietta, GA", "$1,785,000", "DSCR", "Rate-and-term refinance", "Aug 2026", "marietta-ga.jpg", undefined],
-      ["Honolulu, HI", "$1,475,250", "Fix & Flip", "Purchase", undefined, "honolulu-hi.png", "Lt3MwArGP_Q"],
+      ["Honolulu, HI", "$1,475,250", "Fix & Flip", "Purchase", "Mar 2025", "honolulu-hi.png", "Lt3MwArGP_Q"],
     ],
   );
   assert.equal(
