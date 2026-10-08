@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { EditorialHero } from "@/components/EditorialHero";
+import { PageHero } from "@/components/PageHero";
 import { SiteLink } from "@/components/SiteLink";
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <main id="main">
-      <EditorialHero
+      <PageHero
         title="This page is not on the site."
         lede="The address does not match a published page. Check the link or return to the catalog."
         quiet={

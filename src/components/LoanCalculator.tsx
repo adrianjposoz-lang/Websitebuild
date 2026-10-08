@@ -12,7 +12,7 @@ function money(value: number) {
 
 const labelClass = "block text-[0.9375rem] font-medium text-ink";
 const inputClass =
-  "mt-2 w-full rounded-[3px] border border-field-border bg-white px-3 py-2.5 text-base font-normal text-ink";
+  "tnum mt-2 h-12 w-full rounded-md border border-field bg-white px-3.5 text-base font-normal text-ink";
 
 export function LoanCalculator({
   showConstructionBudget,
@@ -39,7 +39,7 @@ export function LoanCalculator({
 
   return (
     <form
-      className="border-t border-rule pt-8"
+      className="rounded-lg border border-hair p-6 lg:p-8"
       onSubmit={(event) => event.preventDefault()}
       aria-label="Example loan calculator"
     >
@@ -81,7 +81,7 @@ export function LoanCalculator({
         ) : null}
       </div>
 
-      <p className="mt-5 text-sm leading-6 text-warm">
+      <p className="mt-5 text-sm leading-6 text-muted">
         Example only, not a quote. Interest-only, from the figures you type.
         {showConstructionBudget
           ? " The construction budget is added when you enter one."
@@ -89,12 +89,12 @@ export function LoanCalculator({
       </p>
 
       {result ? (
-        <p className="mt-4 font-serif text-xl text-navy" role="status">
-          Example interest-only payment: {money(result.monthly)} per month on{" "}
-          {money(result.balance)}.
+        <p className="mt-4 text-xl font-medium leading-[1.625rem] text-navy" role="status">
+          Example interest-only payment: <span className="tnum">{money(result.monthly)}</span> per month on{" "}
+          <span className="tnum">{money(result.balance)}</span>.
         </p>
       ) : (
-        <p className="mt-4 text-sm text-warm">Enter a loan amount and rate to see an example.</p>
+        <p className="mt-4 text-sm text-muted">Enter a loan amount and rate to see an example.</p>
       )}
     </form>
   );

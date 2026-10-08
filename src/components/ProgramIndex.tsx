@@ -1,37 +1,42 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { withAmp } from "@/components/Amp";
-import { PropertySketch, type SketchSlug } from "@/components/PropertySketch";
 import { products } from "@/lib/site";
+
+/**
+ * Text-only program tiles. No icons; hover only turns the border navy. On a 6-column grid from
+ * `lg`, the last row's tiles widen to fill it (5 programs: 3 + 2), and an odd last tile spans both
+ * columns from `sm`, so no row is left with a gap.
+ */
+function tileSpan(index: number, count: number) {
+  const lastRow = count % 3 || 3;
+  const lg = index >= count - lastRow ? ["lg:col-span-6", "lg:col-span-3", "lg:col-span-2"][lastRow - 1] : "lg:col-span-2";
+  const sm = count % 2 === 1 && index === count - 1 ? "sm:col-span-2" : "";
+  return `${sm} ${lg}`;
+}
 
 export function ProgramIndex({ id, title, intro }: { id: string; title: string; intro: ReactNode }) {
   return (
-    <section aria-labelledby={id} className="py-24 lg:py-32">
-      <div className="mx-auto grid w-full max-w-[76rem] gap-10 px-[1.125rem] lg:grid-cols-12 lg:gap-x-14 lg:px-8">
-        <div className="lg:col-span-4">
-          <div className="lg:sticky lg:top-10">
-            <h2 id={id} className="text-[2.5rem] leading-[1.05] text-navy lg:text-[3.5rem]">
-              {title}
-            </h2>
-            <div className="mt-5 text-lg leading-[1.6] text-ink">{intro}</div>
-          </div>
+    <section aria-labelledby={id} className="py-16 lg:py-24">
+      <div className="mx-auto w-full max-w-[75rem] px-[1.125rem] lg:px-8">
+        <div data-reveal className="max-w-[44rem]">
+          <h2 id={id} className="text-[1.75rem] leading-[2.25rem] lg:text-4xl lg:leading-10">
+            {title}
+          </h2>
+          <div className="mt-4 text-lg leading-[1.6] text-body">{intro}</div>
         </div>
-        <ul className="border-t border-rule lg:col-span-8">
-          {products.map((product) => (
-            <li key={product.slug} className="border-b border-rule">
+        <ul data-reveal className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-6 lg:gap-6">
+          {products.map((product, index) => (
+            <li key={product.slug} className={tileSpan(index, products.length)}>
               <Link
                 href={product.href}
-                className="group grid grid-cols-[minmax(0,1fr)_5.5rem] items-center gap-5 py-6 no-underline lg:grid-cols-[minmax(0,1fr)_7.5rem] lg:gap-10 lg:py-7"
+                className="flex h-full flex-col rounded-lg border border-hair bg-white p-6 no-underline transition-colors duration-150 hover:border-navy"
               >
-                <span className="block">
-                  <span className="block font-display text-[2rem] leading-[1.1] text-navy underline decoration-transparent decoration-2 underline-offset-[6px] transition-colors duration-150 group-hover:decoration-cta lg:text-[2.5rem]">
-                    {withAmp(product.name)}
-                  </span>
-                  <span className="mt-2 block text-base leading-[1.6] text-ink lg:text-[1.0625rem]">
-                    {product.summary}
-                  </span>
+                <h3 className="text-xl leading-[1.625rem]">{product.name}</h3>
+                <span className="mt-2 block flex-1 text-base leading-[1.6] text-body">{product.summary}</span>
+                <span className="mt-5 block text-[0.9375rem] font-semibold text-navy underline">
+                  View program
+                  <span aria-hidden="true"> →</span>
                 </span>
-                <PropertySketch slug={product.slug as SketchSlug} />
               </Link>
             </li>
           ))}

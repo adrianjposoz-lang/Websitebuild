@@ -12,7 +12,7 @@ function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-const activeDecoration = "underline decoration-cta decoration-2 underline-offset-8";
+const activeDecoration = "underline decoration-cta decoration-[3px] underline-offset-8";
 
 export function Header() {
   const pathname = usePathname();
@@ -28,8 +28,8 @@ export function Header() {
   }, []);
 
   return (
-    <header className="border-b border-rule">
-      <div className="mx-auto flex w-full max-w-[76rem] items-center gap-10 px-[1.125rem] py-2.5 lg:px-8 lg:py-3.5">
+    <header className="border-b border-hair bg-white">
+      <div className="mx-auto flex h-[4.5rem] w-full max-w-[75rem] items-center gap-10 px-[1.125rem] lg:px-8">
         <Link href="/" aria-label={`${site.name} home`} className="shrink-0">
           <Image
             src="/brand/rsc-logo.png"
@@ -37,7 +37,7 @@ export function Header() {
             width={360}
             height={358}
             preload
-            className="h-11 w-auto lg:h-[3.625rem]"
+            className="h-12 w-auto"
           />
         </Link>
 
@@ -47,7 +47,7 @@ export function Header() {
               key={item.href}
               href={item.href}
               aria-current={isActive(pathname, item.href) ? "page" : undefined}
-              className={`text-[0.9375rem] font-medium text-ink transition-colors duration-150 hover:text-navy ${
+              className={`text-[0.9375rem] font-medium text-body transition-colors duration-150 hover:text-navy ${
                 isActive(pathname, item.href) ? activeDecoration : "no-underline hover:underline"
               }`}
             >
@@ -56,21 +56,20 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-[1.375rem] lg:ml-0">
+        <div className="ml-auto flex items-center gap-3 sm:gap-[1.375rem] lg:ml-0">
           <a href={site.portalUrl} className="hidden text-[0.9375rem] font-medium text-navy underline lg:inline">
             Borrower Portal
           </a>
-          {/* Below lg every page hero leads with a full-width Submit a Scenario, so the header drops its copy. */}
           <Link
             href="/contact"
             aria-current={pathname === "/contact" ? "page" : undefined}
-            className={`${buttonClass} hidden min-h-11 px-[1.125rem] text-[0.90625rem] lg:inline-flex`}
+            className={`${buttonClass} inline-flex min-h-11 px-4 text-[0.9375rem] lg:px-5`}
           >
             Submit a Scenario
           </Link>
           <button
             type="button"
-            className="inline-flex min-h-11 items-center rounded-[3px] border border-navy px-3 text-sm font-semibold text-navy lg:hidden"
+            className="inline-flex min-h-11 items-center rounded-md border border-field px-3 text-[0.9375rem] font-semibold text-navy lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpenPath(open ? null : pathname)}
@@ -81,15 +80,15 @@ export function Header() {
       </div>
 
       {open ? (
-        <nav id="mobile-nav" aria-label="Mobile" className="border-t border-rule px-[1.125rem] pb-6 pt-2 lg:hidden">
+        <nav id="mobile-nav" aria-label="Mobile" className="border-t border-hair px-[1.125rem] pb-6 pt-2 lg:hidden">
           <ul className="flex flex-col">
             {nav.map((item) => (
-              <li key={item.href} className="border-b border-rule">
+              <li key={item.href} className="border-b border-hair">
                 <Link
                   href={item.href}
                   aria-current={isActive(pathname, item.href) ? "page" : undefined}
                   className={`block py-3 text-base font-medium text-ink ${
-                    isActive(pathname, item.href) ? "underline decoration-cta decoration-2" : "no-underline"
+                    isActive(pathname, item.href) ? "underline decoration-cta decoration-[3px] underline-offset-8" : "no-underline"
                   }`}
                 >
                   {item.label}
@@ -97,18 +96,9 @@ export function Header() {
               </li>
             ))}
           </ul>
-          <div className="mt-5 flex flex-col gap-4">
-            <Link
-              href="/contact"
-              aria-current={pathname === "/contact" ? "page" : undefined}
-              className={`${buttonClass} flex min-h-12 w-full px-6`}
-            >
-              Submit a Scenario
-            </Link>
-            <a href={site.portalUrl} className="self-start py-2 font-medium text-navy underline">
-              Borrower Portal
-            </a>
-          </div>
+          <a href={site.portalUrl} className="mt-5 inline-block py-2 font-semibold text-navy underline">
+            Borrower Portal
+          </a>
         </nav>
       ) : null}
     </header>

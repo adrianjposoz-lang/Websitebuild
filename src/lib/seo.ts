@@ -78,7 +78,7 @@ export const organizationJsonLd = {
         addressCountry: "US",
       },
       description:
-        "Business-purpose private lending for real estate investors: DSCR, Bridge, Fix & Flip, Ground-Up, Mid-Construction, and Commercial DSCR.",
+        "Business-purpose private lending for real estate investors: DSCR, Bridge, Fix & Flip, Ground-Up, and Mid-Construction.",
     },
   ],
 };
