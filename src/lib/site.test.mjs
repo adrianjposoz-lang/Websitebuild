@@ -29,8 +29,9 @@ test("videos never include the excluded IDs or titles, and placements match the 
     assert.doesNotMatch(video.title, /guarantee|\$500M|100% financing/i);
   }
   const ids = (placement) => videosFor(placement).map((video) => video.id);
-  assert.deepEqual(ids("home-deals"), ["A8AWfpc4oag", "Lt3MwArGP_Q", "pPumrpAaiwc"]);
-  assert.deepEqual(ids("home-explainers"), ["bMoVComyyfI", "ncIvS1Es3uc", "rrFlOT9AbeE"]);
+  assert.deepEqual(ids("home-deals"), ["A8AWfpc4oag", "Lt3MwArGP_Q"]);
+  assert.deepEqual(ids("home-explainers"), ["pPumrpAaiwc", "bMoVComyyfI", "ncIvS1Es3uc", "rrFlOT9AbeE"]);
+  assert.deepEqual(ids("loan-products-deals"), ["A8AWfpc4oag", "Lt3MwArGP_Q"]);
   assert.deepEqual(ids("program:ground-up"), ["V8--nI2muqQ"]);
   assert.deepEqual(ids("program:mid-construction"), ["V8--nI2muqQ"]);
   assert.deepEqual(ids("contact"), ["ajg_JxlUPVM"]);
@@ -49,9 +50,9 @@ test("the five programs, with no Commercial DSCR anywhere in the program data", 
   assert.ok(!faqs.some((faq) => /commercial/i.test(faq.answer)));
 });
 
-test("funded deals: seven loans by amount, high to low, in whole dollars, then the walkthrough", async () => {
+test("funded deals: seven loans by amount, high to low, in whole dollars", async () => {
   const { fundedDeals } = await import("./site.ts");
-  assert.equal(fundedDeals.length, 8);
+  assert.equal(fundedDeals.length, 7);
   assert.deepEqual(
     fundedDeals.map((deal) => [deal.heading, deal.amount?.value]),
     [
@@ -62,10 +63,9 @@ test("funded deals: seven loans by amount, high to low, in whole dollars, then t
       ["Roswell, GA", "$2,342,747"],
       ["Marietta, GA", "$1,785,000"],
       ["Honolulu, HI", "$1,475,250"],
-      ["Fix and flip walkthrough", undefined],
     ],
   );
-  const loans = fundedDeals.filter((deal) => "amount" in deal);
+  const loans = fundedDeals;
   const dollars = (deal) => Number(deal.amount.value.replace(/[$,]/g, ""));
   for (const deal of loans) {
     assert.equal(deal.amount.label, "Loan amount");

@@ -6,31 +6,7 @@ import { fundedDeals, videos, videosFor, youtubeChannelUrl, type VideoPlacement 
 
 const intro = "Real loans we funded. Some are walked through on our YouTube channel.";
 
-const mediaSizes = "(min-width: 1024px) 360px, (min-width: 768px) 45vw, 100vw";
-
-/**
- * Grid spans so no row is left with an orphan: 3 across at lg (a short last row widens to fill it),
- * 2 across at md (an odd last card spans both). A widened card sets its media beside the text.
- */
-function layout(index: number, count: number) {
-  const lgRemainder = count % 3;
-  const lgWide = lgRemainder > 0 && index >= count - lgRemainder;
-  const mdWide = count % 2 === 1 && index === count - 1;
-  const classes = [lgWide ? (lgRemainder === 2 ? "lg:col-span-3" : "lg:col-span-6") : "lg:col-span-2"];
-  const text: string[] = [];
-  if (mdWide) {
-    classes.push("md:col-span-2 md:grid md:grid-cols-2 md:gap-6");
-    text.push("md:pt-0");
-    if (!lgWide) {
-      classes.push("lg:flex");
-      text.push("lg:pt-5");
-    }
-  } else if (lgWide) {
-    classes.push("lg:grid lg:grid-cols-2 lg:gap-6");
-    text.push("lg:pt-0");
-  }
-  return { card: classes.join(" "), text: text.join(" ") };
-}
+const mediaSizes = "(min-width: 1024px) 270px, (min-width: 768px) 45vw, 100vw";
 
 /**
  * Stands in for a deal photo where RSC has none: never stock or generated imagery. Decorative; the
@@ -40,10 +16,10 @@ function CityPanel({ city, program }: { city: string; program: string }) {
   return (
     <div
       aria-hidden="true"
-      className="flex aspect-video w-full flex-col justify-end rounded-lg bg-navy p-5 lg:p-6"
+      className="flex aspect-[4/3] w-full flex-col justify-end rounded-lg bg-navy p-5"
     >
       <span className="text-sm font-medium uppercase tracking-[0.08em] text-[#cbd5e1]">{program}</span>
-      <span className="mt-1 text-[1.75rem] font-medium leading-[2.125rem] text-white lg:text-[2rem] lg:leading-[2.375rem]">
+      <span className="mt-1 text-[1.75rem] font-medium leading-[2.125rem] text-white">
         {city}
       </span>
     </div>
@@ -64,34 +40,31 @@ export function FundedDealCards({
   const Heading = headingLevel;
 
   return (
-    <ul data-reveal className="grid gap-6 md:grid-cols-2 lg:grid-cols-6">
-      {deals.map((deal, index) => {
-        const { card, text } = layout(index, deals.length);
+    <ul data-reveal className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {deals.map((deal) => {
         const photo = "photo" in deal ? dealPhotos[deal.photo] : undefined;
         return (
           <li
-            key={`${deal.heading} ${"amount" in deal ? deal.amount.value : ""}`}
-            className={`flex flex-col rounded-lg border border-hair bg-white p-4 lg:p-5 ${card}`}
+            key={`${deal.heading} ${deal.amount.value}`}
+            className="flex flex-col rounded-lg border border-hair bg-white p-4"
           >
             {"videoId" in deal ? (
-              <VideoFacade video={videos[deal.videoId]} photo={photo} sizes={mediaSizes} />
+              <VideoFacade video={videos[deal.videoId]} photo={photo} sizes={mediaSizes} variant="badge" aspect="4/3" />
             ) : photo ? (
-              <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-surface">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-surface">
                 <Image src={photo.src} alt={photo.alt} fill sizes={mediaSizes} className="object-cover" />
               </div>
             ) : (
               <CityPanel city={deal.heading} program={deal.programs[0].label} />
             )}
-            <div className={`flex flex-1 flex-col px-1 pb-1 pt-5 ${text}`}>
+            <div className="flex flex-col px-1 pb-1 pt-5">
               <Heading className="text-xl font-medium leading-[1.625rem] text-navy">{deal.heading}</Heading>
               {"closed" in deal ? <p className="mt-1 text-[0.9375rem] text-muted">Closed {deal.closed}</p> : null}
               <dl className="mt-4 grid grid-cols-2 gap-4 border-t border-hair pt-4 text-[0.9375rem] leading-normal">
-                {"amount" in deal ? (
-                  <div className="col-span-2">
-                    <dt className="text-sm text-muted">{deal.amount.label}</dt>
-                    <dd className="mt-0.5 text-[1.375rem] font-medium leading-7 text-navy">{deal.amount.value}</dd>
-                  </div>
-                ) : null}
+                <div className="col-span-2">
+                  <dt className="text-sm text-muted">{deal.amount.label}</dt>
+                  <dd className="mt-0.5 text-[1.375rem] font-medium leading-7 text-navy">{deal.amount.value}</dd>
+                </div>
                 <div>
                   <dt className="text-sm text-muted">{deal.programs.length > 1 ? "Programs" : "Program"}</dt>
                   <dd className="mt-0.5 flex flex-col gap-1">

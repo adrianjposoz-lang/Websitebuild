@@ -116,7 +116,7 @@ export const videos = {
     title: "$1,000,000+ Hard Money real estate deal (in person walkthrough)",
     duration: "6:39",
     poster: "pPumrpAaiwc.jpg",
-    placement: ["home-deals", "loan-products-deals"],
+    placement: ["home-explainers"],
   },
   bMoVComyyfI: {
     id: "bMoVComyyfI",
@@ -186,7 +186,7 @@ export function videosFor(placement: VideoPlacement): Video[] {
 }
 
 /**
- * Real funded deals, ordered by loan amount, high to low; the walkthrough (no amount) comes last.
+ * Real funded deals, ordered by loan amount, high to low.
  * Every card leads with a whole-dollar loan amount confirmed by Adrian (2026-10-07 and 2026-10-08).
  * Each displayed fact is recorded in `source`. City and state only: never a street, street number
  * or borrower name. Show `closed` only where Adrian gave a date; never infer one. `photo` keys into
@@ -282,20 +282,6 @@ export const fundedDeals = [
       programs: "Fix & Flip, purpose Purchase, per Adrian/PM 2026-10-08 (the live card says “Renovation”)",
       story:
         "video description: “came to us from a wholesaler with a 14-day closing window” and “closed in 5 business days at 90% Loan-to-Cost plus 100% rehab”",
-    },
-  },
-  {
-    videoId: "pPumrpAaiwc",
-    heading: "Fix and flip walkthrough",
-    programs: [{ label: "Fix & Flip", href: "/loan-products/fix-and-flip" }],
-    story:
-      "An in-person walk of a hoarder-house rehab mid-project, with the purchase price, rehab budget, ARV, and projected profit broken down on site.",
-    source: {
-      heading: "title: “(in person walkthrough)”; description: “a real $1,000,000+ fix and flip”",
-      amount: "omitted: the title says “deal” but the thumbnail says “Profit”; waiting on Adrian",
-      programs: "description: “a real $1,000,000+ fix and flip funded with hard money”",
-      story:
-        "description: “break down the purchase price, rehab budget, ARV, and projected profit, and show what a hoarder-house rehab actually looks like mid-project”",
     },
   },
 ] as const satisfies readonly ({ videoId?: keyof typeof videos } & Record<string, unknown>)[];
