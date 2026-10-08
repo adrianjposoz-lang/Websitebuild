@@ -201,7 +201,7 @@ export const fundedDeals = [
     amount: { label: "Loan amount", value: "$4,080,000" },
     programs: [{ label: "Bridge", href: "/loan-products/bridge" }],
     purpose: "Refinance",
-    history: "First funded in 2025 as a $3,847,254 Fix & Flip loan, then refinanced into this Bridge loan in 2026.",
+    history: "First funded in 2025 as a $3,847,254 mid-construction loan, then refinanced into this Bridge loan in 2026.",
     story:
       "A luxury new construction home, taken from 60% built with a mid-construction takeover loan, then a bridge rate-and-term refinance with interest reserves.",
     source: {
@@ -209,7 +209,7 @@ export const fundedDeals = [
         "video description: “a completed luxury new construction home in Preston Hollow, Dallas”; state (TX) added per Adrian/PM, 2026-10-07",
       amount: "Adrian, 2026-10-08 00:12 CDT: Bridge, Refinance, 2026, $4,080,000",
       history:
-        "Adrian, 2026-10-08: the original 2025 Fix & Flip loan was $3,847,254, the same loan as the live site's Dallas card",
+        "Adrian, 2026-10-08: the original 2025 loan was $3,847,254, the same loan as the live site's Dallas card; wording “mid-construction loan” per Adrian/PM, 2026-10-08",
       story:
         "video description: “a mid-construction takeover loan and a bridge rate-and-term refinance with interest reserves”; interest reserves confirmed by Adrian, 2026-10-08 00:13 CDT",
     },

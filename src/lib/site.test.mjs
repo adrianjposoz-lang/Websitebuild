@@ -72,7 +72,10 @@ test("funded deals: seven loans by amount, high to low, in whole dollars, then t
     assert.match(deal.amount.value, /^\$\d{1,3}(,\d{3})+$/);
   }
   for (let i = 1; i < loans.length; i++) assert.ok(dollars(loans[i - 1]) > dollars(loans[i]));
-  assert.match(fundedDeals[0].history, /\$3,847,254/);
+  assert.equal(
+    fundedDeals[0].history,
+    "First funded in 2025 as a $3,847,254 mid-construction loan, then refinanced into this Bridge loan in 2026.",
+  );
   assert.deepEqual(
     fundedDeals.filter((deal) => "closed" in deal).map((deal) => [deal.heading, deal.closed]),
     [["Houston, TX", "Feb 2026"], ["Roswell, GA", "Apr 2026"], ["Marietta, GA", "Aug 2026"]],
