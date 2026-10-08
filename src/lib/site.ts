@@ -187,15 +187,15 @@ export function videosFor(placement: VideoPlacement): Video[] {
 
 /**
  * Real funded deals (Adrian, 2026-10-07). Every displayed fact is quoted from the video's YouTube
- * title or description, recorded in `source`. Leave a field out rather than infer it: no state is
- * given for Dallas or Honolulu, and no location for the walkthrough. Never show these under the
- * illustrative sample-scenarios label.
+ * title or description, recorded in `source`, except the TX and HI states added per Adrian/PM on
+ * 2026-10-07. Leave a field out rather than infer it: the walkthrough has no location and no amount.
+ * Never show these under the illustrative sample-scenarios label.
  */
 export const fundedDeals = [
   {
     videoId: "A8AWfpc4oag",
-    heading: "Preston Hollow, Dallas",
-    amount: { label: "Listing", value: "$4.3 million" },
+    heading: "Preston Hollow, Dallas, TX",
+    amount: { label: "Home value", value: "$4.3M" },
     programs: [
       { label: "Mid-Construction", href: "/loan-products/mid-construction" },
       { label: "Bridge", href: "/loan-products/bridge" },
@@ -203,8 +203,9 @@ export const fundedDeals = [
     story:
       "A luxury new construction home, taken from 60% built with a mid-construction takeover loan, then a bridge rate-and-term refinance with interest reserves.",
     source: {
-      heading: "description: “a completed luxury new construction home in Preston Hollow, Dallas”",
-      amount: "description: “took this project from 60% built to a $4.3 million listing”",
+      heading:
+        "description: “a completed luxury new construction home in Preston Hollow, Dallas”; state (TX) added per Adrian/PM, 2026-10-07",
+      amount: "title: “How This $4.3M Dallas Home”; the home’s value, never a loan amount",
       programs:
         "description: “a mid-construction takeover loan and a bridge rate-and-term refinance with interest reserves”",
       story: "description (same sentence)",
@@ -212,13 +213,13 @@ export const fundedDeals = [
   },
   {
     videoId: "Lt3MwArGP_Q",
-    heading: "Honolulu",
+    heading: "Honolulu, HI",
     amount: { label: "Purchase", value: "$1.632M" },
     programs: [{ label: "Fix & Flip", href: "/loan-products/fix-and-flip" }],
     story:
       "Came in from a wholesaler with a 14-day closing window and closed in 5 business days at 90% Loan-to-Cost plus 100% rehab.",
     source: {
-      heading: "title: “Honolulu Flip”; description: “a single-family Honolulu deal”",
+      heading: "title: “Honolulu Flip”; description: “a single-family Honolulu deal”; state (HI) added per Adrian/PM, 2026-10-07",
       amount: "description: “$1.632M purchase”",
       programs: "title: “Flip”; description: “Honolulu fix-and-flip”",
       story:
@@ -228,13 +229,12 @@ export const fundedDeals = [
   {
     videoId: "pPumrpAaiwc",
     heading: "Fix and flip walkthrough",
-    amount: { label: "Deal", value: "$1,000,000+" },
     programs: [{ label: "Fix & Flip", href: "/loan-products/fix-and-flip" }],
     story:
       "An in-person walk of a hoarder-house rehab mid-project, with the purchase price, rehab budget, ARV, and projected profit broken down on site.",
     source: {
       heading: "title: “(in person walkthrough)”; description: “a real $1,000,000+ fix and flip”",
-      amount: "title: “$1,000,000+ Hard Money real estate deal”",
+      amount: "omitted: the title says “deal” but the thumbnail says “Profit”; waiting on Adrian",
       programs: "description: “a real $1,000,000+ fix and flip funded with hard money”",
       story:
         "description: “break down the purchase price, rehab budget, ARV, and projected profit, and show what a hoarder-house rehab actually looks like mid-project”",

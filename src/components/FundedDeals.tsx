@@ -25,10 +25,12 @@ export function FundedDealCards({
           <div className="flex flex-1 flex-col px-1 pb-1 pt-5">
             <Heading className="text-xl font-medium leading-[1.625rem] text-navy">{deal.heading}</Heading>
             <dl className="mt-4 grid grid-cols-2 gap-4 border-t border-hair pt-4 text-[0.9375rem] leading-normal">
-              <div>
-                <dt className="text-sm text-muted">{deal.amount.label}</dt>
-                <dd className="tnum mt-0.5 text-[1.375rem] font-medium leading-7 text-navy">{deal.amount.value}</dd>
-              </div>
+              {"amount" in deal ? (
+                <div>
+                  <dt className="text-sm text-muted">{deal.amount.label}</dt>
+                  <dd className="mt-0.5 text-[1.375rem] font-medium leading-7 text-navy">{deal.amount.value}</dd>
+                </div>
+              ) : null}
               <div>
                 <dt className="text-sm text-muted">{deal.programs.length > 1 ? "Programs" : "Program"}</dt>
                 <dd className="mt-0.5 flex flex-col gap-1">

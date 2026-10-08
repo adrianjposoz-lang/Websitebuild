@@ -50,7 +50,7 @@ export function SampleScenarios() {
               <dl className="mt-5 grid grid-cols-2 gap-4 border-t border-hair pt-4 text-[0.9375rem] leading-normal">
                 <div className="col-span-2">
                   <dt className="text-sm text-muted">Loan amount</dt>
-                  <dd className="tnum mt-0.5 text-[1.375rem] font-medium leading-7 text-navy">{scenario.amount}</dd>
+                  <dd className="mt-0.5 text-[1.375rem] font-medium leading-7 text-navy">{scenario.amount}</dd>
                 </div>
                 <div>
                   <dt className="text-sm text-muted">Program</dt>
