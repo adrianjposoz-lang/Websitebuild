@@ -4,8 +4,7 @@ import { VideoFacade } from "@/components/VideoFacade";
 import { dealPhotos } from "@/lib/photos";
 import { fundedDeals, videos, videosFor, youtubeChannelUrl, type VideoPlacement } from "@/lib/site";
 
-const intro =
-  "Real loans we funded, some walked through on our YouTube channel. Figures on a video's card are as stated in the video.";
+const intro = "Real loans we funded. Some are walked through on our YouTube channel.";
 
 const mediaSizes = "(min-width: 1024px) 360px, (min-width: 768px) 45vw, 100vw";
 
@@ -33,6 +32,24 @@ function layout(index: number, count: number) {
   return { card: classes.join(" "), text: text.join(" ") };
 }
 
+/**
+ * Stands in for a deal photo where RSC has none: never stock or generated imagery. Decorative; the
+ * card's heading and terms carry the meaning.
+ */
+function CityPanel({ city, program }: { city: string; program: string }) {
+  return (
+    <div
+      aria-hidden="true"
+      className="flex aspect-video w-full flex-col justify-end rounded-lg bg-navy p-5 lg:p-6"
+    >
+      <span className="text-sm font-medium uppercase tracking-[0.08em] text-[#cbd5e1]">{program}</span>
+      <span className="mt-1 text-[1.75rem] font-medium leading-[2.125rem] text-white lg:text-[2rem] lg:leading-[2.375rem]">
+        {city}
+      </span>
+    </div>
+  );
+}
+
 /** Real loans only. */
 export function FundedDealCards({
   placement,
@@ -53,7 +70,7 @@ export function FundedDealCards({
         const photo = "photo" in deal ? dealPhotos[deal.photo] : undefined;
         return (
           <li
-            key={deal.heading}
+            key={`${deal.heading} ${"amount" in deal ? deal.amount.value : ""}`}
             className={`flex flex-col rounded-lg border border-hair bg-white p-4 lg:p-5 ${card}`}
           >
             {"videoId" in deal ? (
@@ -62,9 +79,12 @@ export function FundedDealCards({
               <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-surface">
                 <Image src={photo.src} alt={photo.alt} fill sizes={mediaSizes} className="object-cover" />
               </div>
-            ) : null}
+            ) : (
+              <CityPanel city={deal.heading} program={deal.programs[0].label} />
+            )}
             <div className={`flex flex-1 flex-col px-1 pb-1 pt-5 ${text}`}>
               <Heading className="text-xl font-medium leading-[1.625rem] text-navy">{deal.heading}</Heading>
+              {"closed" in deal ? <p className="mt-1 text-[0.9375rem] text-muted">Closed {deal.closed}</p> : null}
               <dl className="mt-4 grid grid-cols-2 gap-4 border-t border-hair pt-4 text-[0.9375rem] leading-normal">
                 {"amount" in deal ? (
                   <div className="col-span-2">
@@ -93,6 +113,7 @@ export function FundedDealCards({
                   </div>
                 ) : null}
               </dl>
+              {"history" in deal ? <p className="mt-3 text-sm leading-[1.5] text-muted">{deal.history}</p> : null}
               {"story" in deal ? <p className="mt-4 text-base leading-[1.6] text-body">{deal.story}</p> : null}
             </div>
           </li>

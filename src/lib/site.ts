@@ -186,73 +186,102 @@ export function videosFor(placement: VideoPlacement): Video[] {
 }
 
 /**
- * Real funded deals (Adrian, 2026-10-07). Every displayed fact is quoted from its source, recorded in
- * `source`: the video's YouTube title or description, or, for deals without a video, the deal's card
- * on rscprivatelending.com, verbatim. The TX and HI states were added per Adrian/PM on 2026-10-07.
- * Leave a field out rather than infer it: the walkthrough has no location and no amount. `photo` keys
- * into `dealPhotos` (src/lib/photos.ts): RSC's own photo for the same city from rscprivatelending.com.
+ * Real funded deals, ordered by loan amount, high to low; the walkthrough (no amount) comes last.
+ * Every card leads with a whole-dollar loan amount confirmed by Adrian (2026-10-07 and 2026-10-08).
+ * Each displayed fact is recorded in `source`. City and state only: never a street, street number
+ * or borrower name. Show `closed` only where Adrian gave a date; never infer one. `photo` keys into
+ * `dealPhotos` (src/lib/photos.ts), RSC's own photo for the same city; cards without one get the
+ * decorative city panel.
  */
 export const fundedDeals = [
   {
     videoId: "A8AWfpc4oag",
     photo: "dallas-tx",
     heading: "Preston Hollow, Dallas, TX",
-    amount: { label: "Home value", value: "$4.3M" },
-    programs: [
-      { label: "Mid-Construction", href: "/loan-products/mid-construction" },
-      { label: "Bridge", href: "/loan-products/bridge" },
-    ],
+    amount: { label: "Loan amount", value: "$4,080,000" },
+    programs: [{ label: "Bridge", href: "/loan-products/bridge" }],
+    purpose: "Refinance",
+    history: "First funded in 2025 as a $3,847,254 Fix & Flip loan, then refinanced into this Bridge loan in 2026.",
     story:
       "A luxury new construction home, taken from 60% built with a mid-construction takeover loan, then a bridge rate-and-term refinance with interest reserves.",
     source: {
       heading:
-        "description: “a completed luxury new construction home in Preston Hollow, Dallas”; state (TX) added per Adrian/PM, 2026-10-07",
-      amount: "title: “How This $4.3M Dallas Home”; the home’s value, never a loan amount",
-      programs:
-        "description: “a mid-construction takeover loan and a bridge rate-and-term refinance with interest reserves”",
-      story: "description (same sentence)",
+        "video description: “a completed luxury new construction home in Preston Hollow, Dallas”; state (TX) added per Adrian/PM, 2026-10-07",
+      amount: "Adrian, 2026-10-08 00:12 CDT: Bridge, Refinance, 2026, $4,080,000",
+      history:
+        "Adrian, 2026-10-08: the original 2025 Fix & Flip loan was $3,847,254, the same loan as the live site's Dallas card",
+      story:
+        "video description: “a mid-construction takeover loan and a bridge rate-and-term refinance with interest reserves”; interest reserves confirmed by Adrian, 2026-10-08 00:13 CDT",
     },
   },
   {
-    videoId: "Lt3MwArGP_Q",
-    photo: "honolulu-hi",
-    heading: "Honolulu, HI",
-    amount: { label: "Purchase", value: "$1.632M" },
-    programs: [{ label: "Fix & Flip", href: "/loan-products/fix-and-flip" }],
-    story:
-      "Came in from a wholesaler with a 14-day closing window and closed in 5 business days at 90% Loan-to-Cost plus 100% rehab.",
-    source: {
-      heading: "title: “Honolulu Flip”; description: “a single-family Honolulu deal”; state (HI) added per Adrian/PM, 2026-10-07",
-      amount: "description: “$1.632M purchase”",
-      programs: "title: “Flip”; description: “Honolulu fix-and-flip”",
-      story:
-        "description: “came to us from a wholesaler with a 14-day closing window” and “closed in 5 business days at 90% Loan-to-Cost plus 100% rehab”",
-    },
+    heading: "Houston, TX",
+    amount: { label: "Loan amount", value: "$4,029,512" },
+    programs: [{ label: "Fix & Flip (mid-construction)", href: "/loan-products/fix-and-flip" }],
+    closed: "Feb 2026",
+    source: { all: "Adrian, 2026-10-08 00:12 CDT" },
   },
   {
     photo: "houston-tx",
     heading: "Houston, TX",
-    amount: { label: "Loan amount", value: "$3,364,987.10" },
+    amount: { label: "Loan amount", value: "$3,364,987" },
     programs: [{ label: "Mid-Construction", href: "/loan-products/mid-construction" }],
     purpose: "Refinance",
     source: {
       confirmed: "real funded loan per Adrian, 2026-10-07 23:32 CDT",
       heading: "rscprivatelending.com “Recent Deals” card: “Houston, TX”",
-      amount: "same card: “3,364,987.10” after a drawn $ icon",
+      amount: "same card: “3,364,987.10”; shown in whole dollars, cents dropped, per Adrian/PM 2026-10-08",
       programs: "same card: program “Mid-Construction”, purpose “Refinance”",
     },
   },
   {
     photo: "st-petersburg-fl",
     heading: "St. Petersburg, FL",
-    amount: { label: "Loan amount", value: "$2,500,000.00" },
+    amount: { label: "Loan amount", value: "$2,500,000" },
     programs: [{ label: "DSCR", href: "/loan-products/dscr" }],
-    purpose: "Rental",
+    purpose: "Purchase",
     source: {
       confirmed: "real funded loan per Adrian, 2026-10-07 23:32 CDT",
       heading: "rscprivatelending.com “Recent Deals” card: “Petersburg, FL” (St. Petersburg per Adrian)",
-      amount: "same card: “2,500,000.00” after a drawn $ icon",
-      programs: "same card: program “DSCR”, purpose “Rental”",
+      amount: "same card: “2,500,000.00”; whole dollars per Adrian/PM 2026-10-08",
+      programs: "same card: program “DSCR”; purpose “Purchase” per Adrian, 2026-10-08 (the live card says “Rental”)",
+    },
+  },
+  {
+    photo: "roswell-ga",
+    heading: "Roswell, GA",
+    amount: { label: "Loan amount", value: "$2,342,747" },
+    programs: [{ label: "Mid-Construction", href: "/loan-products/mid-construction" }],
+    purpose: "Refinance",
+    closed: "Apr 2026",
+    story:
+      "A mid-construction refinance with full interest reserves built into the loan, so no borrower liquidity was required.",
+    source: { all: "Adrian, 2026-10-08 00:14 CDT; story verbatim from Adrian, 00:15 CDT" },
+  },
+  {
+    photo: "marietta-ga",
+    heading: "Marietta, GA",
+    amount: { label: "Loan amount", value: "$1,785,000" },
+    programs: [{ label: "DSCR", href: "/loan-products/dscr" }],
+    purpose: "Rate-and-term refinance",
+    closed: "Aug 2026",
+    source: { all: "Adrian, 2026-10-08 00:12 CDT" },
+  },
+  {
+    videoId: "Lt3MwArGP_Q",
+    photo: "honolulu-hi",
+    heading: "Honolulu, HI",
+    amount: { label: "Loan amount", value: "$1,475,250" },
+    programs: [{ label: "Fix & Flip", href: "/loan-products/fix-and-flip" }],
+    purpose: "Purchase",
+    story:
+      "Came in from a wholesaler with a 14-day closing window and closed in 5 business days at 90% Loan-to-Cost plus 100% rehab.",
+    source: {
+      heading: "title: “Honolulu Flip”; description: “a single-family Honolulu deal”; state (HI) added per Adrian/PM, 2026-10-07",
+      amount: "rscprivatelending.com “Recent Deals” Honolulu card: “1,475,250”; lead figure per Adrian/PM, 2026-10-08",
+      programs: "Fix & Flip, purpose Purchase, per Adrian/PM 2026-10-08 (the live card says “Renovation”)",
+      story:
+        "video description: “came to us from a wholesaler with a 14-day closing window” and “closed in 5 business days at 90% Loan-to-Cost plus 100% rehab”",
     },
   },
   {
@@ -280,11 +309,18 @@ export type Product = {
   summary: string;
   body: string;
   showConstructionBudget: boolean;
-  /** Hero definition list. Every row restates a fact already published on the site. */
+  /**
+   * Hero definition list. Every row restates a fact already published on the site or confirmed by
+   * Adrian. Interest reserves are Fix & Flip, Ground-Up and Mid-Construction only, never DSCR or Bridge.
+   */
   facts: { term: string; detail: string }[];
 };
 
 const businessPurpose = { term: "Loan purpose", detail: "Business purpose only." };
+const interestReserves = {
+  term: "Interest reserves",
+  detail: "Full interest reserves available. No borrower liquidity required.",
+};
 const noConstructionBudget = {
   term: "Construction budget",
   detail: "Not part of this program.",
@@ -345,6 +381,7 @@ export const products: Product[] = [
         term: "What it covers",
         detail: "Purchase and renovation of an investment property you intend to resell.",
       },
+      interestReserves,
       { term: "Construction budget", detail: "Can be included in your scenario." },
       {
         term: "Draws & pricing",
@@ -362,6 +399,7 @@ export const products: Product[] = [
     showConstructionBudget: true,
     facts: [
       { term: "What it covers", detail: "A new investment-property build." },
+      interestReserves,
       { term: "Construction budget", detail: "Can be included in your scenario." },
       {
         term: "Inspections, draws & pricing",
@@ -379,6 +417,7 @@ export const products: Product[] = [
     showConstructionBudget: true,
     facts: [
       { term: "What it covers", detail: "An investment build that is already underway." },
+      interestReserves,
       {
         term: "Construction budget",
         detail: "The remaining budget can be included in your scenario.",
@@ -437,6 +476,12 @@ export const faqs = [
     question: "Which loan programs do you offer?",
     answer:
       "DSCR, Bridge, Fix & Flip, Ground-Up, and Mid-Construction. Each program has its own page under Loan Products.",
+  },
+  {
+    id: "cash-reserves",
+    question: "Do I need cash reserves?",
+    answer:
+      "Not on Fix & Flip, Ground-Up, or Mid-Construction loans. Full interest reserves can be built into the loan, so no borrower liquidity is required.",
   },
   {
     id: "where-we-lend",

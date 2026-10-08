@@ -39,8 +39,11 @@ export function ProductShell({ product }: { product: Product }) {
             </SiteLink>
           </div>
           <dl data-reveal className="mt-10 grid gap-4 sm:grid-cols-2 lg:gap-6">
-            {product.facts.map((fact) => (
-              <div key={fact.term} className="rounded-r-lg border-l-[3px] border-navy bg-white px-6 py-5">
+            {product.facts.map((fact, index, facts) => (
+              <div
+                key={fact.term}
+                className={`rounded-r-lg border-l-[3px] border-navy bg-white px-6 py-5 ${facts.length % 2 === 1 && index === facts.length - 1 ? "sm:col-span-2" : ""}`}
+              >
                 <dt className="text-sm text-muted">{fact.term}</dt>
                 <dd className="mt-1 text-xl font-medium leading-[1.625rem] text-navy">{fact.detail}</dd>
               </div>

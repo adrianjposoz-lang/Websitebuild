@@ -49,13 +49,40 @@ test("the five programs, with no Commercial DSCR anywhere in the program data", 
   assert.ok(!faqs.some((faq) => /commercial/i.test(faq.answer)));
 });
 
-test("funded deals: the four real deals with figures first, verbatim live-site loan amounts, walkthrough last", async () => {
+test("funded deals: seven loans by amount, high to low, in whole dollars, then the walkthrough", async () => {
   const { fundedDeals } = await import("./site.ts");
+  assert.equal(fundedDeals.length, 8);
   assert.deepEqual(
-    fundedDeals.map((deal) => deal.heading),
-    ["Preston Hollow, Dallas, TX", "Honolulu, HI", "Houston, TX", "St. Petersburg, FL", "Fix and flip walkthrough"],
+    fundedDeals.map((deal) => [deal.heading, deal.amount?.value]),
+    [
+      ["Preston Hollow, Dallas, TX", "$4,080,000"],
+      ["Houston, TX", "$4,029,512"],
+      ["Houston, TX", "$3,364,987"],
+      ["St. Petersburg, FL", "$2,500,000"],
+      ["Roswell, GA", "$2,342,747"],
+      ["Marietta, GA", "$1,785,000"],
+      ["Honolulu, HI", "$1,475,250"],
+      ["Fix and flip walkthrough", undefined],
+    ],
   );
-  const amount = (heading) => fundedDeals.find((deal) => deal.heading === heading).amount;
-  assert.deepEqual(amount("Houston, TX"), { label: "Loan amount", value: "$3,364,987.10" });
-  assert.deepEqual(amount("St. Petersburg, FL"), { label: "Loan amount", value: "$2,500,000.00" });
+  const loans = fundedDeals.filter((deal) => "amount" in deal);
+  const dollars = (deal) => Number(deal.amount.value.replace(/[$,]/g, ""));
+  for (const deal of loans) {
+    assert.equal(deal.amount.label, "Loan amount");
+    assert.match(deal.amount.value, /^\$\d{1,3}(,\d{3})+$/);
+  }
+  for (let i = 1; i < loans.length; i++) assert.ok(dollars(loans[i - 1]) > dollars(loans[i]));
+  assert.match(fundedDeals[0].history, /\$3,847,254/);
+  assert.deepEqual(
+    fundedDeals.filter((deal) => "closed" in deal).map((deal) => [deal.heading, deal.closed]),
+    [["Houston, TX", "Feb 2026"], ["Roswell, GA", "Apr 2026"], ["Marietta, GA", "Aug 2026"]],
+  );
+});
+
+test("interest reserves: Fix & Flip, Ground-Up and Mid-Construction only, and in the FAQ", async () => {
+  const { products, faqs } = await import("./site.ts");
+  const has = (slug) => products.find((p) => p.slug === slug).facts.some((f) => /interest reserve/i.test(f.term + f.detail));
+  for (const slug of ["fix-and-flip", "ground-up", "mid-construction"]) assert.ok(has(slug), slug);
+  for (const slug of ["dscr", "bridge"]) assert.ok(!has(slug), slug);
+  assert.ok(faqs.some((faq) => faq.question === "Do I need cash reserves?"));
 });
