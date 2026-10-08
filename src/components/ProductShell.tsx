@@ -3,11 +3,14 @@ import { ClosingBand } from "@/components/ClosingBand";
 import { LoanCalculator } from "@/components/LoanCalculator";
 import { PageHero } from "@/components/PageHero";
 import { SiteLink } from "@/components/SiteLink";
+import { VideoFacade } from "@/components/VideoFacade";
 import { programPhotos } from "@/lib/photos";
 import { products, site, type Product } from "@/lib/site";
+import { programVideos } from "@/lib/videos";
 
 export function ProductShell({ product }: { product: Product }) {
   const others = products.filter((item) => item.slug !== product.slug);
+  const video = programVideos[product.slug];
 
   return (
     <>
@@ -65,6 +68,22 @@ export function ProductShell({ product }: { product: Product }) {
           </div>
         </div>
       </section>
+
+      {video ? (
+        <section aria-labelledby="program-video" className="bg-surface py-16 lg:py-24">
+          <div className="mx-auto grid w-full max-w-[75rem] gap-10 px-[1.125rem] lg:grid-cols-12 lg:items-center lg:gap-x-12 lg:px-8">
+            <div data-reveal className="lg:col-span-4">
+              <h2 id="program-video" className="text-[1.75rem] leading-[2.25rem] lg:text-4xl lg:leading-10">
+                On video
+              </h2>
+              <p className="mt-4 text-lg leading-[1.6] text-body">{video.title}</p>
+            </div>
+            <div data-reveal className="lg:col-span-8">
+              <VideoFacade video={video} sizes="(min-width: 1024px) 760px, 100vw" />
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section aria-labelledby="other-programs" className="border-t border-hair py-12">
         <div className="mx-auto flex w-full max-w-[75rem] flex-col gap-3 px-[1.125rem] lg:flex-row lg:items-baseline lg:gap-6 lg:px-8">
