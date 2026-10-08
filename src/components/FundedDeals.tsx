@@ -20,6 +20,16 @@ const intro = "Real loans we funded. Some are walked through on our YouTube chan
  */
 const mediaSizes = "(min-width: 1024px) 270px, (min-width: 768px) 45vw, calc(100vw - 72px)";
 
+/** next/image's default srcset widths (next.config.ts sets no deviceSizes or imageSizes). */
+const srcsetWidths = [32, 48, 64, 96, 128, 256, 384, 640, 750, 828, 1080, 1200, 1920, 2048, 3840];
+
+/** Caps the request at the widest srcset entry that fits the source, so at 1x no entry is wider than the photo. */
+function photoSizes(loan: FundedLoan): string {
+  if (!loan.photoWidth) return mediaSizes;
+  const cap = `${srcsetWidths.filter((width) => width <= loan.photoWidth!).at(-1)}px`;
+  return `(min-width: 1024px) 270px, (min-width: 768px) min(45vw, ${cap}), min(calc(100vw - 72px), ${cap})`;
+}
+
 function dealPhoto(loan: FundedLoan): DealPhoto | undefined {
   if (!loan.photo) return undefined;
   return { src: `/deals/${loan.photo}`, alt: loan.photoAlt ?? `Property in ${loan.city}, ${loan.state}` };
@@ -64,10 +74,10 @@ export function DealCardGrid({
             className="flex flex-col rounded-lg border border-hair bg-white p-4 md:row-span-5 md:mb-6 md:grid md:grid-rows-subgrid md:gap-0"
           >
             {loan.videoId ? (
-              <VideoFacade video={videos[loan.videoId]} photo={photo} sizes={mediaSizes} variant="badge" aspect="4/3" />
+              <VideoFacade video={videos[loan.videoId]} photo={photo} sizes={photoSizes(loan)} variant="badge" aspect="4/3" />
             ) : photo ? (
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-surface">
-                <Image src={photo.src} alt={photo.alt} fill sizes={mediaSizes} className="object-cover" />
+                <Image src={photo.src} alt={photo.alt} fill sizes={photoSizes(loan)} className="object-cover" />
                 {loan.photoCaption ? (
                   <span
                     aria-hidden="true"

@@ -44,6 +44,8 @@ export type FundedLoan = {
   photoAlt?: string;
   /** A short visible label on the photo, for a photo that does not show the funded property as built. */
   photoCaption?: string;
+  /** Native pixel width, for a photo narrower than the card's largest request (695px), so it is never asked for wider. */
+  photoWidth?: number;
   videoId?: keyof typeof videos;
   history?: string;
   copy?: string;
@@ -271,7 +273,6 @@ export const fundedLoans: readonly FundedLoan[] = [
     featured: false,
     source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08; photo from the appraisal report",
   },
-  // TODO(photos): replace placeholder with appraisal photo fayetteville-nc.jpg
   {
     id: "fayetteville-nc",
     city: "Fayetteville",
@@ -279,8 +280,11 @@ export const fundedLoans: readonly FundedLoan[] = [
     program: "Fix & Flip",
     loanAmount: 459_250,
     closed: "2025-03",
+    photo: "fayetteville-nc.jpg",
+    photoAlt: "Property in Fayetteville, NC",
+    photoWidth: 720,
     featured: false,
-    source: "Adrian, 2026-10-08 01:38 CDT; close date from the lender's loan records, 2026-10-08",
+    source: "Adrian, 2026-10-08 01:38 CDT; close date from the lender's loan records, 2026-10-08; listing photo, watermark cropped off, used with the lender's permission",
   },
 ];
 

@@ -114,9 +114,18 @@ test("every photo exists; every loan without one has the TODO(photos) marker", (
   }
   assert.deepEqual(
     fundedLoans.filter((loan) => !loan.photo).map((loan) => loan.id),
-    ["makawao-hi", "dallas-tx-2", "kailua-hi", "dallas-tx-3", "girdwood-ak", "fayetteville-nc"],
+    ["makawao-hi", "dallas-tx-2", "kailua-hi", "dallas-tx-3", "girdwood-ak"],
   );
-  assert.equal(dataSource.match(/TODO\(photos\)/g).length, 6);
+  assert.equal(dataSource.match(/TODO\(photos\)/g).length, 5);
+});
+
+test("Fayetteville photo: listing photo at its native 720px, exact alt text", () => {
+  const fayetteville = fundedLoans.find((loan) => loan.id === "fayetteville-nc");
+  assert.equal(fayetteville.loanAmount, 459250);
+  assert.equal(fayetteville.photo, "fayetteville-nc.jpg");
+  assert.equal(fayetteville.photoAlt, "Property in Fayetteville, NC");
+  assert.equal(fayetteville.photoWidth, 720);
+  assert.equal(fayetteville.photoCaption, undefined);
 });
 
 test("Denver photo: appraisal front photo, exact alt text", () => {

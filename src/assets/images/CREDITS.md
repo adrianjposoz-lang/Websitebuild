@@ -1,6 +1,6 @@
 # Photo credits
 
-Three sources: RSC's appraisal exteriors (first table), RSC's own deal photos from the live site (second table), and Unsplash stand-ins (third table). The deal photos in the first two tables live in `public/deals/`, named after the loan's `id` in `src/data/funded-loans.ts`.
+Four sources: RSC's appraisal exteriors (first table), one listing photo, RSC's own deal photos from the live site (second table), and Unsplash stand-ins (third table). The deal photos in the first two tables and the listing photo live in `public/deals/`, named after the loan's `id` in `src/data/funded-loans.ts`.
 
 ## RSC deal photos (source: RSC Private Lending, from appraisal reports, used with permission)
 
@@ -15,6 +15,12 @@ Approved by Adrian (2026-10-08). House numbers, signs and plates were blurred be
 | `hollywood-fl.jpg` | Funded deal: Hollywood, FL (`/funded-loans`) | RSC Private Lending, from appraisal reports, used with permission | 736×518 |
 | `kailua-hi-2.jpg` | Funded deal: Kailua, HI Ground-Up (`/funded-loans`), the lot before construction, captioned "Before construction"; pending Adrian's call on a finished-home photo | RSC Private Lending, from appraisal reports, used with permission | 907×680 |
 | `denver-co.jpg` | Funded deal: Denver, CO $647,200 (`/funded-loans`), the appraisal front photo; house number blurred by the lender before delivery | RSC Private Lending, from appraisal reports, used with permission | 1367×1025 |
+
+## Listing photo (`public/deals/fayetteville-nc.jpg`)
+
+Fayetteville, NC: listing photo, used with permission
+
+Funded deal: Fayetteville, NC $459,250 (`/funded-loans`). Delivered at 768×540 with the listing watermark already cropped off; no watermark, brokerage or listing text was added. Center-cropped to 4:3 at 720×540 (24px trimmed from each side, not scaled) and re-encoded (mozjpeg, quality 90) with all metadata stripped. The card's `sizes` is capped so no srcset entry at 1x is wider than 720px.
 
 ## RSC deal photos (source: rscprivatelending.com)
 
