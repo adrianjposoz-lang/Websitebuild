@@ -114,9 +114,17 @@ test("every photo exists; every loan without one has the TODO(photos) marker", (
   }
   assert.deepEqual(
     fundedLoans.filter((loan) => !loan.photo).map((loan) => loan.id),
-    ["makawao-hi", "dallas-tx-2", "kailua-hi", "dallas-tx-3", "girdwood-ak", "denver-co", "fayetteville-nc"],
+    ["makawao-hi", "dallas-tx-2", "kailua-hi", "dallas-tx-3", "girdwood-ak", "fayetteville-nc"],
   );
-  assert.equal(dataSource.match(/TODO\(photos\)/g).length, 7);
+  assert.equal(dataSource.match(/TODO\(photos\)/g).length, 6);
+});
+
+test("Denver photo: appraisal front photo, exact alt text", () => {
+  const denver = fundedLoans.find((loan) => loan.id === "denver-co");
+  assert.equal(denver.loanAmount, 647200);
+  assert.equal(denver.photo, "denver-co.jpg");
+  assert.equal(denver.photoAlt, "Property in Denver, CO");
+  assert.equal(denver.photoCaption, undefined);
 });
 
 test("Hollywood and Kailua Ground-Up photos: alt text and the before-construction caption", () => {

@@ -247,7 +247,6 @@ export const fundedLoans: readonly FundedLoan[] = [
     featured: false,
     source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08",
   },
-  // TODO(photos): replace placeholder with appraisal photo denver-co.jpg
   {
     id: "denver-co",
     city: "Denver",
@@ -255,8 +254,10 @@ export const fundedLoans: readonly FundedLoan[] = [
     program: "Fix & Flip",
     loanAmount: 647_200,
     closed: "2026-01",
+    photo: "denver-co.jpg",
+    photoAlt: "Property in Denver, CO",
     featured: false,
-    source: "Adrian, 2026-10-08 01:38 CDT; close date from the lender's loan records, 2026-10-08",
+    source: "Adrian, 2026-10-08 01:38 CDT; close date from the lender's loan records, 2026-10-08; photo from the appraisal report",
   },
   {
     id: "hollywood-fl",

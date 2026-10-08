@@ -14,6 +14,7 @@ Approved by Adrian (2026-10-08). House numbers, signs and plates were blurred be
 | `marietta-ga.jpg` | Funded deal: Marietta, GA (`/`, `/loan-products`, `/funded-loans`) | RSC Private Lending, from appraisal reports, used with permission | 1330×998 |
 | `hollywood-fl.jpg` | Funded deal: Hollywood, FL (`/funded-loans`) | RSC Private Lending, from appraisal reports, used with permission | 736×518 |
 | `kailua-hi-2.jpg` | Funded deal: Kailua, HI Ground-Up (`/funded-loans`), the lot before construction, captioned "Before construction"; pending Adrian's call on a finished-home photo | RSC Private Lending, from appraisal reports, used with permission | 907×680 |
+| `denver-co.jpg` | Funded deal: Denver, CO $647,200 (`/funded-loans`), the appraisal front photo; house number blurred by the lender before delivery | RSC Private Lending, from appraisal reports, used with permission | 1367×1025 |
 
 ## RSC deal photos (source: rscprivatelending.com)
 
