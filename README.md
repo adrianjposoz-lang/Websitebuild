@@ -103,11 +103,28 @@ The webhook receives one JSON object per scenario:
 
 ## Videos
 
-- `src/lib/videos.ts` holds RSC's own YouTube videos (verbatim titles, local thumbnails in `src/assets/video/`), the `fundedDeals` case studies, and `programVideos` (one explainer per program page; Ground-Up has none yet, so its section does not render).
-- `VideoFacade` renders a local thumbnail and a `<button aria-label="Play video: …">`. Nothing loads from YouTube until the click, which swaps in a `youtube-nocookie.com/embed/<id>?autoplay=1` iframe in the same 16:9 box and moves focus into it. There is no CSP in `next.config.ts`; if one is added, allow `frame-src https://www.youtube-nocookie.com`.
-- Funded deals are real loans (Adrian, 2026-10-07). Every displayed fact is quoted from the video's YouTube title or description and recorded in each deal's `source`. Leave a field out rather than infer it. Never put a funded deal under the illustrative label, or a sample under Funded deals.
-- Never feature 8CTBPkEEN9A, oiWG4yO81Wk, X6OaUKN9nps, svQIB5oWumw, or LDSxPywBu5Q, and don't display their titles.
-- The footer links to the channel ("Watch on YouTube", new tab).
+- `videos` in `src/lib/site.ts` is the single map of RSC's own YouTube videos: `{ id, title, duration, poster, placement }`. Titles are verbatim and durations come from the channel's videos tab. `videosFor(placement)` returns nothing for an empty placement, and that section does not render.
+
+| Placement | Videos |
+| --- | --- |
+| `home-deals` (home "From the lender", first) and `loan-products-deals` | A8AWfpc4oag, Lt3MwArGP_Q, pPumrpAaiwc |
+| `home-explainers` (home "From the lender", 3-up) | bMoVComyyfI, ncIvS1Es3uc, rrFlOT9AbeE |
+| `program:fix-and-flip` | -jjMuLRIk4s |
+| `program:dscr` | XTrthacQyiw |
+| `program:bridge` | lNZkzlCaoIU |
+| `program:ground-up`, `program:mid-construction` | V8--nI2muqQ |
+| `program:commercial-dscr` | none, so no video section |
+| `contact` (beside the form, below it on mobile) | ajg_JxlUPVM |
+
+- Posters are self-hosted in `src/assets/video/` (title cards, or clean frames for the on-location deal videos), mapped in `src/lib/video-posters.ts` and rendered lazily with `next/image`. Never use the channel thumbnails.
+- `VideoFacade` renders the poster and a `<button aria-label="Play: {title} ({duration})">`. Nothing loads from YouTube or Google until the click. The click swaps in `https://www.youtube-nocookie.com/embed/{id}?autoplay=1&cc_load_policy=1&cc_lang_pref=en&rel=0` (`allow="autoplay; encrypted-media; picture-in-picture"`, `allowfullscreen`) in the same 16:9 box and moves focus into it. There is no CSP in `next.config.ts`; if one is added, allow `frame-src https://www.youtube-nocookie.com`.
+- `fundedDeals` are real loans (Adrian, 2026-10-07). Every displayed fact is quoted from the video's YouTube title or description and recorded in each deal's `source`. Leave a field out rather than infer it. Never put a funded deal under the illustrative label, or a sample under Funded deals.
+- Never feature 8CTBPkEEN9A, oiWG4yO81Wk, X6OaUKN9nps, svQIB5oWumw, or LDSxPywBu5Q, and don't display their titles. `npm test` checks this and the placements.
+- The footer links to the channel ("Watch on YouTube", new tab), as does "More on YouTube" on home.
+
+## Home hero
+
+`PageHero variant="full"` (home only; inner pages keep the split hero): full-bleed photo, `min-h` 88svh (80svh below `lg`), a 4:5 art-directed crop below 768px through `getImageProps` and `<picture>`, both sources preloaded with `media`, `sizes="100vw"`. The navy gradient (`.92` → `.80` at 38% → `0` at 72%) is the copy block's `::before` at 263% of its height, so the copy always sits where the shade is at least .80: white text stays at least 7:1 over any photo pixel.
 
 ## Motion
 

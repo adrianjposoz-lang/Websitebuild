@@ -17,15 +17,14 @@ These are stock photos, not RSC projects. Do not caption them as RSC deals.
 
 Originals are re-encoded JPEGs (mozjpeg): `home-street.jpg` at 2400px wide, the rest at 1800px. `next/image` serves AVIF or WebP at the requested size.
 
-## Video thumbnails (`src/assets/video/`)
+## Video posters (`src/assets/video/`)
 
-RSC Private Lending's own YouTube videos ([@rscprivatelending](https://www.youtube.com/@rscprivatelending)), downloaded from `i.ytimg.com` on 2026-10-08 and re-encoded at 1280×720 so the site makes no YouTube request before a click.
+Self-hosted, so the site makes no request to YouTube or Google before a play click. None uses the channel's published thumbnails.
 
-| File | Video | Image |
-| --- | --- | --- |
-| `A8AWfpc4oag.jpg` | How This $4.3M Dallas Home Got Funded (Real Numbers) | Published thumbnail (`maxresdefault`) |
-| `Lt3MwArGP_Q.jpg` | How We Closed a $1.6 Million Honolulu Flip in 5 Days | Published thumbnail (`maxresdefault`) |
-| `pPumrpAaiwc.jpg` | $1,000,000+ Hard Money real estate deal (in person walkthrough) | In-video frame (`maxres1`); the published thumbnail says "Profit", which the title does not |
-| `-jjMuLRIk4s.jpg` | What Most Investors Don't Know About Fix and Flip Loan Draws | Published thumbnail (`maxresdefault`) |
-| `XTrthacQyiw.jpg` | DSCR Loans Explained (How Rental Property Financing Really Works) | In-video frame (`maxres2`); the published thumbnail's "Rent = Approval?" reads as an approval claim |
-| `lNZkzlCaoIU.jpg` | How to Use Hard Money and Refinance into a DSCR Loan (BRRRR Method) | In-video frame (`maxres2`); the published thumbnail's "100% leverage" reads as a financing claim |
+- Title cards: navy, the verbatim video title, and "RSC Private Lending", set in the site's Schibsted Grotesk (rendered locally, 1280×720). Used for Lt3MwArGP_Q, bMoVComyyfI, ncIvS1Es3uc, rrFlOT9AbeE, -jjMuLRIk4s, XTrthacQyiw, lNZkzlCaoIU, V8--nI2muqQ, and ajg_JxlUPVM.
+- Clean in-video frames with no burned-in text, from RSC's own on-location videos via YouTube's auto-generated stills (downloaded 2026-10-08): `A8AWfpc4oag.jpg` (`maxres3`, the finished Dallas kitchen) and `pPumrpAaiwc.jpg` (`maxres1`, the street outside the walkthrough property).
+- The play glyph and duration badge are drawn by `VideoFacade`, not baked into the image.
+
+## Home hero mobile crop
+
+`home-street-mobile.jpg` is a 4:5 crop (935×1169) of `home-street.jpg` (same Unsplash photo by FilterGrade, Unsplash License), cut so the houses sit above the copy on narrow screens.
