@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { VideoFacade } from "@/components/VideoFacade";
+import { dealPhotos } from "@/lib/photos";
 import { fundedDeals, videos, videosFor, type VideoPlacement } from "@/lib/site";
 
 const intro = "Real loans we funded, walked through on our YouTube channel. Figures are as stated in each video.";
@@ -21,7 +22,11 @@ export function FundedDealCards({
     <ul data-reveal className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {deals.map((deal) => (
         <li key={deal.videoId} className="flex flex-col rounded-lg border border-hair bg-white p-4 lg:p-5">
-          <VideoFacade video={videos[deal.videoId]} sizes="(min-width: 1024px) 360px, (min-width: 768px) 45vw, 100vw" />
+          <VideoFacade
+            video={videos[deal.videoId]}
+            photo={"photo" in deal ? dealPhotos[deal.photo] : undefined}
+            sizes="(min-width: 1024px) 360px, (min-width: 768px) 45vw, 100vw"
+          />
           <div className="flex flex-1 flex-col px-1 pb-1 pt-5">
             <Heading className="text-xl font-medium leading-[1.625rem] text-navy">{deal.heading}</Heading>
             <dl className="mt-4 grid grid-cols-2 gap-4 border-t border-hair pt-4 text-[0.9375rem] leading-normal">

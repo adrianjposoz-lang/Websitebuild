@@ -1,5 +1,9 @@
 import type { StaticImageData } from "next/image";
 import bridge from "@/assets/images/bridge-residential-street.jpg";
+import dealDallas from "@/assets/images/deal-dallas-tx.png";
+import dealHonolulu from "@/assets/images/deal-honolulu-hi.png";
+import dealHouston from "@/assets/images/deal-houston-tx.png";
+import dealStPetersburg from "@/assets/images/deal-petersburg-fl.png";
 import dscr from "@/assets/images/dscr-rental-house.jpg";
 import fixAndFlip from "@/assets/images/fix-and-flip-kitchen-renovation.jpg";
 import groundUp from "@/assets/images/ground-up-framing.jpg";
@@ -34,3 +38,16 @@ export const programPhotos: Record<string, Photo> = {
     alt: "Two-story house in framing, with roof tiles going on",
   },
 };
+
+/**
+ * RSC's own deal photos from the deal cards on rscprivatelending.com (Adrian, 2026-10-07), keyed by
+ * city. Use a photo only on a card for the same city; never borrow another city's.
+ */
+export const dealPhotos = {
+  "dallas-tx": { src: dealDallas, alt: "Property in Dallas, TX" },
+  "houston-tx": { src: dealHouston, alt: "Property in Houston, TX" },
+  "st-petersburg-fl": { src: dealStPetersburg, alt: "Property in St. Petersburg, FL" },
+  "honolulu-hi": { src: dealHonolulu, alt: "Property in Honolulu, HI" },
+} satisfies Record<string, Photo>;
+
+export type DealPhotoKey = keyof typeof dealPhotos;

@@ -1,6 +1,23 @@
 # Photo credits
 
-Every photo here is from Unsplash under the [Unsplash License](https://unsplash.com/license), not Unsplash+. Each license was checked on 2026-10-07 through Unsplash's own photo data (`premium: false`, `plus: false`) and on the photo page, which reads "Free to use under the Unsplash License". Attribution is not required by the license; it is recorded here for provenance.
+Two sources: RSC's own deal photos from the live site (first table), and Unsplash stand-ins (second table).
+
+## RSC deal photos (source: rscprivatelending.com)
+
+Real photos of RSC's deals, taken from the deal cards on the live site's home page (Adrian, 2026-10-07: "the photos on the deal cards at the live rscprivatelending.com are real photos of RSC's deals. Use them."). Downloaded 2026-10-08 by rendering the site in headless Chromium and reading the DOM, `srcset`, CSS backgrounds and the network log. The site serves them as fixed build assets with no resize parameters, and the bundle references no larger version, so these files are the originals byte-for-byte as served. Each one is used only on a card for the same city.
+
+| File | Used on | Source URL | Pixels | Live-site card |
+| --- | --- | --- | --- | --- |
+| `deal-houston-tx.png` | Sample scenario: Houston, TX (`/`, `/loan-products`) | https://rscprivatelending.com/assets/deal-houston-tx-DCw7GBFC.png | 549×413 | Mid-Construction Refinance, Houston, TX |
+| `deal-petersburg-fl.png` | Sample scenario: St. Petersburg, FL (`/`, `/loan-products`) | https://rscprivatelending.com/assets/deal-petersburg-fl-DruE1Vrj.png | 468×341 | DSCR, Petersburg, FL |
+| `deal-dallas-tx.png` | Funded deal: Preston Hollow, Dallas, TX (`/`, `/loan-products`) | https://rscprivatelending.com/assets/deal-dallas-tx-cKdfP4qU.png | 674×379 | Mid-Construction Refinance, Dallas, TX |
+| `deal-honolulu-hi.png` | Funded deal: Honolulu, HI (`/`, `/loan-products`) | https://rscprivatelending.com/assets/deal-honolulu-hi-BqTRQ3Wy.png | 672×414 | Fix and Flip, Honolulu, HI |
+
+All four are under 700px wide, too small for the full-bleed home hero (~1920px) or a program hero (~1440px), so the heroes keep the Unsplash stand-ins below. The live site's own hero, `hero-construction-rendering-DdCogn-c.jpg` (1920×1080, alt "Construction framing transitioning to architectural rendering"), is a rendering, not a deal photo, and is not used.
+
+## Unsplash stand-ins
+
+Every photo in this table is from Unsplash under the [Unsplash License](https://unsplash.com/license), not Unsplash+. Each license was checked on 2026-10-07 through Unsplash's own photo data (`premium: false`, `plus: false`) and on the photo page, which reads "Free to use under the Unsplash License". Attribution is not required by the license; it is recorded here for provenance.
 
 These are stock photos, not RSC projects. Do not caption them as RSC deals.
 
@@ -22,6 +39,7 @@ Self-hosted, so the site makes no request to YouTube or Google before a play cli
 
 - Title cards: navy, the verbatim video title, and "RSC Private Lending", set in the site's Schibsted Grotesk (rendered locally, 1280×720). Used for Lt3MwArGP_Q, bMoVComyyfI, ncIvS1Es3uc, rrFlOT9AbeE, -jjMuLRIk4s, XTrthacQyiw, lNZkzlCaoIU, V8--nI2muqQ, and ajg_JxlUPVM.
 - Clean in-video frames with no burned-in text, from RSC's own on-location videos via YouTube's auto-generated stills (downloaded 2026-10-08): `A8AWfpc4oag.jpg` (`maxres3`, the finished Dallas kitchen) and `pPumrpAaiwc.jpg` (`maxres1`, the street outside the walkthrough property).
+- On the Dallas and Honolulu funded-deal cards, the RSC deal photo for that city replaces the poster; `A8AWfpc4oag.jpg` and `Lt3MwArGP_Q.jpg` remain the fallback for those videos anywhere a card has no deal photo.
 - The play glyph and duration badge are drawn by `VideoFacade`, not baked into the image.
 
 ## Home hero mobile crop

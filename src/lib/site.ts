@@ -189,11 +189,13 @@ export function videosFor(placement: VideoPlacement): Video[] {
  * Real funded deals (Adrian, 2026-10-07). Every displayed fact is quoted from the video's YouTube
  * title or description, recorded in `source`, except the TX and HI states added per Adrian/PM on
  * 2026-10-07. Leave a field out rather than infer it: the walkthrough has no location and no amount.
- * Never show these under the illustrative sample-scenarios label.
+ * Never show these under the illustrative sample-scenarios label. `photo` keys into `dealPhotos`
+ * (src/lib/photos.ts): RSC's own photo for the same city from rscprivatelending.com.
  */
 export const fundedDeals = [
   {
     videoId: "A8AWfpc4oag",
+    photo: "dallas-tx",
     heading: "Preston Hollow, Dallas, TX",
     amount: { label: "Home value", value: "$4.3M" },
     programs: [
@@ -213,6 +215,7 @@ export const fundedDeals = [
   },
   {
     videoId: "Lt3MwArGP_Q",
+    photo: "honolulu-hi",
     heading: "Honolulu, HI",
     amount: { label: "Purchase", value: "$1.632M" },
     programs: [{ label: "Fix & Flip", href: "/loan-products/fix-and-flip" }],

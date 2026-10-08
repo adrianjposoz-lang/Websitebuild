@@ -1,14 +1,18 @@
+import Image from "next/image";
 import Link from "next/link";
+import { dealPhotos } from "@/lib/photos";
 
 /**
  * Illustrative only, never real loans, and always under the bold illustrative label. Figures must
  * match the former live-site examples exactly: no new entries, no rounding, no added rates, terms,
  * or LTVs. The Dallas and Honolulu examples were dropped because real funded deals cover them.
+ * `photo` is RSC's own photo for the same city from the live site's deal cards.
  */
 const scenarios = [
   {
     type: "Mid-Construction Refinance",
     location: "Houston, TX",
+    photo: "houston-tx",
     amount: "$3,364,987.10",
     program: { label: "Mid-Construction", href: "/loan-products/mid-construction" },
     purpose: "Refinance",
@@ -16,6 +20,7 @@ const scenarios = [
   {
     type: "DSCR",
     location: "St. Petersburg, FL",
+    photo: "st-petersburg-fl",
     amount: "$2,500,000.00",
     program: { label: "DSCR", href: "/loan-products/dscr" },
     purpose: "Rental",
@@ -43,28 +48,39 @@ export function SampleScenarios() {
           {scenarios.map((scenario) => (
             <li
               key={`${scenario.location}-${scenario.amount}`}
-              className="flex flex-col rounded-lg border border-hair bg-white p-6"
+              className="flex flex-col rounded-lg border border-hair bg-white p-4 lg:p-5"
             >
-              <h3 className="text-xl leading-[1.625rem]">{scenario.type}</h3>
-              <p className="mt-1 text-[0.9375rem] text-muted">{scenario.location}</p>
-              <dl className="mt-5 grid grid-cols-2 gap-4 border-t border-hair pt-4 text-[0.9375rem] leading-normal">
-                <div className="col-span-2">
-                  <dt className="text-sm text-muted">Loan amount</dt>
-                  <dd className="mt-0.5 text-[1.375rem] font-medium leading-7 text-navy">{scenario.amount}</dd>
-                </div>
-                <div>
-                  <dt className="text-sm text-muted">Program</dt>
-                  <dd className="mt-0.5">
-                    <Link href={scenario.program.href} className="font-semibold text-navy underline">
-                      {scenario.program.label}
-                    </Link>
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-sm text-muted">Purpose</dt>
-                  <dd className="mt-0.5 text-body">{scenario.purpose}</dd>
-                </div>
-              </dl>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-surface">
+                <Image
+                  src={dealPhotos[scenario.photo].src}
+                  alt={dealPhotos[scenario.photo].alt}
+                  fill
+                  sizes="(min-width: 640px) 380px, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex flex-1 flex-col px-1 pb-1 pt-5">
+                <h3 className="text-xl leading-[1.625rem]">{scenario.type}</h3>
+                <p className="mt-1 text-[0.9375rem] text-muted">{scenario.location}</p>
+                <dl className="mt-5 grid grid-cols-2 gap-4 border-t border-hair pt-4 text-[0.9375rem] leading-normal">
+                  <div className="col-span-2">
+                    <dt className="text-sm text-muted">Loan amount</dt>
+                    <dd className="mt-0.5 text-[1.375rem] font-medium leading-7 text-navy">{scenario.amount}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-sm text-muted">Program</dt>
+                    <dd className="mt-0.5">
+                      <Link href={scenario.program.href} className="font-semibold text-navy underline">
+                        {scenario.program.label}
+                      </Link>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-sm text-muted">Purpose</dt>
+                    <dd className="mt-0.5 text-body">{scenario.purpose}</dd>
+                  </div>
+                </dl>
+              </div>
             </li>
           ))}
         </ul>
