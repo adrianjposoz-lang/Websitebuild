@@ -1,6 +1,6 @@
 # Photo credits
 
-Four sources: RSC's appraisal exteriors (first table), one listing photo, RSC's own deal photos from the live site (second table), and Unsplash stand-ins (third table). The deal photos in the first two tables and the listing photo live in `public/deals/`, named after the loan's `id` in `src/data/funded-loans.ts`.
+Three sources: RSC's appraisal exteriors (first table), RSC's own deal photos from the live site (second table), and Unsplash stand-ins (third table). The deal photos in the first two tables live in `public/deals/`, named after the loan's `id` in `src/data/funded-loans.ts`.
 
 ## RSC deal photos (source: RSC Private Lending, from appraisal reports, used with permission)
 
@@ -15,12 +15,9 @@ Approved by Adrian (2026-10-08). House numbers, signs and plates were blurred be
 | `hollywood-fl.jpg` | Funded deal: Hollywood, FL (`/funded-loans`) | RSC Private Lending, from appraisal reports, used with permission | 736×518 |
 | `kailua-hi-2.jpg` | Funded deal: Kailua, HI Ground-Up (`/funded-loans`), the lot before construction, captioned "Before construction"; pending Adrian's call on a finished-home photo | RSC Private Lending, from appraisal reports, used with permission | 907×680 |
 | `denver-co.jpg` | Funded deal: Denver, CO $647,200 (`/funded-loans`), the appraisal front photo; house number blurred by the lender before delivery | RSC Private Lending, from appraisal reports, used with permission | 1367×1025 |
-
-## Listing photo (`public/deals/fayetteville-nc.jpg`)
-
-Fayetteville, NC: listing photo, used with permission
-
-Funded deal: Fayetteville, NC $459,250 (`/funded-loans`). Delivered at 768×540 with the listing watermark already cropped off; no watermark, brokerage or listing text was added. Center-cropped to 4:3 at 720×540 (24px trimmed from each side, not scaled) and re-encoded (mozjpeg, quality 90) with all metadata stripped. The card's `sizes` is capped so no srcset entry at 1x is wider than 720px.
+| `dallas-tx-2.jpg` | Funded deal: Dallas, TX $3,480,000 (`/funded-loans`), the house during construction, captioned "During construction"; already 4:3, not cropped or scaled | RSC Private Lending, from appraisal reports, used with permission | 915×686 |
+| `dallas-tx-3.jpg` | Funded deal: Dallas, TX $1,537,500 (`/funded-loans`); porch-post numbers blurred by the lender before delivery and left intact; center-cropped from 1108×805 to 4:3 (18px off each side, 1px off the bottom), not scaled | RSC Private Lending, from appraisal reports, used with permission | 1072×804 |
+| `girdwood-ak.jpg` | Funded deal: Girdwood, AK $1,000,000 (`/funded-loans`); delivered at 740×474 with a scan frame, trimmed to the photo (13px off the top: the dark lines and white margin; 12px off the right: the white margin and frame line; the bottom and left had no frame), not scaled. The card's `sizes` is capped so no srcset entry at 1x is wider than 728px | RSC Private Lending, from appraisal reports, used with permission | 728×461 |
 
 ## RSC deal photos (source: rscprivatelending.com)
 
