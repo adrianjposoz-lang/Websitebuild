@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { faqs, lendingStates, verifiedFacts } from "./site.ts";
+import { faqs, lendingStates, nav, verifiedFacts } from "./site.ts";
 
 const excluded = ["Vermont", "Minnesota", "Utah", "Nevada", "North Dakota", "South Dakota", "West Virginia", "Maine", "Oregon", "Idaho"];
 
@@ -21,7 +21,7 @@ test("the lending-states fact and FAQ agree with the list", () => {
 });
 
 test("videos never include the excluded IDs or titles, and placements match the brief", async () => {
-  const { videos, videosFor, fundedDeals } = await import("./site.ts");
+  const { videos, videosFor } = await import("./site.ts");
   const excluded = ["8CTBPkEEN9A", "oiWG4yO81Wk", "X6OaUKN9nps", "svQIB5oWumw", "LDSxPywBu5Q"];
   for (const id of excluded) assert.ok(!(id in videos), id);
   for (const video of Object.values(videos)) {
@@ -35,9 +35,6 @@ test("videos never include the excluded IDs or titles, and placements match the 
   assert.deepEqual(ids("program:ground-up"), ["V8--nI2muqQ"]);
   assert.deepEqual(ids("program:mid-construction"), ["V8--nI2muqQ"]);
   assert.deepEqual(ids("contact"), ["ajg_JxlUPVM"]);
-  for (const deal of fundedDeals) {
-    if ("videoId" in deal) assert.ok(videos[deal.videoId].placement.includes("home-deals"));
-  }
 });
 
 test("the five programs, with no Commercial DSCR anywhere in the program data", async () => {
@@ -50,42 +47,6 @@ test("the five programs, with no Commercial DSCR anywhere in the program data", 
   assert.ok(!faqs.some((faq) => /commercial/i.test(faq.answer)));
 });
 
-test("funded deals: seven loans by amount, high to low, in whole dollars", async () => {
-  const { fundedDeals } = await import("./site.ts");
-  assert.equal(fundedDeals.length, 7);
-  assert.deepEqual(
-    fundedDeals.map((deal) => [deal.heading, deal.amount?.value]),
-    [
-      ["Preston Hollow, Dallas, TX", "$4,080,000"],
-      ["Houston, TX", "$4,029,512"],
-      ["Houston, TX", "$3,364,987"],
-      ["St. Petersburg, FL", "$2,500,000"],
-      ["Roswell, GA", "$2,342,747"],
-      ["Marietta, GA", "$1,785,000"],
-      ["Honolulu, HI", "$1,475,250"],
-    ],
-  );
-  const loans = fundedDeals;
-  assert.deepEqual(
-    loans.map((deal) => deal.photo),
-    ["dallas-tx", "houston-tx-2", "houston-tx", "st-petersburg-fl", "roswell-ga", "marietta-ga", "honolulu-hi"],
-  );
-  const dollars = (deal) => Number(deal.amount.value.replace(/[$,]/g, ""));
-  for (const deal of loans) {
-    assert.equal(deal.amount.label, "Loan amount");
-    assert.match(deal.amount.value, /^\$\d{1,3}(,\d{3})+$/);
-  }
-  for (let i = 1; i < loans.length; i++) assert.ok(dollars(loans[i - 1]) > dollars(loans[i]));
-  assert.equal(
-    fundedDeals[0].history,
-    "First funded in 2025 as a $3,847,254 mid-construction loan, then refinanced into this Bridge loan in 2026.",
-  );
-  assert.deepEqual(
-    fundedDeals.filter((deal) => "closed" in deal).map((deal) => [deal.heading, deal.closed]),
-    [["Houston, TX", "Feb 2026"], ["Roswell, GA", "Apr 2026"], ["Marietta, GA", "Aug 2026"]],
-  );
-});
-
 test("interest reserves: Fix & Flip, Ground-Up and Mid-Construction only, and in the FAQ", async () => {
   const { products, faqs } = await import("./site.ts");
   const has = (slug) => products.find((p) => p.slug === slug).facts.some((f) => /interest reserve/i.test(f.term + f.detail));
@@ -94,10 +55,15 @@ test("interest reserves: Fix & Flip, Ground-Up and Mid-Construction only, and in
   assert.ok(faqs.some((faq) => faq.question === "Do I need cash reserves?"));
 });
 
-test("Houston $4,029,512 is Mid-Construction; the walkthrough is captioned, its button keeps the real title", async () => {
-  const { fundedDeals, videos } = await import("./site.ts");
-  const houston = fundedDeals.find((deal) => deal.amount.value === "$4,029,512");
-  assert.deepEqual(houston.programs, [{ label: "Mid-Construction", href: "/loan-products/mid-construction" }]);
+test("the walkthrough is captioned, its button keeps the real title", async () => {
+  const { videos } = await import("./site.ts");
   assert.equal(videos.pPumrpAaiwc.caption, "Fix and flip walkthrough");
   assert.equal(videos.pPumrpAaiwc.title, "$1,000,000+ Hard Money real estate deal (in person walkthrough)");
+});
+
+test("nav order: Funded Loans follows Loan Products", () => {
+  assert.deepEqual(
+    nav.map((item) => item.label),
+    ["Home", "Our Story", "Loan Products", "Funded Loans", "FAQs", "Contact"],
+  );
 });

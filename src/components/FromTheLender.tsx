@@ -1,4 +1,4 @@
-import { FundedDealCards, fundedDealsIntro, MoreOnYouTube } from "@/components/FundedDeals";
+import { FundedDealCards, fundedDealsIntro, MoreOnYouTube, SeeAllFundedLoans } from "@/components/FundedDeals";
 import { VideoFacade } from "@/components/VideoFacade";
 import { videosFor } from "@/lib/site";
 
@@ -29,6 +29,9 @@ export function FromTheLender() {
             <div className="mt-6">
               <FundedDealCards placement="home-deals" headingLevel="h4" />
             </div>
+            <p className="mt-4">
+              <SeeAllFundedLoans />
+            </p>
           </div>
         ) : null}
 
