@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import type { Photo } from "@/lib/photos";
+import type { DealPhoto, Photo } from "@/lib/photos";
 import type { Video } from "@/lib/site";
 import { videoPosters } from "@/lib/video-posters";
 
@@ -22,7 +22,7 @@ export function VideoFacade({
 }: {
   video: Video;
   sizes: string;
-  photo?: Photo;
+  photo?: Photo | DealPhoto;
   variant?: "default" | "badge";
   aspect?: "16/9" | "4/3";
 }) {

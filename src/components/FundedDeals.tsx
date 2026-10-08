@@ -1,14 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
 import { VideoFacade } from "@/components/VideoFacade";
-import { dealPhotos } from "@/lib/photos";
-import { fundedDeals, videos, videosFor, youtubeChannelUrl, type VideoPlacement } from "@/lib/site";
+import {
+  featuredLoans,
+  formatAmount,
+  formatClosed,
+  loanHeading,
+  programHref,
+  type FundedLoan,
+} from "@/data/funded-loans";
+import type { DealPhoto } from "@/lib/photos";
+import { videos, videosFor, youtubeChannelUrl, type VideoPlacement } from "@/lib/site";
 
 const intro = "Real loans we funded. Some are walked through on our YouTube channel.";
 
 const mediaSizes = "(min-width: 1024px) 270px, (min-width: 768px) 45vw, 100vw";
 
-/** Real loans only. */
+function dealPhoto(loan: FundedLoan): DealPhoto | undefined {
+  return loan.photo ? { src: `/deals/${loan.photo}`, alt: `Property in ${loan.city}, ${loan.state}` } : undefined;
+}
+
+/** Real loans only. The featured ones, minus any whose video is not placed on this page. */
 export function FundedDealCards({
   placement,
   headingLevel = "h3",
@@ -16,70 +28,85 @@ export function FundedDealCards({
   placement: VideoPlacement;
   headingLevel?: "h3" | "h4";
 }) {
-  const shown = new Set(videosFor(placement).map((video) => video.id));
-  const deals = fundedDeals.filter((deal) => !("videoId" in deal) || shown.has(deal.videoId));
-  if (deals.length === 0) return null;
+  const shown = new Set<string>(videosFor(placement).map((video) => video.id));
+  const loans = featuredLoans.filter((loan) => !loan.videoId || shown.has(loan.videoId));
+  if (loans.length === 0) return null;
+  return <DealCardGrid loans={loans} headingLevel={headingLevel} />;
+}
+
+/**
+ * `reveal` is off where the list is swapped by client navigation (the /funded-loans filters): the
+ * reveal observer runs once per pathname, so a freshly mounted grid would stay hidden.
+ */
+export function DealCardGrid({
+  loans,
+  headingLevel,
+  reveal = true,
+}: {
+  loans: readonly FundedLoan[];
+  headingLevel: "h2" | "h3" | "h4";
+  reveal?: boolean;
+}) {
   const Heading = headingLevel;
 
   return (
-    <ul data-reveal className="grid gap-6 md:grid-cols-2 md:gap-y-0 lg:grid-cols-4">
-      {deals.map((deal) => {
-        const photo = dealPhotos[deal.photo];
+    <ul data-reveal={reveal ? "" : undefined} className="grid gap-6 md:grid-cols-2 md:gap-y-0 lg:grid-cols-4">
+      {loans.map((loan) => {
+        const photo = dealPhoto(loan);
         return (
           <li
-            key={`${deal.heading} ${deal.amount.value}`}
+            key={loan.id}
             className="flex flex-col rounded-lg border border-hair bg-white p-4 md:row-span-4 md:mb-6 md:grid md:grid-rows-subgrid md:gap-0"
           >
-            {"videoId" in deal ? (
-              <VideoFacade video={videos[deal.videoId]} photo={photo} sizes={mediaSizes} variant="badge" aspect="4/3" />
-            ) : (
+            {loan.videoId ? (
+              <VideoFacade video={videos[loan.videoId]} photo={photo} sizes={mediaSizes} variant="badge" aspect="4/3" />
+            ) : photo ? (
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-surface">
                 <Image src={photo.src} alt={photo.alt} fill sizes={mediaSizes} className="object-cover" />
               </div>
+            ) : (
+              <PhotoPlaceholder loan={loan} />
             )}
             <div className="px-1 pt-5">
               <Heading className="text-xl font-medium leading-[1.625rem] text-navy">
-                <KeepHyphens text={deal.heading} />
+                <KeepHyphens text={loanHeading(loan)} />
               </Heading>
-              {"closed" in deal ? <p className="mt-1 text-[0.9375rem] text-muted">Closed {deal.closed}</p> : null}
+              {loan.closed ? <p className="mt-1 text-[0.9375rem] text-muted">Closed {formatClosed(loan.closed)}</p> : null}
             </div>
             <dl className="mx-1 mt-4 grid content-start gap-4 border-t border-hair pt-4 text-[0.9375rem] leading-normal">
               <div>
-                <dt className="text-sm text-muted">{deal.amount.label}</dt>
-                <dd className="mt-0.5 text-[1.375rem] font-medium leading-7 text-navy">{deal.amount.value}</dd>
+                <dt className="text-sm text-muted">Loan amount</dt>
+                <dd className="mt-0.5 text-[1.375rem] font-medium leading-7 text-navy">{formatAmount(loan.loanAmount)}</dd>
               </div>
               <div>
-                <dt className="text-sm text-muted">{deal.programs.length > 1 ? "Programs" : "Program"}</dt>
+                <dt className="text-sm text-muted">Program</dt>
                 <dd className="mt-0.5 flex flex-col gap-1">
-                  {deal.programs.map((program) => (
-                    <Link
-                      key={program.href}
-                      href={program.href}
-                      className="inline-flex min-h-6 items-center self-start font-semibold text-navy underline"
-                    >
-                      <KeepHyphens text={program.label} />
-                    </Link>
-                  ))}
+                  <Link
+                    href={programHref(loan.program)}
+                    className="inline-flex min-h-6 items-center self-start font-semibold text-navy underline"
+                  >
+                    <KeepHyphens text={loan.program} />
+                  </Link>
                 </dd>
               </div>
-              {"purpose" in deal ? (
+              {loan.purpose ? (
                 <div>
                   <dt className="text-sm text-muted">Purpose</dt>
                   <dd className="mt-0.5 text-body">
-                    <KeepHyphens text={deal.purpose} />
+                    <KeepHyphens text={loan.purpose} />
                   </dd>
                 </div>
               ) : null}
             </dl>
             <div className="px-1 pb-1">
-              {"history" in deal ? (
+              {loan.history ? (
                 <p className="mt-3 text-sm leading-[1.5] text-muted">
-                  <KeepHyphens text={deal.history} />
+                  <KeepHyphens text={loan.history} />
                 </p>
               ) : null}
-              {"story" in deal ? (
+              {loan.copy ? (
                 <p className="mt-4 text-base leading-[1.6] text-body">
-                  <KeepHyphens text={deal.story} />
+                  <KeepHyphens text={loan.copy} />
                 </p>
               ) : null}
             </div>
@@ -87,6 +114,21 @@ export function FundedDealCards({
         );
       })}
     </ul>
+  );
+}
+
+/** Stands in for the appraisal photo until it arrives. Decorative: the card title says the same. */
+function PhotoPlaceholder({ loan }: { loan: FundedLoan }) {
+  return (
+    <div
+      aria-hidden="true"
+      className="flex aspect-[4/3] w-full flex-col justify-end rounded-lg border border-hair bg-surface p-4"
+    >
+      <span className="text-xs font-semibold uppercase tracking-[0.08em] text-muted">{loan.program}</span>
+      <span className="mt-1 text-xl font-medium leading-[1.625rem] text-navy">
+        {loan.city}, {loan.state}
+      </span>
+    </div>
   );
 }
 
@@ -119,10 +161,23 @@ export function FundedDeals({ placement }: { placement: VideoPlacement }) {
           <FundedDealCards placement={placement} />
         </div>
         <p className="mt-10">
+          <SeeAllFundedLoans />
+        </p>
+        <p className="mt-4">
           <MoreOnYouTube />
         </p>
       </div>
     </section>
+  );
+}
+
+const textLinkClass = "font-semibold text-navy underline decoration-1 hover:decoration-2";
+
+export function SeeAllFundedLoans() {
+  return (
+    <Link href="/funded-loans" className={textLinkClass}>
+      See all funded loans<span aria-hidden="true"> →</span>
+    </Link>
   );
 }
 
@@ -133,7 +188,7 @@ export function MoreOnYouTube() {
       target="_blank"
       rel="noopener"
       aria-label="More on YouTube (opens YouTube in a new tab)"
-      className="font-semibold text-navy underline decoration-1 hover:decoration-2"
+      className={textLinkClass}
     >
       More on YouTube<span aria-hidden="true"> →</span>
     </a>

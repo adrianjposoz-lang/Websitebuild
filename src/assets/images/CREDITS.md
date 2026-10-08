@@ -1,6 +1,6 @@
 # Photo credits
 
-Three sources: RSC's appraisal exteriors (first table), RSC's own deal photos from the live site (second table), and Unsplash stand-ins (third table).
+Three sources: RSC's appraisal exteriors (first table), RSC's own deal photos from the live site (second table), and Unsplash stand-ins (third table). The deal photos in the first two tables live in `public/deals/`, named after the loan's `id` in `src/data/funded-loans.ts`.
 
 ## RSC deal photos (source: RSC Private Lending, from appraisal reports, used with permission)
 
@@ -8,20 +8,20 @@ Approved by Adrian (2026-10-08). House numbers, signs and plates were blurred be
 
 | File | Used on | Source | Pixels |
 | --- | --- | --- | --- |
-| `dallas-tx.jpg` | Funded deal: Preston Hollow, Dallas, TX (`/`, `/loan-products`), shown on the video facade | RSC Private Lending, from appraisal reports, used with permission | 1343×900 |
-| `houston-tx-2.jpg` | Funded deal: Houston, TX $4,029,512 (`/`, `/loan-products`) | RSC Private Lending, from appraisal reports, used with permission | 1025×768 |
-| `roswell-ga.jpg` | Funded deal: Roswell, GA (`/`, `/loan-products`) | RSC Private Lending, from appraisal reports, used with permission | 1367×1025 |
-| `marietta-ga.jpg` | Funded deal: Marietta, GA (`/`, `/loan-products`) | RSC Private Lending, from appraisal reports, used with permission | 1330×998 |
+| `dallas-tx.jpg` | Funded deal: Preston Hollow, Dallas, TX (`/`, `/loan-products`, `/funded-loans`), shown on the video facade | RSC Private Lending, from appraisal reports, used with permission | 1343×900 |
+| `houston-tx-2.jpg` | Funded deal: Houston, TX $4,029,512 (`/`, `/loan-products`, `/funded-loans`) | RSC Private Lending, from appraisal reports, used with permission | 1025×768 |
+| `roswell-ga.jpg` | Funded deal: Roswell, GA (`/`, `/loan-products`, `/funded-loans`) | RSC Private Lending, from appraisal reports, used with permission | 1367×1025 |
+| `marietta-ga.jpg` | Funded deal: Marietta, GA (`/`, `/loan-products`, `/funded-loans`) | RSC Private Lending, from appraisal reports, used with permission | 1330×998 |
 
 ## RSC deal photos (source: rscprivatelending.com)
 
-Real photos of RSC's deals, taken from the deal cards on the live site's home page (Adrian, 2026-10-07: "the photos on the deal cards at the live rscprivatelending.com are real photos of RSC's deals. Use them."). Downloaded 2026-10-08 by rendering the site in headless Chromium and reading the DOM, `srcset`, CSS backgrounds and the network log. The site serves them as fixed build assets with no resize parameters, and the bundle references no larger version, so these files are the originals byte-for-byte as served. Each one is used only on a card for the same city.
+Real photos of RSC's deals, taken from the deal cards on the live site's home page (Adrian, 2026-10-07: "the photos on the deal cards at the live rscprivatelending.com are real photos of RSC's deals. Use them."). Downloaded 2026-10-08 by rendering the site in headless Chromium and reading the DOM, `srcset`, CSS backgrounds and the network log. The site serves them as fixed build assets with no resize parameters, and the bundle references no larger version, so these files are the originals byte-for-byte as served (renamed from `deal-houston-tx.png`, `deal-petersburg-fl.png` and `deal-honolulu-hi.png`). Each one is used only on a card for the same city.
 
 | File | Used on | Source URL | Pixels | Live-site card |
 | --- | --- | --- | --- | --- |
-| `deal-houston-tx.png` | Funded deal: Houston, TX (`/`, `/loan-products`) | https://rscprivatelending.com/assets/deal-houston-tx-DCw7GBFC.png | 549×413 | Mid-Construction Refinance, Houston, TX |
-| `deal-petersburg-fl.png` | Funded deal: St. Petersburg, FL (`/`, `/loan-products`) | https://rscprivatelending.com/assets/deal-petersburg-fl-DruE1Vrj.png | 468×341 | DSCR, Petersburg, FL |
-| `deal-honolulu-hi.png` | Funded deal: Honolulu, HI (`/`, `/loan-products`) | https://rscprivatelending.com/assets/deal-honolulu-hi-BqTRQ3Wy.png | 672×414 | Fix and Flip, Honolulu, HI |
+| `houston-tx.png` | Funded deal: Houston, TX (`/`, `/loan-products`, `/funded-loans`) | https://rscprivatelending.com/assets/deal-houston-tx-DCw7GBFC.png | 549×413 | Mid-Construction Refinance, Houston, TX |
+| `st-petersburg-fl.png` | Funded deal: St. Petersburg, FL (`/`, `/loan-products`, `/funded-loans`) | https://rscprivatelending.com/assets/deal-petersburg-fl-DruE1Vrj.png | 468×341 | DSCR, Petersburg, FL |
+| `honolulu-hi.png` | Funded deal: Honolulu, HI (`/`, `/loan-products`, `/funded-loans`) | https://rscprivatelending.com/assets/deal-honolulu-hi-BqTRQ3Wy.png | 672×414 | Fix and Flip, Honolulu, HI |
 
 The live site's Dallas photo (https://rscprivatelending.com/assets/deal-dallas-tx-cKdfP4qU.png, 674×379) was replaced by the sharper `dallas-tx.jpg` above and is no longer in the repo.
 
