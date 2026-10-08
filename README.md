@@ -101,6 +101,14 @@ The webhook receives one JSON object per scenario:
 - Photos: licensed Unsplash stand-ins in `src/assets/images/`, credited in `src/assets/images/CREDITS.md`, with alt text in `src/lib/photos.ts`, until Adrian's own deal photos arrive. `PageHero` puts the copy on 5 columns and the photo on 7, bleeding to the right edge from `lg` (8px radius, no overlay); below `lg` the photo runs under the copy. Each page preloads its one hero photo. No captions until real deal values exist.
 - Facts: `verifiedFacts` in `src/lib/site.ts`, each with a source. With fewer than 3, home shows one sentence ("We lend in 40 states.") linking to the "Where do you lend?" FAQ, which lists `lendingStates` (DC is not included). `npm test` checks the list.
 
+## Videos
+
+- `src/lib/videos.ts` holds RSC's own YouTube videos (verbatim titles, local thumbnails in `src/assets/video/`), the `fundedDeals` case studies, and `programVideos` (one explainer per program page; Ground-Up has none yet, so its section does not render).
+- `VideoFacade` renders a local thumbnail and a `<button aria-label="Play video: …">`. Nothing loads from YouTube until the click, which swaps in a `youtube-nocookie.com/embed/<id>?autoplay=1` iframe in the same 16:9 box and moves focus into it. There is no CSP in `next.config.ts`; if one is added, allow `frame-src https://www.youtube-nocookie.com`.
+- Funded deals are real loans (Adrian, 2026-10-07). Every displayed fact is quoted from the video's YouTube title or description and recorded in each deal's `source`. Leave a field out rather than infer it. Never put a funded deal under the illustrative label, or a sample under Funded deals.
+- Never feature 8CTBPkEEN9A, oiWG4yO81Wk, X6OaUKN9nps, svQIB5oWumw, or LDSxPywBu5Q, and don't display their titles.
+- The footer links to the channel ("Watch on YouTube", new tab).
+
 ## Motion
 
 - Hover: color changes only (`transition-colors duration-150`). Program tiles turn their border navy. No lift.

@@ -16,3 +16,16 @@ These are stock photos, not RSC projects. Do not caption them as RSC deals.
 | `our-story-modern-house.jpg` | `/our-story` hero | [MUiv6OcHoto](https://unsplash.com/photos/modern-white-house-with-glass-garage-doors-and-plants-MUiv6OcHoto) | [GoodLifeConstruction](https://unsplash.com/@goodlifeconstruction) | Unsplash License |
 
 Originals are re-encoded JPEGs (mozjpeg): `home-street.jpg` at 2400px wide, the rest at 1800px. `next/image` serves AVIF or WebP at the requested size.
+
+## Video thumbnails (`src/assets/video/`)
+
+RSC Private Lending's own YouTube videos ([@rscprivatelending](https://www.youtube.com/@rscprivatelending)), downloaded from `i.ytimg.com` on 2026-10-08 and re-encoded at 1280×720 so the site makes no YouTube request before a click.
+
+| File | Video | Image |
+| --- | --- | --- |
+| `A8AWfpc4oag.jpg` | How This $4.3M Dallas Home Got Funded (Real Numbers) | Published thumbnail (`maxresdefault`) |
+| `Lt3MwArGP_Q.jpg` | How We Closed a $1.6 Million Honolulu Flip in 5 Days | Published thumbnail (`maxresdefault`) |
+| `pPumrpAaiwc.jpg` | $1,000,000+ Hard Money real estate deal (in person walkthrough) | In-video frame (`maxres1`); the published thumbnail says "Profit", which the title does not |
+| `-jjMuLRIk4s.jpg` | What Most Investors Don't Know About Fix and Flip Loan Draws | Published thumbnail (`maxresdefault`) |
+| `XTrthacQyiw.jpg` | DSCR Loans Explained (How Rental Property Financing Really Works) | In-video frame (`maxres2`); the published thumbnail's "Rent = Approval?" reads as an approval claim |
+| `lNZkzlCaoIU.jpg` | How to Use Hard Money and Refinance into a DSCR Loan (BRRRR Method) | In-video frame (`maxres2`); the published thumbnail's "100% leverage" reads as a financing claim |
