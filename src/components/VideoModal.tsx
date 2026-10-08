@@ -2,13 +2,14 @@
 
 import { usePathname } from "next/navigation";
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import type { Video } from "@/lib/site";
 
 const youtubeOrigin = "https://www.youtube-nocookie.com";
 
-type Open = { video: Video; src: string; pathname: string };
+/** `title` is the site's own label for the video (a deal card's title, or the title shown under the poster). */
+type Open = { title: string; src: string; pathname: string };
+export type VideoTarget = { id: string; title: string };
 
-const OpenVideoContext = createContext<(video: Video, trigger: HTMLElement) => void>(() => {});
+const OpenVideoContext = createContext<(target: VideoTarget, trigger: HTMLElement) => void>(() => {});
 
 export function useOpenVideo() {
   return useContext(OpenVideoContext);
@@ -33,7 +34,7 @@ export function VideoModalProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const open = opened?.pathname === pathname ? opened : null;
 
-  const openVideo = useCallback((video: Video, trigger: HTMLElement) => {
+  const openVideo = useCallback((target: VideoTarget, trigger: HTMLElement) => {
     triggerRef.current = trigger;
     const params = new URLSearchParams({
       autoplay: "1",
@@ -43,7 +44,7 @@ export function VideoModalProvider({ children }: { children: ReactNode }) {
       enablejsapi: "1",
       origin: window.location.origin,
     });
-    setOpen({ video, src: `${youtubeOrigin}/embed/${encodeURIComponent(video.id)}?${params}`, pathname });
+    setOpen({ title: target.title, src: `${youtubeOrigin}/embed/${encodeURIComponent(target.id)}?${params}`, pathname });
   }, [pathname]);
 
   const close = useCallback(() => setOpen(null), []);
@@ -95,7 +96,7 @@ export function VideoModalProvider({ children }: { children: ReactNode }) {
             <FocusSentinel onFocus={() => frameRef.current?.focus()} />
             <div className="flex items-start justify-between gap-4 py-2 pl-4 pr-2 lg:pl-5">
               <p id="video-modal-title" className="pt-2.5 text-base font-medium leading-[1.4] text-white">
-                {open.video.title}
+                {open.title}
               </p>
               <button
                 ref={closeRef}
@@ -113,7 +114,7 @@ export function VideoModalProvider({ children }: { children: ReactNode }) {
               <iframe
                 ref={frameRef}
                 src={open.src}
-                title={open.video.title}
+                title={open.title}
                 allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
                 allowFullScreen
                 className="absolute inset-0 size-full rounded-b-lg"

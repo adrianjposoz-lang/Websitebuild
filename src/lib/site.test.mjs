@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import { faqs, lendingStates, nav, verifiedFacts } from "./site.ts";
 
@@ -56,7 +56,7 @@ test("interest reserves: Fix & Flip, Ground-Up and Mid-Construction only, and in
   assert.ok(faqs.some((faq) => faq.question === "Do I need cash reserves?"));
 });
 
-test("the walkthrough is captioned, its button keeps the real title", async () => {
+test("the walkthrough is captioned; the YouTube title stays in the data", async () => {
   const { videos } = await import("./site.ts");
   assert.equal(videos.pPumrpAaiwc.caption, "Fix and flip walkthrough");
   assert.equal(videos.pPumrpAaiwc.title, "$1,000,000+ Hard Money real estate deal (in person walkthrough)");
@@ -70,10 +70,11 @@ test("nav order: Funded Loans follows Loan Products", () => {
 });
 
 test("every video has a self-hosted thumbnail; nothing points at YouTube's image host", async () => {
-  const { videos, videoThumbnail } = await import("./site.ts");
+  const { videos } = await import("./site.ts");
+  const { videoThumbnail } = await import("./video-thumbs.ts");
   for (const video of Object.values(videos)) {
-    assert.equal(videoThumbnail(video), `/video-thumbs/${video.id}.jpg`);
-    assert.ok(existsSync(new URL(`../../public${videoThumbnail(video)}`, import.meta.url)), video.id);
+    assert.equal(videoThumbnail(video.id), `/video-thumbs/${video.id}.jpg`);
+    assert.ok(existsSync(new URL(`../../public${videoThumbnail(video.id)}`, import.meta.url)), video.id);
     assert.ok(!("poster" in video), video.id);
   }
 });
@@ -83,4 +84,26 @@ test("the Where do you lend? answer (also the FAQPage JSON-LD text) names no exc
   assert.equal(faq.question, "Where do you lend?");
   for (const state of excluded) assert.ok(!faq.answer.includes(state), state);
   assert.doesNotMatch(faq.answer, /columbia|\bDC\b/i);
+});
+
+const source = (path) => readFileSync(new URL(path, import.meta.url), "utf8");
+
+test("video facades are named with the site's own title, never a YouTube title", () => {
+  const deals = source("../components/FundedDeals.tsx");
+  assert.match(deals, /<VideoFacade\s+videoId=\{loan\.videoId\}\s+title=\{loanHeading\(loan\)\}/);
+  const home = source("../components/FromTheLender.tsx");
+  assert.match(home, /const label = "caption" in video \? video\.caption : video\.title;/);
+  assert.match(home, /title=\{label\}/);
+  assert.match(home, /<p className="[^"]*">\{label\}<\/p>/);
+  for (const path of ["../components/ProductShell.tsx", "../app/contact/page.tsx"]) {
+    const page = source(path);
+    assert.match(page, /<p className="[^"]*">\{video\.title\}<\/p>/, path);
+    assert.match(page, /<VideoFacade videoId=\{video\.id\} title=\{video\.title\}/, path);
+  }
+  const facade = source("../components/VideoFacade.tsx");
+  assert.doesNotMatch(facade, /@\/lib\/site"/, "the client facade must not bundle site.ts and its YouTube titles");
+  assert.match(facade, /openVideo\(\{ id: videoId, title \}/);
+  const modal = source("../components/VideoModal.tsx");
+  assert.match(modal, /\{open\.title\}/);
+  assert.match(modal, /title=\{open\.title\}/);
 });

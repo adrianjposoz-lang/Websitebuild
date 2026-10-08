@@ -41,18 +41,21 @@ export function FromTheLender() {
               How hard money works
             </h3>
             <ul data-reveal className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {explainers.map((video) => (
-                <li key={video.id}>
-                  <VideoFacade
-                    video={video}
-                    sizes="(min-width: 1024px) 270px, (min-width: 768px) 45vw, 100vw"
-                    variant="badge"
-                  />
-                  <p className="mt-3 text-base font-medium leading-[1.5] text-navy">
-                    {"caption" in video ? video.caption : video.title}
-                  </p>
-                </li>
-              ))}
+              {explainers.map((video) => {
+                const label = "caption" in video ? video.caption : video.title;
+                return (
+                  <li key={video.id}>
+                    <VideoFacade
+                      videoId={video.id}
+                      title={label}
+                      duration={video.duration}
+                      sizes="(min-width: 1024px) 270px, (min-width: 768px) 45vw, 100vw"
+                      variant="badge"
+                    />
+                    <p className="mt-3 text-base font-medium leading-[1.5] text-navy">{label}</p>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         ) : null}

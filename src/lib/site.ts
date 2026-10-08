@@ -94,7 +94,7 @@ export type VideoPlacement =
 /**
  * RSC's own YouTube videos. Titles are verbatim and durations come from the channel's videos tab
  * (2026-10-08). Each video's poster is its own YouTube thumbnail, self-hosted at
- * public/video-thumbs/<id>.jpg (see videoThumbnail). Never feature 8CTBPkEEN9A, oiWG4yO81Wk,
+ * public/video-thumbs/<id>.jpg (see video-thumbs.ts). Never feature 8CTBPkEEN9A, oiWG4yO81Wk,
  * X6OaUKN9nps, svQIB5oWumw, or LDSxPywBu5Q, or show their titles.
  */
 export const videos = {
@@ -170,7 +170,7 @@ export const videos = {
   {
     id: string;
     title: string;
-    /** Shown under the poster instead of the title; the play button keeps the real title. */
+    /** Shown under the poster instead of the title, and names the play button and the modal. */
     caption?: string;
     duration: string;
     placement: readonly VideoPlacement[];
@@ -178,11 +178,6 @@ export const videos = {
 >;
 
 export type Video = (typeof videos)[keyof typeof videos];
-
-/** The video's own YouTube thumbnail, self-hosted so no request leaves the site before a play click. */
-export function videoThumbnail(video: Video): string {
-  return `/video-thumbs/${video.id}.jpg`;
-}
 
 export function videosFor(placement: VideoPlacement): Video[] {
   return Object.values(videos).filter((video) => (video.placement as readonly string[]).includes(placement));

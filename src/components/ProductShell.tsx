@@ -62,7 +62,7 @@ export function ProductShell({ product }: { product: Product }) {
               <p className="mt-4 text-lg leading-[1.6] text-body">{video.title}</p>
             </div>
             <div data-reveal className="lg:col-span-8">
-              <VideoFacade video={video} sizes="(min-width: 1024px) 760px, 100vw" />
+              <VideoFacade videoId={video.id} title={video.title} duration={video.duration} sizes="(min-width: 1024px) 760px, 100vw" />
             </div>
           </div>
         </section>

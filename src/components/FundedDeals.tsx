@@ -74,7 +74,15 @@ export function DealCardGrid({
             className="flex flex-col rounded-lg border border-hair bg-white p-4 md:row-span-5 md:mb-6 md:grid md:grid-rows-subgrid md:gap-0"
           >
             {loan.videoId ? (
-              <VideoFacade video={videos[loan.videoId]} photo={photo} sizes={photoSizes(loan)} variant="badge" aspect="4/3" />
+              <VideoFacade
+                videoId={loan.videoId}
+                title={loanHeading(loan)}
+                duration={videos[loan.videoId].duration}
+                photo={photo}
+                sizes={photoSizes(loan)}
+                variant="badge"
+                aspect="4/3"
+              />
             ) : photo ? (
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg bg-surface">
                 <Image src={photo.src} alt={photo.alt} fill sizes={photoSizes(loan)} className="object-cover" />

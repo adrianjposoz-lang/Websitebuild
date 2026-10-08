@@ -3,23 +3,29 @@
 import Image from "next/image";
 import { useOpenVideo } from "@/components/VideoModal";
 import type { DealPhoto, Photo } from "@/lib/photos";
-import { videoThumbnail, type Video } from "@/lib/site";
+import { videoThumbnail } from "@/lib/video-thumbs";
 
 /**
  * Click-to-load YouTube. Before the click there is only a self-hosted poster and a <button>: no
  * request to YouTube or Google. The click opens the site's one video modal (VideoModalProvider).
- * The poster is the video's own thumbnail, self-hosted in public/video-thumbs/; a `photo` (RSC's
- * own deal photo) replaces it and keeps its own alt text, separate from the button's label. The
- * `badge` variant (card grids) draws a small corner play badge instead of the large button.
+ * `title` is the site's own label (a deal card's title, or the title shown under the poster): it
+ * names the button and the modal, so a YouTube title is never sent to the client. The poster is
+ * the video's own thumbnail, self-hosted in public/video-thumbs/; a `photo` (RSC's own deal photo)
+ * replaces it and keeps its own alt text. The `badge` variant (card grids) draws a small corner play
+ * badge instead of the large button.
  */
 export function VideoFacade({
-  video,
+  videoId,
+  title,
+  duration,
   sizes,
   photo,
   variant = "default",
   aspect = "16/9",
 }: {
-  video: Video;
+  videoId: string;
+  title: string;
+  duration: string;
   sizes: string;
   photo?: Photo | DealPhoto;
   variant?: "default" | "badge";
@@ -34,11 +40,11 @@ export function VideoFacade({
       <button
         type="button"
         aria-haspopup="dialog"
-        aria-label={badge ? `Play video: ${video.title}` : `Play: ${video.title} (${video.duration})`}
-        onClick={(event) => openVideo(video, event.currentTarget)}
+        aria-label={badge ? `Play video: ${title}` : `Play: ${title} (${duration})`}
+        onClick={(event) => openVideo({ id: videoId, title }, event.currentTarget)}
         className="group absolute inset-0 size-full cursor-pointer overflow-hidden rounded-lg"
       >
-        {photo ? null : <Image src={videoThumbnail(video)} alt="" fill sizes={sizes} className="object-cover" />}
+        {photo ? null : <Image src={videoThumbnail(videoId)} alt="" fill sizes={sizes} className="object-cover" />}
         {badge ? (
           <span
             aria-hidden="true"
@@ -49,7 +55,7 @@ export function VideoFacade({
                 <path d="M7 4.5v15l12-7.5z" />
               </svg>
             </span>
-            <span className="tnum text-sm font-semibold text-white">{video.duration}</span>
+            <span className="tnum text-sm font-semibold text-white">{duration}</span>
           </span>
         ) : (
           <span aria-hidden="true" className="absolute bottom-3 left-3 flex items-center gap-2 lg:bottom-4 lg:left-4">
@@ -59,7 +65,7 @@ export function VideoFacade({
               </svg>
             </span>
             <span className="tnum rounded-md bg-navy-deep/85 px-2 py-0.5 text-sm font-semibold text-white">
-              {video.duration}
+              {duration}
             </span>
           </span>
         )}
