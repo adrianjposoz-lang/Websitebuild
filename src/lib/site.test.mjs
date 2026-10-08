@@ -93,3 +93,11 @@ test("interest reserves: Fix & Flip, Ground-Up and Mid-Construction only, and in
   for (const slug of ["dscr", "bridge"]) assert.ok(!has(slug), slug);
   assert.ok(faqs.some((faq) => faq.question === "Do I need cash reserves?"));
 });
+
+test("Houston $4,029,512 is Mid-Construction; the walkthrough is captioned, its button keeps the real title", async () => {
+  const { fundedDeals, videos } = await import("./site.ts");
+  const houston = fundedDeals.find((deal) => deal.amount.value === "$4,029,512");
+  assert.deepEqual(houston.programs, [{ label: "Mid-Construction", href: "/loan-products/mid-construction" }]);
+  assert.equal(videos.pPumrpAaiwc.caption, "Fix and flip walkthrough");
+  assert.equal(videos.pPumrpAaiwc.title, "$1,000,000+ Hard Money real estate deal (in person walkthrough)");
+});

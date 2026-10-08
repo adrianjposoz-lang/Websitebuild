@@ -22,13 +22,13 @@ export function FundedDealCards({
   const Heading = headingLevel;
 
   return (
-    <ul data-reveal className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <ul data-reveal className="grid gap-6 md:grid-cols-2 md:gap-y-0 lg:grid-cols-4">
       {deals.map((deal) => {
         const photo = dealPhotos[deal.photo];
         return (
           <li
             key={`${deal.heading} ${deal.amount.value}`}
-            className="flex flex-col rounded-lg border border-hair bg-white p-4"
+            className="flex flex-col rounded-lg border border-hair bg-white p-4 md:row-span-4 md:mb-6 md:grid md:grid-rows-subgrid md:gap-0"
           >
             {"videoId" in deal ? (
               <VideoFacade video={videos[deal.videoId]} photo={photo} sizes={mediaSizes} variant="badge" aspect="4/3" />
@@ -37,42 +37,69 @@ export function FundedDealCards({
                 <Image src={photo.src} alt={photo.alt} fill sizes={mediaSizes} className="object-cover" />
               </div>
             )}
-            <div className="flex flex-col px-1 pb-1 pt-5">
-              <Heading className="text-xl font-medium leading-[1.625rem] text-navy">{deal.heading}</Heading>
+            <div className="px-1 pt-5">
+              <Heading className="text-xl font-medium leading-[1.625rem] text-navy">
+                <KeepHyphens text={deal.heading} />
+              </Heading>
               {"closed" in deal ? <p className="mt-1 text-[0.9375rem] text-muted">Closed {deal.closed}</p> : null}
-              <dl className="mt-4 grid grid-cols-2 gap-4 border-t border-hair pt-4 text-[0.9375rem] leading-normal">
-                <div className="col-span-2">
-                  <dt className="text-sm text-muted">{deal.amount.label}</dt>
-                  <dd className="mt-0.5 text-[1.375rem] font-medium leading-7 text-navy">{deal.amount.value}</dd>
-                </div>
+            </div>
+            <dl className="mx-1 mt-4 grid content-start gap-4 border-t border-hair pt-4 text-[0.9375rem] leading-normal">
+              <div>
+                <dt className="text-sm text-muted">{deal.amount.label}</dt>
+                <dd className="mt-0.5 text-[1.375rem] font-medium leading-7 text-navy">{deal.amount.value}</dd>
+              </div>
+              <div>
+                <dt className="text-sm text-muted">{deal.programs.length > 1 ? "Programs" : "Program"}</dt>
+                <dd className="mt-0.5 flex flex-col gap-1">
+                  {deal.programs.map((program) => (
+                    <Link
+                      key={program.href}
+                      href={program.href}
+                      className="inline-flex min-h-6 items-center self-start font-semibold text-navy underline"
+                    >
+                      <KeepHyphens text={program.label} />
+                    </Link>
+                  ))}
+                </dd>
+              </div>
+              {"purpose" in deal ? (
                 <div>
-                  <dt className="text-sm text-muted">{deal.programs.length > 1 ? "Programs" : "Program"}</dt>
-                  <dd className="mt-0.5 flex flex-col gap-1">
-                    {deal.programs.map((program) => (
-                      <Link
-                        key={program.href}
-                        href={program.href}
-                        className="inline-flex min-h-6 items-center self-start font-semibold text-navy underline"
-                      >
-                        {program.label}
-                      </Link>
-                    ))}
+                  <dt className="text-sm text-muted">Purpose</dt>
+                  <dd className="mt-0.5 text-body">
+                    <KeepHyphens text={deal.purpose} />
                   </dd>
                 </div>
-                {"purpose" in deal ? (
-                  <div>
-                    <dt className="text-sm text-muted">Purpose</dt>
-                    <dd className="mt-0.5 text-body">{deal.purpose}</dd>
-                  </div>
-                ) : null}
-              </dl>
-              {"history" in deal ? <p className="mt-3 text-sm leading-[1.5] text-muted">{deal.history}</p> : null}
-              {"story" in deal ? <p className="mt-4 text-base leading-[1.6] text-body">{deal.story}</p> : null}
+              ) : null}
+            </dl>
+            <div className="px-1 pb-1">
+              {"history" in deal ? (
+                <p className="mt-3 text-sm leading-[1.5] text-muted">
+                  <KeepHyphens text={deal.history} />
+                </p>
+              ) : null}
+              {"story" in deal ? (
+                <p className="mt-4 text-base leading-[1.6] text-body">
+                  <KeepHyphens text={deal.story} />
+                </p>
+              ) : null}
             </div>
           </li>
         );
       })}
     </ul>
+  );
+}
+
+/** Browsers may break a line after any hyphen ("Mid-" / "Construction"); keep hyphenated words whole. */
+function KeepHyphens({ text }: { text: string }) {
+  return text.split(/(\S*-\S*)/).map((part, index) =>
+    part.includes("-") ? (
+      <span key={index} className="whitespace-nowrap">
+        {part}
+      </span>
+    ) : (
+      part
+    ),
   );
 }
 

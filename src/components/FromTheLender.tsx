@@ -45,7 +45,9 @@ export function FromTheLender() {
                     sizes="(min-width: 1024px) 270px, (min-width: 768px) 45vw, 100vw"
                     variant="badge"
                   />
-                  <p className="mt-3 text-base font-medium leading-[1.5] text-navy">{video.title}</p>
+                  <p className="mt-3 text-base font-medium leading-[1.5] text-navy">
+                    {"caption" in video ? video.caption : video.title}
+                  </p>
                 </li>
               ))}
             </ul>

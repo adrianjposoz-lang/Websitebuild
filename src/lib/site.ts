@@ -114,6 +114,7 @@ export const videos = {
   pPumrpAaiwc: {
     id: "pPumrpAaiwc",
     title: "$1,000,000+ Hard Money real estate deal (in person walkthrough)",
+    caption: "Fix and flip walkthrough",
     duration: "6:39",
     poster: "pPumrpAaiwc.jpg",
     placement: ["home-explainers"],
@@ -176,7 +177,15 @@ export const videos = {
   },
 } as const satisfies Record<
   string,
-  { id: string; title: string; duration: string; poster: string; placement: readonly VideoPlacement[] }
+  {
+    id: string;
+    title: string;
+    /** Shown under the poster instead of the title; the play button keeps the real title. */
+    caption?: string;
+    duration: string;
+    poster: string;
+    placement: readonly VideoPlacement[];
+  }
 >;
 
 export type Video = (typeof videos)[keyof typeof videos];
@@ -217,9 +226,9 @@ export const fundedDeals = [
     photo: "houston-tx-2",
     heading: "Houston, TX",
     amount: { label: "Loan amount", value: "$4,029,512" },
-    programs: [{ label: "Fix & Flip (mid-construction)", href: "/loan-products/fix-and-flip" }],
+    programs: [{ label: "Mid-Construction", href: "/loan-products/mid-construction" }],
     closed: "Feb 2026",
-    source: { all: "Adrian, 2026-10-08 00:12 CDT" },
+    source: { all: "Adrian, 2026-10-08 00:12 CDT; program label Mid-Construction per Adrian/PM, 2026-10-08" },
   },
   {
     photo: "houston-tx",
