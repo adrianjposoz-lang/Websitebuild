@@ -108,7 +108,6 @@ export const fundedLoans: readonly FundedLoan[] = [
     featured: true,
     source: "Adrian, 2026-10-08 00:12 CDT; program label Mid-Construction per Adrian/PM, 2026-10-08",
   },
-  // TODO(photos): replace placeholder with appraisal photo dallas-tx-2.jpg
   {
     id: "dallas-tx-2",
     city: "Dallas",
@@ -117,8 +116,11 @@ export const fundedLoans: readonly FundedLoan[] = [
     purpose: "Rate-and-term refinance",
     loanAmount: 3_480_000,
     closed: "2026-05",
+    photo: "dallas-tx-2.jpg",
+    photoAlt: "Property in Dallas, TX, during construction",
+    photoCaption: "During construction",
     featured: false,
-    source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08",
+    source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08; photo from the appraisal report",
   },
   {
     id: "houston-tx",
@@ -206,7 +208,6 @@ export const fundedLoans: readonly FundedLoan[] = [
     featured: false,
     source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08; photo from the appraisal report, pending Adrian's call (he may send a finished-home photo)",
   },
-  // TODO(photos): replace placeholder with appraisal photo dallas-tx-3.jpg
   {
     id: "dallas-tx-3",
     city: "Dallas",
@@ -214,8 +215,10 @@ export const fundedLoans: readonly FundedLoan[] = [
     program: "Fix & Flip",
     loanAmount: 1_537_500,
     closed: "2025-10",
+    photo: "dallas-tx-3.jpg",
+    photoAlt: "Property in Dallas, TX",
     featured: false,
-    source: "Adrian, 2026-10-08 01:38 CDT; close date from the lender's loan records, 2026-10-08",
+    source: "Adrian, 2026-10-08 01:38 CDT; close date from the lender's loan records, 2026-10-08; photo from the appraisal report",
   },
   {
     id: "honolulu-hi",
@@ -237,7 +240,6 @@ export const fundedLoans: readonly FundedLoan[] = [
       copy: "video description: “came to us from a wholesaler with a 14-day closing window” and “closed in 5 business days at 90% Loan-to-Cost plus 100% rehab”",
     },
   },
-  // TODO(photos): replace placeholder with appraisal photo girdwood-ak.jpg
   {
     id: "girdwood-ak",
     city: "Girdwood",
@@ -246,8 +248,11 @@ export const fundedLoans: readonly FundedLoan[] = [
     purpose: "Cash-out refinance",
     loanAmount: 1_000_000,
     closed: "2026-02",
+    photo: "girdwood-ak.jpg",
+    photoAlt: "Property in Girdwood, AK",
+    photoWidth: 728,
     featured: false,
-    source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08",
+    source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08; photo from the appraisal report, scan frame trimmed; photoWidth 740 requested, set to the trimmed 728",
   },
   {
     id: "denver-co",

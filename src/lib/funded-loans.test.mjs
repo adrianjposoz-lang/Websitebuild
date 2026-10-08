@@ -113,9 +113,25 @@ test("every photo exists; every loan without one has the TODO(photos) marker", (
   }
   assert.deepEqual(
     fundedLoans.filter((loan) => !loan.photo).map((loan) => loan.id),
-    ["makawao-hi", "dallas-tx-2", "kailua-hi", "dallas-tx-3", "girdwood-ak"],
+    ["makawao-hi", "kailua-hi"],
   );
-  assert.equal(dataSource.match(/TODO\(photos\)/g).length, 5);
+  assert.equal(dataSource.match(/TODO\(photos\)/g).length, 2);
+});
+
+test("Dallas and Girdwood appraisal photos: alt text, caption, and Girdwood's native width", () => {
+  const photoFields = (id) => {
+    const loan = fundedLoans.find((item) => item.id === id);
+    return [loan.loanAmount, loan.photo, loan.photoAlt, loan.photoCaption, loan.photoWidth];
+  };
+  assert.deepEqual(photoFields("dallas-tx-2"), [
+    3480000,
+    "dallas-tx-2.jpg",
+    "Property in Dallas, TX, during construction",
+    "During construction",
+    undefined,
+  ]);
+  assert.deepEqual(photoFields("dallas-tx-3"), [1537500, "dallas-tx-3.jpg", "Property in Dallas, TX", undefined, undefined]);
+  assert.deepEqual(photoFields("girdwood-ak"), [1000000, "girdwood-ak.jpg", "Property in Girdwood, AK", undefined, 728]);
 });
 
 test("Fayetteville photo: listing photo at its native 720px, exact alt text", () => {
