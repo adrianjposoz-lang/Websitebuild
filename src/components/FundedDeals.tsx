@@ -61,7 +61,7 @@ export function DealCardGrid({
         return (
           <li
             key={loan.id}
-            className="flex flex-col rounded-lg border border-hair bg-white p-4 md:row-span-4 md:mb-6 md:grid md:grid-rows-subgrid md:gap-0"
+            className="flex flex-col rounded-lg border border-hair bg-white p-4 md:row-span-5 md:mb-6 md:grid md:grid-rows-subgrid md:gap-0"
           >
             {loan.videoId ? (
               <VideoFacade video={videos[loan.videoId]} photo={photo} sizes={mediaSizes} variant="badge" aspect="4/3" />
@@ -84,6 +84,9 @@ export function DealCardGrid({
               <Heading className="text-xl font-medium leading-[1.625rem] text-navy">
                 <KeepHyphens text={loanHeading(loan)} />
               </Heading>
+            </div>
+            {/* Always rendered: each child fills one subgrid row, so a missing date must not shift the rest up. */}
+            <div className="px-1">
               {loan.closed ? <p className="mt-1 text-[0.9375rem] text-muted">Closed {formatClosed(loan.closed)}</p> : null}
             </div>
             <dl className="mx-1 mt-4 grid content-start gap-4 border-t border-hair pt-4 text-[0.9375rem] leading-normal">
