@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cacheLife } from "next/cache";
 import { nav, site } from "@/lib/site";
+import { youtubeChannelUrl } from "@/lib/videos";
 
 async function CopyrightYear() {
   "use cache";
@@ -45,6 +46,17 @@ export function Footer() {
                 className="font-semibold text-white underline"
               >
                 {site.email}
+              </a>
+            </li>
+            <li>
+              <a
+                href={youtubeChannelUrl}
+                target="_blank"
+                rel="noopener"
+                aria-label="Watch on YouTube (opens YouTube in a new tab)"
+                className="font-semibold text-white underline"
+              >
+                Watch on YouTube
               </a>
             </li>
           </ul>
