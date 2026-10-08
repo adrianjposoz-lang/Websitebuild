@@ -35,8 +35,8 @@ export function FundedDealCards({
 }
 
 /**
- * `reveal` is off where the list is swapped by client navigation (the /funded-loans filters): the
- * reveal observer runs once per pathname, so a freshly mounted grid would stay hidden.
+ * `reveal` is off on /funded-loans, where every filtered view shares one pathname: the reveal
+ * observer runs once per pathname, so a grid mounted by a later navigation would stay hidden.
  */
 export function DealCardGrid({
   loans,

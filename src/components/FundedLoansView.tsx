@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ClosingBand } from "@/components/ClosingBand";
 import { DealCardGrid } from "@/components/FundedDeals";
 import { PageHero } from "@/components/PageHero";
@@ -30,6 +29,10 @@ const breadcrumbJsonLd = {
   ],
 };
 
+/**
+ * Filter and reset links are plain <a>s: client navigation does not apply the query rewrites in
+ * next.config.ts, and it would keep the previous view mounted under the same pathname.
+ */
 export function FundedLoansView({ filter }: { filter: LoanFilter }) {
   const loans = filterLoans(fundedLoans, filter);
   const filtered = Boolean(filter.program || filter.state);
@@ -51,7 +54,7 @@ export function FundedLoansView({ filter }: { filter: LoanFilter }) {
         }
       />
 
-      <section aria-labelledby="loan-list" className="border-t border-hair bg-surface py-12 lg:py-16">
+      <section id="loans" aria-labelledby="loan-list" className="scroll-mt-4 border-t border-hair bg-surface py-12 lg:py-16">
         <div className="mx-auto w-full max-w-[75rem] px-[1.125rem] lg:px-8">
           <h2 id="loan-list" className="sr-only">
             Loans
@@ -94,9 +97,9 @@ export function FundedLoansView({ filter }: { filter: LoanFilter }) {
               <div className="rounded-lg border border-hair bg-white p-6">
                 <p className="text-lg text-navy">No funded loans match these filters.</p>
                 <p className="mt-3">
-                  <Link href="/funded-loans" scroll={false} className="font-semibold text-navy underline decoration-1 hover:decoration-2">
+                  <a href="/funded-loans#loans" className="font-semibold text-navy underline decoration-1 hover:decoration-2">
                     Show all funded loans
-                  </Link>
+                  </a>
                 </p>
               </div>
             )}
@@ -104,9 +107,9 @@ export function FundedLoansView({ filter }: { filter: LoanFilter }) {
 
           {filtered && loans.length > 0 ? (
             <p className="mt-4">
-              <Link href="/funded-loans" scroll={false} className="font-semibold text-navy underline decoration-1 hover:decoration-2">
+              <a href="/funded-loans#loans" className="font-semibold text-navy underline decoration-1 hover:decoration-2">
                 Clear filters
-              </Link>
+              </a>
             </p>
           ) : null}
         </div>
@@ -134,9 +137,8 @@ function ChipGroup({
       <ul className="flex flex-wrap gap-2">
         {chips.map((chip) => (
           <li key={chip.label}>
-            <Link
-              href={chip.href}
-              scroll={false}
+            <a
+              href={`${chip.href}#loans`}
               aria-current={chip.active ? "true" : undefined}
               className={`inline-flex min-h-11 items-center rounded-lg border px-4 text-[0.9375rem] font-medium no-underline transition-colors duration-150 ${
                 chip.active
@@ -145,7 +147,7 @@ function ChipGroup({
               }`}
             >
               <span className="whitespace-nowrap">{chip.label}</span>
-            </Link>
+            </a>
           </li>
         ))}
       </ul>
