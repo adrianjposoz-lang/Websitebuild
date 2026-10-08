@@ -61,7 +61,7 @@ export default function ContactPage() {
                 </h2>
                 <p className="mt-2 text-base leading-[1.6] text-body">{video.title}</p>
                 <div className="mt-5">
-                  <VideoFacade video={video} sizes="(min-width: 1024px) 460px, 100vw" />
+                  <VideoFacade videoId={video.id} title={video.title} duration={video.duration} sizes="(min-width: 1024px) 460px, 100vw" />
                 </div>
               </section>
             ) : null}

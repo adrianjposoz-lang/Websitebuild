@@ -12,9 +12,8 @@ import {
   loanHeading,
   parseFilter,
   programHref,
-  statesInData,
 } from "../data/funded-loans.ts";
-import { videos } from "./site.ts";
+import { lendingStates, videos } from "./site.ts";
 
 const dataSource = readFileSync(new URL("../data/funded-loans.ts", import.meta.url), "utf8");
 
@@ -114,9 +113,26 @@ test("every photo exists; every loan without one has the TODO(photos) marker", (
   }
   assert.deepEqual(
     fundedLoans.filter((loan) => !loan.photo).map((loan) => loan.id),
-    ["makawao-hi", "dallas-tx-2", "kailua-hi", "dallas-tx-3", "girdwood-ak", "denver-co", "fayetteville-nc"],
+    ["makawao-hi", "dallas-tx-2", "kailua-hi", "dallas-tx-3", "girdwood-ak"],
   );
-  assert.equal(dataSource.match(/TODO\(photos\)/g).length, 7);
+  assert.equal(dataSource.match(/TODO\(photos\)/g).length, 5);
+});
+
+test("Fayetteville photo: listing photo at its native 720px, exact alt text", () => {
+  const fayetteville = fundedLoans.find((loan) => loan.id === "fayetteville-nc");
+  assert.equal(fayetteville.loanAmount, 459250);
+  assert.equal(fayetteville.photo, "fayetteville-nc.jpg");
+  assert.equal(fayetteville.photoAlt, "Property in Fayetteville, NC");
+  assert.equal(fayetteville.photoWidth, 720);
+  assert.equal(fayetteville.photoCaption, undefined);
+});
+
+test("Denver photo: appraisal front photo, exact alt text", () => {
+  const denver = fundedLoans.find((loan) => loan.id === "denver-co");
+  assert.equal(denver.loanAmount, 647200);
+  assert.equal(denver.photo, "denver-co.jpg");
+  assert.equal(denver.photoAlt, "Property in Denver, CO");
+  assert.equal(denver.photoCaption, undefined);
 });
 
 test("Hollywood and Kailua Ground-Up photos: alt text and the before-construction caption", () => {
@@ -132,7 +148,7 @@ test("Hollywood and Kailua Ground-Up photos: alt text and the before-constructio
   assert.equal(kailua.photoCaption, "Before construction");
 });
 
-test("filters: program and state counts", () => {
+test("filters: program counts; a state value is ignored", () => {
   const count = (query) => filterLoans(fundedLoans, parseFilter(query)).length;
   assert.equal(count({}), 16);
   assert.equal(count({ program: "fix-and-flip" }), 8);
@@ -140,17 +156,26 @@ test("filters: program and state counts", () => {
   assert.equal(count({ program: "mid-construction" }), 3);
   assert.equal(count({ program: "bridge" }), 1);
   assert.equal(count({ program: "dscr" }), 3);
-  assert.equal(count({ state: "hi" }), 4);
-  assert.equal(count({ program: "fix-and-flip", state: "hi" }), 3);
-  assert.equal(count({ program: "fix-and-flip", state: "tx" }), 2);
-  assert.equal(count({ program: "bridge", state: "hi" }), 0);
-  assert.equal(count({ program: "nope", state: "zz" }), 16);
-  const fixAndFlipHi = filterLoans(fundedLoans, parseFilter({ program: "fix-and-flip", state: "HI" }));
-  assert.deepEqual(fixAndFlipHi.map((loan) => loan.id), ["makawao-hi", "kailua-hi", "honolulu-hi"]);
+  assert.equal(count({ program: "nope" }), 16);
+  assert.deepEqual(parseFilter({ state: "hi" }), {});
+  assert.deepEqual(parseFilter({ program: "fix-and-flip", state: "HI" }), { program: "fix-and-flip" });
+  assert.equal(count({ state: "hi" }), 16);
+  assert.equal(count({ program: "fix-and-flip", state: "hi" }), 8);
+  assert.equal(count({ program: "bridge", state: "hi" }), 1);
 });
 
-test("state chips: only states in the data, sorted by name", () => {
-  assert.deepEqual(statesInData(), ["AK", "CO", "FL", "GA", "HI", "NC", "TX"]);
+test("filter links carry the program only", () => {
   assert.equal(filterHref({}), "/funded-loans");
-  assert.equal(filterHref({ program: "fix-and-flip", state: "HI" }), "/funded-loans?program=fix-and-flip&state=hi");
+  assert.equal(filterHref({ program: "fix-and-flip" }), "/funded-loans?program=fix-and-flip");
+});
+
+const viewSource = readFileSync(new URL("../components/FundedLoansView.tsx", import.meta.url), "utf8");
+const configSource = readFileSync(new URL("../../next.config.ts", import.meta.url), "utf8");
+
+test("/funded-loans: no State chips, and the 40-states line links to the Where do you lend? FAQ", () => {
+  assert.doesNotMatch(viewSource, /filter-state|label="State"|stateNames|statesInData/);
+  assert.match(viewSource, /<Link href="\/faqs#where-we-lend"[^>]*>\s*We lend in \{lendingStates\.length\} states\.\s*<\/Link>/);
+  assert.equal(lendingStates.length, 40);
+  assert.doesNotMatch(configSource, /stateQuery|key: "state"/);
+  assert.ok(!existsSync(new URL("../app/funded-loans/filter/[program]/[state]", import.meta.url)));
 });

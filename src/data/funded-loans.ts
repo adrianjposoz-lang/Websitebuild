@@ -44,6 +44,8 @@ export type FundedLoan = {
   photoAlt?: string;
   /** A short visible label on the photo, for a photo that does not show the funded property as built. */
   photoCaption?: string;
+  /** Native pixel width, for a photo narrower than the card's largest request (695px), so it is never asked for wider. */
+  photoWidth?: number;
   videoId?: keyof typeof videos;
   history?: string;
   copy?: string;
@@ -247,7 +249,6 @@ export const fundedLoans: readonly FundedLoan[] = [
     featured: false,
     source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08",
   },
-  // TODO(photos): replace placeholder with appraisal photo denver-co.jpg
   {
     id: "denver-co",
     city: "Denver",
@@ -255,8 +256,10 @@ export const fundedLoans: readonly FundedLoan[] = [
     program: "Fix & Flip",
     loanAmount: 647_200,
     closed: "2026-01",
+    photo: "denver-co.jpg",
+    photoAlt: "Property in Denver, CO",
     featured: false,
-    source: "Adrian, 2026-10-08 01:38 CDT; close date from the lender's loan records, 2026-10-08",
+    source: "Adrian, 2026-10-08 01:38 CDT; close date from the lender's loan records, 2026-10-08; photo from the appraisal report",
   },
   {
     id: "hollywood-fl",
@@ -270,7 +273,6 @@ export const fundedLoans: readonly FundedLoan[] = [
     featured: false,
     source: "Adrian, 2026-10-08 01:38 CDT; purpose and close date from the lender's loan records, 2026-10-08; photo from the appraisal report",
   },
-  // TODO(photos): replace placeholder with appraisal photo fayetteville-nc.jpg
   {
     id: "fayetteville-nc",
     city: "Fayetteville",
@@ -278,8 +280,11 @@ export const fundedLoans: readonly FundedLoan[] = [
     program: "Fix & Flip",
     loanAmount: 459_250,
     closed: "2025-03",
+    photo: "fayetteville-nc.jpg",
+    photoAlt: "Property in Fayetteville, NC",
+    photoWidth: 720,
     featured: false,
-    source: "Adrian, 2026-10-08 01:38 CDT; close date from the lender's loan records, 2026-10-08",
+    source: "Adrian, 2026-10-08 01:38 CDT; close date from the lender's loan records, 2026-10-08; listing photo, watermark cropped off, used with the lender's permission",
   },
 ];
 
@@ -314,33 +319,22 @@ export function programHref(program: Program): string {
   return `/loan-products/${programSlug(program)}`;
 }
 
-/** States that have at least one loan, by full name. */
-export function statesInData(loans: readonly FundedLoan[] = fundedLoans): StateCode[] {
-  return [...new Set(loans.map((loan) => loan.state))].sort((a, b) => stateNames[a].localeCompare(stateNames[b]));
-}
+export type LoanFilter = { program?: ProgramSlug };
 
-export type LoanFilter = { program?: ProgramSlug; state?: StateCode };
-
-/** Lowercase URL values (`fix-and-flip`, `hi`) to a filter; unknown values are ignored. */
+/**
+ * Lowercase URL values (`fix-and-flip`) to a filter; unknown values are ignored. There is no state
+ * filter: a list of states with deals would read as the only states RSC lends in. An old `state`
+ * value is ignored, so `?state=` URLs show every deal for the chosen program.
+ */
 export function parseFilter(query: { program?: string; state?: string }): LoanFilter {
   const program = programs.find((item) => item.slug === query.program)?.slug;
-  const state = statesInData().find((code) => code.toLowerCase() === query.state?.toLowerCase());
-  return { ...(program ? { program } : {}), ...(state ? { state } : {}) };
+  return program ? { program } : {};
 }
 
 export function filterLoans(loans: readonly FundedLoan[], filter: LoanFilter): FundedLoan[] {
-  return byAmount(
-    loans.filter(
-      (loan) =>
-        (!filter.program || programSlug(loan.program) === filter.program) && (!filter.state || loan.state === filter.state),
-    ),
-  );
+  return byAmount(loans.filter((loan) => !filter.program || programSlug(loan.program) === filter.program));
 }
 
 export function filterHref(filter: LoanFilter): string {
-  const query = new URLSearchParams();
-  if (filter.program) query.set("program", filter.program);
-  if (filter.state) query.set("state", filter.state.toLowerCase());
-  const search = query.toString();
-  return search ? `/funded-loans?${search}` : "/funded-loans";
+  return filter.program ? `/funded-loans?program=${filter.program}` : "/funded-loans";
 }

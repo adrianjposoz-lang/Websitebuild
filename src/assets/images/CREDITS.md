@@ -1,6 +1,6 @@
 # Photo credits
 
-Three sources: RSC's appraisal exteriors (first table), RSC's own deal photos from the live site (second table), and Unsplash stand-ins (third table). The deal photos in the first two tables live in `public/deals/`, named after the loan's `id` in `src/data/funded-loans.ts`.
+Four sources: RSC's appraisal exteriors (first table), one listing photo, RSC's own deal photos from the live site (second table), and Unsplash stand-ins (third table). The deal photos in the first two tables and the listing photo live in `public/deals/`, named after the loan's `id` in `src/data/funded-loans.ts`.
 
 ## RSC deal photos (source: RSC Private Lending, from appraisal reports, used with permission)
 
@@ -14,6 +14,13 @@ Approved by Adrian (2026-10-08). House numbers, signs and plates were blurred be
 | `marietta-ga.jpg` | Funded deal: Marietta, GA (`/`, `/loan-products`, `/funded-loans`) | RSC Private Lending, from appraisal reports, used with permission | 1330×998 |
 | `hollywood-fl.jpg` | Funded deal: Hollywood, FL (`/funded-loans`) | RSC Private Lending, from appraisal reports, used with permission | 736×518 |
 | `kailua-hi-2.jpg` | Funded deal: Kailua, HI Ground-Up (`/funded-loans`), the lot before construction, captioned "Before construction"; pending Adrian's call on a finished-home photo | RSC Private Lending, from appraisal reports, used with permission | 907×680 |
+| `denver-co.jpg` | Funded deal: Denver, CO $647,200 (`/funded-loans`), the appraisal front photo; house number blurred by the lender before delivery | RSC Private Lending, from appraisal reports, used with permission | 1367×1025 |
+
+## Listing photo (`public/deals/fayetteville-nc.jpg`)
+
+Fayetteville, NC: listing photo, used with permission
+
+Funded deal: Fayetteville, NC $459,250 (`/funded-loans`). Delivered at 768×540 with the listing watermark already cropped off; no watermark, brokerage or listing text was added. Center-cropped to 4:3 at 720×540 (24px trimmed from each side, not scaled) and re-encoded (mozjpeg, quality 90) with all metadata stripped. The card's `sizes` is capped so no srcset entry at 1x is wider than 720px.
 
 ## RSC deal photos (source: rscprivatelending.com)
 
@@ -47,13 +54,13 @@ These are stock photos, not RSC projects. Do not caption them as RSC deals.
 
 Originals are re-encoded JPEGs (mozjpeg): `home-street.jpg` at 2400px wide, the rest at 1800px. `next/image` serves AVIF or WebP at the requested size.
 
-## Video posters (`src/assets/video/`)
+## Video thumbnails (`public/video-thumbs/`)
 
-Self-hosted, so the site makes no request to YouTube or Google before a play click. None uses the channel's published thumbnails.
+Source: video thumbnails from RSC Private Lending's own YouTube channel (https://www.youtube.com/@rscprivatelending).
 
-- Title cards: navy, the verbatim video title, and "RSC Private Lending", set in the site's Schibsted Grotesk (rendered locally, 1280×720). Used for Lt3MwArGP_Q, bMoVComyyfI, ncIvS1Es3uc, rrFlOT9AbeE, -jjMuLRIk4s, XTrthacQyiw, lNZkzlCaoIU, V8--nI2muqQ, and ajg_JxlUPVM.
-- Clean in-video frames with no burned-in text, from RSC's own on-location videos via YouTube's auto-generated stills (downloaded 2026-10-08): `A8AWfpc4oag.jpg` (`maxres3`, the finished Dallas kitchen) and `pPumrpAaiwc.jpg` (`maxres1`, the street outside the walkthrough property).
-- On the Dallas and Honolulu funded-deal cards, the RSC deal photo for that city replaces the poster; `A8AWfpc4oag.jpg` and `Lt3MwArGP_Q.jpg` remain the fallback for those videos anywhere a card has no deal photo.
+Each video's published thumbnail, downloaded 2026-10-08 from `https://i.ytimg.com/vi/<id>/maxresdefault.jpg`, falling back to `hqdefault.jpg` when maxres is missing or is YouTube's 120×90 gray placeholder. All 11 had a real 1280×720 maxres, so none fell back: A8AWfpc4oag, Lt3MwArGP_Q, pPumrpAaiwc, bMoVComyyfI, ncIvS1Es3uc, rrFlOT9AbeE, -jjMuLRIk4s, XTrthacQyiw, lNZkzlCaoIU, V8--nI2muqQ, ajg_JxlUPVM. Re-encoded (mozjpeg, quality 85) with all metadata stripped, named `<videoId>.jpg`, and served through `next/image` (AVIF or WebP), so the site makes no request to YouTube or Google before a play click.
+
+- On the Dallas and Honolulu funded-deal cards, the RSC deal photo for that city is the poster instead; the thumbnail is used for those videos anywhere a card has no deal photo.
 - The play glyph and duration badge are drawn by `VideoFacade`, not baked into the image.
 
 ## Home hero mobile crop
