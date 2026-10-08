@@ -24,7 +24,7 @@ const scenarios = [
 
 export function SampleScenarios() {
   return (
-    <section aria-labelledby="sample-scenarios" data-sample-scenarios="" className="border-t border-hair py-16 lg:py-24">
+    <section aria-labelledby="sample-scenarios" data-sample-scenarios="" className="bg-surface py-16 lg:py-24">
       <div className="mx-auto w-full max-w-[75rem] px-[1.125rem] lg:px-8">
         <div data-reveal className="max-w-[44rem]">
           <h2 id="sample-scenarios" className="text-[1.75rem] leading-[2.25rem] lg:text-4xl lg:leading-10">

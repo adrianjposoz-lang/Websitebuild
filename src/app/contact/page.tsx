@@ -3,8 +3,9 @@ import { Suspense } from "react";
 import { PageHero } from "@/components/PageHero";
 import { ScenarioDeliveryNotice } from "@/components/ScenarioDeliveryNotice";
 import { ScenarioForm } from "@/components/ScenarioForm";
+import { VideoFacade } from "@/components/VideoFacade";
 import { pageMetadata } from "@/lib/seo";
-import { site } from "@/lib/site";
+import { site, videosFor } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact & Submit a Scenario | RSC Private Lending",
@@ -14,6 +15,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function ContactPage() {
+  const [video] = videosFor("contact");
   return (
     <main id="main">
       <PageHero
@@ -51,48 +53,61 @@ export default function ContactPage() {
             </div>
           </section>
 
-          <section className="lg:col-span-5 lg:col-start-8" aria-labelledby="channels-heading">
-            <h2 id="channels-heading" className="scroll-mt-8 text-2xl leading-8">
-              Reach the office
-            </h2>
-            <dl className="mt-6 border-t border-hair">
-              <div className="border-b border-hair py-5">
-                <dt className="text-sm text-muted">Phone</dt>
-                <dd className="tnum mt-1 text-[1.75rem] font-medium leading-9">
-                  <a href={site.phoneHref} className="whitespace-nowrap text-navy underline">
-                    {site.phoneLocal}
-                  </a>
-                </dd>
-              </div>
-              <div className="border-b border-hair py-5">
-                <dt className="text-sm text-muted">Email</dt>
-                <dd className="mt-1 break-words text-xl font-medium">
-                  <a href={`mailto:${site.email}`} className="text-navy underline">
-                    {site.email}
-                  </a>
-                </dd>
-              </div>
-              <div className="border-b border-hair py-5">
-                <dt className="text-sm text-muted">Office</dt>
-                <dd className="mt-1 text-lg leading-[1.5] text-ink">
-                  <address className="tnum not-italic">
-                    {site.addressLines.map((line) => (
-                      <span key={line} className="block">
-                        {line}
-                      </span>
-                    ))}
-                  </address>
-                </dd>
-              </div>
-            </dl>
-            <p className="mt-6 leading-[1.6] text-body">
-              Returning borrower? Sign in to the{" "}
-              <a href={site.portalUrl} className="font-semibold text-navy underline">
-                Borrower Portal
-              </a>
-              .
-            </p>
-          </section>
+          <div className="flex flex-col gap-14 lg:col-span-5 lg:col-start-8">
+            {video ? (
+              <section aria-labelledby="contact-video">
+                <h2 id="contact-video" className="text-2xl leading-8">
+                  Before you apply
+                </h2>
+                <p className="mt-2 text-base leading-[1.6] text-body">{video.title}</p>
+                <div className="mt-5">
+                  <VideoFacade video={video} sizes="(min-width: 1024px) 460px, 100vw" />
+                </div>
+              </section>
+            ) : null}
+            <section aria-labelledby="channels-heading">
+              <h2 id="channels-heading" className="scroll-mt-8 text-2xl leading-8">
+                Reach the office
+              </h2>
+              <dl className="mt-6 border-t border-hair">
+                <div className="border-b border-hair py-5">
+                  <dt className="text-sm text-muted">Phone</dt>
+                  <dd className="tnum mt-1 text-[1.75rem] font-medium leading-9">
+                    <a href={site.phoneHref} className="whitespace-nowrap text-navy underline">
+                      {site.phoneLocal}
+                    </a>
+                  </dd>
+                </div>
+                <div className="border-b border-hair py-5">
+                  <dt className="text-sm text-muted">Email</dt>
+                  <dd className="mt-1 break-words text-xl font-medium">
+                    <a href={`mailto:${site.email}`} className="text-navy underline">
+                      {site.email}
+                    </a>
+                  </dd>
+                </div>
+                <div className="border-b border-hair py-5">
+                  <dt className="text-sm text-muted">Office</dt>
+                  <dd className="mt-1 text-lg leading-[1.5] text-ink">
+                    <address className="tnum not-italic">
+                      {site.addressLines.map((line) => (
+                        <span key={line} className="block">
+                          {line}
+                        </span>
+                      ))}
+                    </address>
+                  </dd>
+                </div>
+              </dl>
+              <p className="mt-6 leading-[1.6] text-body">
+                Returning borrower? Sign in to the{" "}
+                <a href={site.portalUrl} className="font-semibold text-navy underline">
+                  Borrower Portal
+                </a>
+                .
+              </p>
+            </section>
+          </div>
         </div>
       </div>
     </main>

@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { cacheLife } from "next/cache";
-import { nav, site } from "@/lib/site";
-import { youtubeChannelUrl } from "@/lib/videos";
+import { nav, site, youtubeChannelUrl } from "@/lib/site";
 
 async function CopyrightYear() {
   "use cache";

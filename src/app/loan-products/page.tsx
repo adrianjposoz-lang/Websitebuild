@@ -44,7 +44,7 @@ export default function LoanProductsPage() {
         />
       </div>
 
-      <FundedDeals />
+      <FundedDeals placement="loan-products-deals" />
       <SampleScenarios />
 
       <ClosingBand />
