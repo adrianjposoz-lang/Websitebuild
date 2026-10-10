@@ -194,10 +194,10 @@ test("filter links carry the program only", () => {
 const viewSource = readFileSync(new URL("../components/FundedLoansView.tsx", import.meta.url), "utf8");
 const configSource = readFileSync(new URL("../../next.config.ts", import.meta.url), "utf8");
 
-test("/funded-loans: no State chips, and the 40-states line links to the Where do you lend? FAQ", () => {
+test("/funded-loans: no State chips, and the 38-states line links to the Where do you lend? FAQ", () => {
   assert.doesNotMatch(viewSource, /filter-state|label="State"|stateNames|statesInData/);
   assert.match(viewSource, /<Link href="\/faqs#where-we-lend"[^>]*>\s*We lend in \{lendingStates\.length\} states\.\s*<\/Link>/);
-  assert.equal(lendingStates.length, 40);
+  assert.equal(lendingStates.length, 38);
   assert.doesNotMatch(configSource, /stateQuery|key: "state"/);
   assert.ok(!existsSync(new URL("../app/funded-loans/filter/[program]/[state]", import.meta.url)));
 });
