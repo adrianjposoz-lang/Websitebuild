@@ -32,19 +32,18 @@ export const nav = [
 export const verifiedFacts = [
   {
     id: "lending-states",
-    value: "40",
+    value: "38",
     label: "states where we lend",
-    source: "Adrian 2026-10-07: all except VT MN UT NV ND SD WV ME OR ID",
+    source:
+      "Adrian 2026-10-07: all except VT MN UT NV ND SD WV ME OR ID. Updated 2026-10-09: CA and AZ removed per Adrian (not licensed in CA)",
   },
 ] as const;
 
-/** All 50 states except VT, MN, UT, NV, ND, SD, WV, ME, OR, and ID. DC is not a state and is not listed. */
+/** All 50 states except VT, MN, UT, NV, ND, SD, WV, ME, OR, ID, CA, and AZ. DC is not a state and is not listed. */
 export const lendingStates = [
   "Alabama",
   "Alaska",
-  "Arizona",
   "Arkansas",
-  "California",
   "Colorado",
   "Connecticut",
   "Delaware",

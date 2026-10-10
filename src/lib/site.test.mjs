@@ -3,11 +3,24 @@ import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import { faqs, lendingStates, nav, verifiedFacts } from "./site.ts";
 
-const excluded = ["Vermont", "Minnesota", "Utah", "Nevada", "North Dakota", "South Dakota", "West Virginia", "Maine", "Oregon", "Idaho"];
+const excluded = [
+  "Vermont",
+  "Minnesota",
+  "Utah",
+  "Nevada",
+  "North Dakota",
+  "South Dakota",
+  "West Virginia",
+  "Maine",
+  "Oregon",
+  "Idaho",
+  "California",
+  "Arizona",
+];
 
-test("lendingStates is the 50 states minus the 10 exclusions, without DC", () => {
-  assert.equal(lendingStates.length, 40);
-  assert.equal(new Set(lendingStates).size, 40);
+test("lendingStates is the 50 states minus the 12 exclusions, without DC", () => {
+  assert.equal(lendingStates.length, 38);
+  assert.equal(new Set(lendingStates).size, 38);
   for (const state of excluded) assert.ok(!lendingStates.includes(state), state);
   assert.ok(!lendingStates.some((state) => /columbia|\bdc\b/i.test(state)));
 });
@@ -17,7 +30,7 @@ test("the lending-states fact and FAQ agree with the list", () => {
   assert.equal(fact.value, String(lendingStates.length));
   const faq = faqs.find((item) => item.id === "where-we-lend");
   assert.deepEqual(faq.list, lendingStates);
-  assert.ok(faq.answer.startsWith("We lend in 40 states: Alabama, "));
+  assert.ok(faq.answer.startsWith("We lend in 38 states: Alabama, Alaska, Arkansas, Colorado, "));
   assert.ok(faq.answer.endsWith(", and Wyoming."));
 });
 

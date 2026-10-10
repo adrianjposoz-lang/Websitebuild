@@ -109,7 +109,7 @@ The webhook receives one JSON object per scenario:
 - Colors live in `src/app/globals.css`: white and `surface` `#f4f5f7` bands, navy `#0b1f3a` for headings, links, and the closing band, `navy-deep` `#071422` for the footer, `body` `#334155`, `muted` `#475569`, `hair` `#d9dee5` hairlines, and `field` `#64748b` input borders. Red `#cd2727` is only the Submit a Scenario button and the 3px active-nav marker.
 - Submit a Scenario (red, to `/contact`) is the only filled button. Everything else is a navy underlined text link.
 - Photos: licensed Unsplash stand-ins in `src/assets/images/`, credited in `src/assets/images/CREDITS.md`, with alt text in `src/lib/photos.ts`, until Adrian's own deal photos arrive. `PageHero` puts the copy on 5 columns and the photo on 7, bleeding to the right edge from `lg` (8px radius, no overlay); below `lg` the photo runs under the copy. Each page preloads its one hero photo. No captions until real deal values exist.
-- Facts: `verifiedFacts` in `src/lib/site.ts`, each with a source. With fewer than 3, home shows one sentence ("We lend in 40 states.") linking to the "Where do you lend?" FAQ, which lists `lendingStates` (DC is not included). `npm test` checks the list.
+- Facts: `verifiedFacts` in `src/lib/site.ts`, each with a source. With fewer than 3, home shows one sentence ("We lend in 38 states.") linking to the "Where do you lend?" FAQ, which lists `lendingStates` (DC is not included). `npm test` checks the list.
 
 ## Videos
 
